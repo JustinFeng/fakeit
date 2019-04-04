@@ -1,0 +1,2 @@
+module Fakeit
+end
