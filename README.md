@@ -1,5 +1,7 @@
 # Fakeit
 
+[![CircleCI](https://circleci.com/gh/JustinFeng/fakeit.svg?style=svg)](https://circleci.com/gh/JustinFeng/fakeit)
+
 Create mock server from Openapi specification
 
 ## Installation
