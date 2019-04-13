@@ -1,9 +1,15 @@
 Style/Documentation:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
 Metrics/LineLength:
   Max: 120
 
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
+
+Security/Open:
+  Enabled: false
