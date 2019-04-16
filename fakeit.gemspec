@@ -23,10 +23,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 2.0'
+  spec.add_development_dependency 'rack-test', '~> 1.1'
   spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.67'
   spec.add_development_dependency 'simplecov', '~> 0.16'
 
   spec.add_dependency 'openapi_parser', '0.2.4'
+  spec.add_dependency 'rack', '~> 2.0'
 end
