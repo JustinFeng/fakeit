@@ -8,10 +8,11 @@ module Fakeit::Openapi
   class << self
     def load(src)
       parse_method = parse_method(src)
-      content = open(src, &:read)
-      doc = OpenAPIParser.parse(parse_method.call(content))
 
-      Specification.new(doc)
+      open(src, &:read)
+        .then(&parse_method)
+        .then(&OpenAPIParser.method(:parse))
+        .then(&Specification.method(:new))
     end
 
     private
