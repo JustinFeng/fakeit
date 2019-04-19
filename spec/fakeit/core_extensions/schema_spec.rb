@@ -4,10 +4,10 @@ require 'fakeit/core_extensions/schema'
 
 describe OpenAPIParser::Schemas::Schema do
   let(:schema) do
-    spec = File.read('spec/fixtures/spec.json')
+    spec = File.read('spec/fixtures/schema.json')
                .then(&JSON.method(:parse))
                .then(&OpenAPIParser.method(:parse))
-    spec.request_operation('get', '/').operation_object.responses.response['200'].content['application/json'].schema
+    spec.request_operation(:get, '/').operation_object.responses.response['200'].content['application/json'].schema
   end
 
   let(:pattern) { /^[12][0-9]{3}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$/ }

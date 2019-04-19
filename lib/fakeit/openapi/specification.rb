@@ -1,9 +1,12 @@
 module Fakeit::Openapi
   class Specification
-    attr_reader :doc
-
     def initialize(doc)
       @doc = doc
+    end
+
+    def operation(method, path)
+      @doc.request_operation(method, path)
+          .then(&Operation.method(:new))
     end
   end
 end
