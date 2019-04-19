@@ -2,4 +2,14 @@
 
 require 'fakeit'
 
-Rack::Handler::WEBrick.run Fakeit.build('spec/fixtures/spec.json')
+server = Rack::Handler::WEBrick
+
+trap(:INT) do
+  if server.respond_to?(:shutdown)
+    server.shutdown
+  else
+    exit
+  end
+end
+
+server.run Fakeit.build('spec/fixtures/spec.json')
