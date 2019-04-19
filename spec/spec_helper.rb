@@ -6,6 +6,7 @@ SimpleCov.minimum_coverage 100
 
 require 'bundler/setup'
 require 'fakeit'
+require 'rack/test'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

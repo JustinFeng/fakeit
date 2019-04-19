@@ -1,9 +1,3 @@
-require 'open-uri'
-require 'json'
-require 'yaml'
-require 'openapi_parser'
-require 'fakeit/openapi/specification'
-
 module Fakeit::Openapi
   class << self
     def load(src)

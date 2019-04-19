@@ -1,5 +1,3 @@
-require 'fakeit/openapi/specification'
-
 describe Fakeit::Openapi::Specification do
   subject { Fakeit::Openapi::Specification.new(doc) }
 

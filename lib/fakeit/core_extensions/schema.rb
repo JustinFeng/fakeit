@@ -1,5 +1,3 @@
-require 'faker'
-
 module OpenAPIParser::Schemas
   class Schema
     BIG_INT = 2**32

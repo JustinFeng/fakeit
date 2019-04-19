@@ -1,5 +1,3 @@
-require 'fakeit/app/app'
-
 describe Fakeit::App do
   subject { Fakeit::App.create(spec_file) }
 

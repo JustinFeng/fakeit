@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'rack'
 require 'fakeit'
 
 Rack::Handler::WEBrick.run Fakeit.build('spec/fixtures/spec.json')

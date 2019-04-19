@@ -1,5 +1,3 @@
-require 'fakeit/openapi/loader'
-
 describe Fakeit::Openapi do
   let(:content) { 'string' }
   let(:data) { 'hash' }

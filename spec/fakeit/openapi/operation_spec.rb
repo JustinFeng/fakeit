@@ -1,5 +1,3 @@
-require 'fakeit/openapi/operation'
-
 describe Fakeit::Openapi::Operation do
   subject { Fakeit::Openapi::Operation.new(request_operation) }
 

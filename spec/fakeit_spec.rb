@@ -1,6 +1,3 @@
-require 'fakeit'
-require 'rack/test'
-
 describe Fakeit do
   include Rack::Test::Methods
 

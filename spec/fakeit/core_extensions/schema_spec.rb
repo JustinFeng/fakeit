@@ -1,7 +1,3 @@
-require 'json'
-require 'openapi_parser'
-require 'fakeit/core_extensions/schema'
-
 describe OpenAPIParser::Schemas::Schema do
   let(:schema) do
     spec = File.read('spec/fixtures/schema.json')
