@@ -3,4 +3,4 @@
 require 'rack'
 require 'fakeit'
 
-Rack::Handler::WEBrick.run Fakeit.build
+Rack::Handler::WEBrick.run Fakeit.build('spec/fixtures/spec.json')

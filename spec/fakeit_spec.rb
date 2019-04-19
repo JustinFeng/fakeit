@@ -5,7 +5,7 @@ describe Fakeit do
   include Rack::Test::Methods
 
   def app
-    Fakeit.build
+    Fakeit.build('spec/fixtures/spec.json')
   end
 
   describe 'GET /' do
@@ -18,7 +18,7 @@ describe Fakeit do
     it 'returns body OK' do
       get '/'
 
-      expect(last_response.body).to eq('OK')
+      expect(JSON.parse(last_response.body)).to include('data' => a_kind_of(String))
     end
   end
 end

@@ -5,17 +5,27 @@ module Fakeit::Openapi
     end
 
     def status
-      @request_operation.operation_object.responses.response.keys.first.to_i
+      response.keys.first.to_i
     end
 
     def headers
       {
-        'Content-Type' => @request_operation.operation_object.responses.response.values.first.content.keys.first
+        'Content-Type' => content.keys.first
       }
     end
 
     def body
-      @request_operation.operation_object.responses.response.values.first.content.values.first.schema.to_example
+      JSON.generate(content.values.first.schema.to_example)
+    end
+
+    private
+
+    def content
+      response.values.first.content
+    end
+
+    def response
+      @request_operation.operation_object.responses.response
     end
   end
 end

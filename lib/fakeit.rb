@@ -1,12 +1,10 @@
+require 'fakeit/app/app'
+
 module Fakeit
   class << self
-    def build
+    def build(spec_file)
       Rack::Builder.new do
-        app = proc do |_|
-          [200, {}, ['OK']]
-        end
-
-        run app
+        run Fakeit::App.create(spec_file)
       end
     end
   end

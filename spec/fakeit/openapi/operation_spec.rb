@@ -1,12 +1,12 @@
 require 'fakeit/openapi/operation'
 
 describe Fakeit::Openapi::Operation do
+  subject { Fakeit::Openapi::Operation.new(request_operation) }
+
   let(:request_operation) { double(OpenAPIParser::RequestOperation) }
   let(:response) { double(OpenAPIParser::Schemas::Response) }
   let(:media_type) { double(OpenAPIParser::Schemas::MediaType) }
-  let(:body) { 'example' }
-
-  subject { Fakeit::Openapi::Operation.new(request_operation) }
+  let(:body) { { 'some' => 'body' } }
 
   before(:each) do
     allow(request_operation)
@@ -24,6 +24,6 @@ describe Fakeit::Openapi::Operation do
   end
 
   it 'returns body' do
-    expect(subject.body).to eq(body)
+    expect(subject.body).to eq(JSON.generate(body))
   end
 end

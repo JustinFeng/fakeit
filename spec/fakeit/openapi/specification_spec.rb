@@ -1,14 +1,14 @@
 require 'fakeit/openapi/specification'
 
 describe Fakeit::Openapi::Specification do
+  subject { Fakeit::Openapi::Specification.new(doc) }
+
   let(:doc) { double(OpenAPIParser::Schemas::OpenAPI) }
   let(:request_operation) { double(OpenAPIParser::RequestOperation) }
   let(:operation) { double(Fakeit::Openapi::Operation) }
 
   let(:method) { :get }
   let(:path) { '/' }
-
-  subject { Fakeit::Openapi::Specification.new(doc) }
 
   it 'gets operation' do
     allow(doc).to receive(:request_operation).with(method, path).and_return(request_operation)
