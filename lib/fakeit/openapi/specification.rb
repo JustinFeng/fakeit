@@ -6,7 +6,7 @@ module Fakeit::Openapi
 
     def operation(method, path)
       @doc.request_operation(method, path)
-          .then(&Operation.method(:new))
+          &.then(&Operation.method(:new))
     end
   end
 end

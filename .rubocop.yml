@@ -1,4 +1,10 @@
+AllCops:
+  TargetRubyVersion: 2.6
+
 Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
   Enabled: false
 
 Style/ClassAndModuleChildren:

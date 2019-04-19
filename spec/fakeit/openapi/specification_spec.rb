@@ -8,10 +8,16 @@ describe Fakeit::Openapi::Specification do
   let(:method) { :get }
   let(:path) { '/' }
 
-  it 'gets operation' do
+  it 'gets matching operation' do
     allow(doc).to receive(:request_operation).with(method, path).and_return(request_operation)
     allow(Fakeit::Openapi::Operation).to receive(:new).with(request_operation).and_return(operation)
 
     expect(subject.operation(method, path)).to be(operation)
+  end
+
+  it 'returns nil when no matching operation' do
+    allow(doc).to receive(:request_operation).with(method, path).and_return(nil)
+
+    expect(subject.operation(method, path)).to be_nil
   end
 end
