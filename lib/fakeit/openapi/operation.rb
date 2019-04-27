@@ -5,27 +5,29 @@ module Fakeit::Openapi
     end
 
     def status
-      response.keys.first.to_i
+      openapi_response.first.to_i
     end
 
     def headers
-      {
-        'Content-Type' => content.keys.first
-      }
+      openapi_headers&.map { |k, v| [k, v.schema.to_example] }.to_h
     end
 
     def body
-      JSON.generate(content.values.first.schema.to_example)
+      openapi_content&.schema&.to_example&.then(&JSON.method(:generate)).to_s
     end
 
     private
 
-    def content
-      response.values.first.content
+    def openapi_content
+      openapi_response.last.content&.first&.last
     end
 
-    def response
-      @request_operation.operation_object.responses.response
+    def openapi_headers
+      openapi_response.last.headers
+    end
+
+    def openapi_response
+      @request_operation.operation_object.responses.response.first
     end
   end
 end

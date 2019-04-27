@@ -12,10 +12,19 @@ describe Fakeit do
       expect(last_response.ok?).to be_truthy
     end
 
-    it 'returns body OK' do
+    it 'returns body' do
       get '/'
 
       expect(JSON.parse(last_response.body)).to include('data' => a_kind_of(String))
+    end
+
+    it 'returns headers' do
+      get '/'
+
+      expect(last_response.headers).to include(
+        'Content-Type' => 'application/json',
+        'id' => a_kind_of(String)
+      )
     end
   end
 end

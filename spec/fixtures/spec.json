@@ -10,6 +10,19 @@
         "responses": {
           "200": {
             "description": "",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "enum": ["application/json"]
+                }
+              },
+              "id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
