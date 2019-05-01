@@ -17,7 +17,7 @@
                   "enum": ["application/json"]
                 }
               },
-              "id": {
+              "Correlation-Id": {
                 "schema": {
                   "type": "string"
                 }
@@ -27,6 +27,74 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/get_root_response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "responses": {
+          "201": {
+            "description": "",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "enum": ["application/json"]
+                }
+              },
+              "Correlation-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/post_root_response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "enum": ["application/json"]
+                }
+              },
+              "Correlation-Id": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/put_root_response"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {
+              "Correlation-Id": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -42,6 +110,22 @@
         "properties": {
           "data": {
             "type": "string"
+          }
+        }
+      },
+      "post_root_response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        }
+      },
+      "put_root_response": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
           }
         }
       }
