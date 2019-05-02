@@ -5,21 +5,21 @@ describe Fakeit do
     Fakeit.build('spec/fixtures/spec.json')
   end
 
-  describe 'GET /' do
+  describe 'GET /resource/{id}' do
     it 'returns 200' do
-      get '/'
+      get '/resource/1'
 
       expect(last_response.ok?).to be_truthy
     end
 
     it 'returns body' do
-      get '/'
+      get '/resource/1'
 
       expect(JSON.parse(last_response.body)).to include('data' => a_kind_of(String))
     end
 
     it 'returns headers' do
-      get '/'
+      get '/resource/1'
 
       expect(last_response.headers).to include(
         'Content-Type' => 'application/json',
@@ -28,21 +28,21 @@ describe Fakeit do
     end
   end
 
-  describe 'POST /' do
+  describe 'POST /resource/{id}' do
     it 'returns 201' do
-      post '/'
+      post '/resource/1'
 
       expect(last_response.created?).to be_truthy
     end
 
     it 'returns body' do
-      post '/'
+      post '/resource/1'
 
       expect(JSON.parse(last_response.body)).to include('id' => a_kind_of(Integer))
     end
 
     it 'returns headers' do
-      post '/'
+      post '/resource/1'
 
       expect(last_response.headers).to include(
         'Content-Type' => 'application/json',
@@ -51,21 +51,21 @@ describe Fakeit do
     end
   end
 
-  describe 'PUT /' do
+  describe 'PUT /resource/{id}' do
     it 'returns 200' do
-      put '/'
+      put '/resource/1'
 
       expect(last_response.ok?).to be_truthy
     end
 
     it 'returns body' do
-      put '/'
+      put '/resource/1'
 
       expect(JSON.parse(last_response.body)).to include('id' => a_kind_of(Integer))
     end
 
     it 'returns headers' do
-      put '/'
+      put '/resource/1'
 
       expect(last_response.headers).to include(
         'Content-Type' => 'application/json',
@@ -74,15 +74,15 @@ describe Fakeit do
     end
   end
 
-  describe 'DELETE /' do
+  describe 'DELETE /resource/{id}' do
     it 'returns 200' do
-      delete '/'
+      delete '/resource/1'
 
       expect(last_response.ok?).to be_truthy
     end
 
     it 'returns headers' do
-      delete '/'
+      delete '/resource/1'
 
       expect(last_response.headers).to include(
         'Correlation-Id' => a_kind_of(String)

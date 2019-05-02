@@ -5,7 +5,7 @@
     "title": "Test"
   },
   "paths": {
-    "/": {
+    "/resource/{id}": {
       "get": {
         "responses": {
           "200": {
@@ -26,7 +26,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/get_root_response"
+                  "$ref": "#/components/schemas/get_response"
                 }
               }
             }
@@ -53,7 +53,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/post_root_response"
+                  "$ref": "#/components/schemas/post_response"
                 }
               }
             }
@@ -80,7 +80,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/put_root_response"
+                  "$ref": "#/components/schemas/put_response"
                 }
               }
             }
@@ -105,7 +105,7 @@
   },
   "components": {
     "schemas": {
-      "get_root_response": {
+      "get_response": {
         "type": "object",
         "properties": {
           "data": {
@@ -113,7 +113,7 @@
           }
         }
       },
-      "post_root_response": {
+      "post_response": {
         "type": "object",
         "properties": {
           "id": {
@@ -121,7 +121,7 @@
           }
         }
       },
-      "put_root_response": {
+      "put_response": {
         "type": "object",
         "properties": {
           "id": {
