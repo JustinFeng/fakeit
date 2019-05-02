@@ -19,7 +19,7 @@ module Fakeit::Openapi
     private
 
     def openapi_content
-      openapi_response.last.content&.first&.last
+      openapi_response.last.content&.find { |k, _| k =~ %r{^application/.*json} }&.last
     end
 
     def openapi_headers
@@ -27,7 +27,7 @@ module Fakeit::Openapi
     end
 
     def openapi_response
-      @request_operation.operation_object.responses.response.first
+      @request_operation.operation_object.responses.response.min
     end
   end
 end

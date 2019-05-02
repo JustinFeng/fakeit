@@ -12,11 +12,12 @@ describe Fakeit::Openapi::Operation do
   let(:header_2_value) { '2' }
 
   before(:each) do
-    allow(request_operation)
-      .to receive_message_chain(:operation_object, :responses, :response) { { '200' => response } }
+    allow(request_operation).to receive_message_chain(:operation_object, :responses, :response) {
+      { '400' => 'other_response', '200' => response }
+    }
   end
 
-  it 'returns status' do
+  it 'returns successful status' do
     expect(subject.status).to be(200)
   end
 
@@ -34,8 +35,19 @@ describe Fakeit::Openapi::Operation do
     expect(subject.headers).to eq({})
   end
 
-  it 'returns body' do
-    allow(response).to receive(:content).and_return('application/json' => media_type)
+  it 'only returns body for application/json' do
+    allow(response).to receive(:content).and_return(
+      'text/plain' => 'other_media_type', 'application/json' => media_type
+    )
+    allow(media_type).to receive_message_chain(:schema, :to_example) { body }
+
+    expect(subject.body).to eq(JSON.generate(body))
+  end
+
+  it 'only returns body for vendor defined json' do
+    allow(response).to receive(:content).and_return(
+      'text/plain' => 'other_media_type', 'application/vnd.api+json' => media_type
+    )
     allow(media_type).to receive_message_chain(:schema, :to_example) { body }
 
     expect(subject.body).to eq(JSON.generate(body))
