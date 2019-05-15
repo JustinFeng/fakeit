@@ -4,8 +4,9 @@ module Fakeit::App
       specification = Fakeit::Openapi.load(spec_file)
 
       proc do |env|
+        request = Rack::Request.new(env)
         specification
-          .operation(env['REQUEST_METHOD'].downcase.to_sym, env['PATH_INFO'])
+          .operation(request.request_method.downcase.to_sym, request.path_info)
           .then(&method(:rack_response))
       end
     end
