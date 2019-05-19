@@ -1,11 +1,13 @@
-module Fakeit::Openapi
-  class Specification
-    def initialize(doc)
-      @doc = doc
-    end
+module Fakeit
+  module Openapi
+    class Specification
+      def initialize(doc)
+        @doc = doc
+      end
 
-    def operation(method, path)
-      @doc.request_operation(method, path)&.then(&Operation.method(:new))
+      def operation(method, path)
+        @doc.request_operation(method, path)&.then(&Operation.method(:new))
+      end
     end
   end
 end

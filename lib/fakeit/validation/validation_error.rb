@@ -1,3 +1,6 @@
-module Fakeit::Validation
-  class ValidationError < StandardError; end
+module Fakeit
+  module Validation
+    class ValidationError < StandardError
+    end
+  end
 end
