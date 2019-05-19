@@ -89,4 +89,26 @@ describe Fakeit do
       )
     end
   end
+
+  describe 'invalid' do
+    describe 'request body' do
+      it 'returns 418' do
+        post '/invalid_request', '{"integer": "1"}'
+
+        expect(last_response.status).to be(418)
+      end
+
+      it 'returns headers' do
+        post '/invalid_request', '{"integer": "1"}'
+
+        expect(last_response.headers).to include('Content-Type' => 'application/json')
+      end
+
+      it 'returns validation error message' do
+        post '/invalid_request', '{"integer": "1"}'
+
+        expect(JSON.parse(last_response.body)['message']).to include('integer')
+      end
+    end
+  end
 end

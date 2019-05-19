@@ -15,47 +15,75 @@ describe Fakeit::Openapi::Operation do
     allow(request_operation).to receive_message_chain(:operation_object, :responses, :response) {
       { '400' => 'other_response', '200' => response }
     }
+    allow(request_operation).to receive(:validate_request_body)
   end
 
-  it 'returns successful status' do
-    expect(subject.status).to be(200)
+  describe 'status' do
+    it 'returns successful status' do
+      expect(subject.status).to be(200)
+    end
   end
 
-  it 'returns headers' do
-    allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
-    allow(header_1).to receive_message_chain(:schema, :to_example) { header_1_value }
-    allow(header_2).to receive_message_chain(:schema, :to_example) { header_2_value }
+  describe 'headers' do
+    it 'returns headers' do
+      allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
+      allow(header_1).to receive_message_chain(:schema, :to_example) { header_1_value }
+      allow(header_2).to receive_message_chain(:schema, :to_example) { header_2_value }
 
-    expect(subject.headers).to eq('header_1' => header_1_value, 'header_2' => header_2_value)
+      expect(subject.headers).to eq('header_1' => header_1_value, 'header_2' => header_2_value)
+    end
+
+    it 'returns no headers' do
+      allow(response).to receive(:headers).and_return(nil)
+
+      expect(subject.headers).to eq({})
+    end
   end
 
-  it 'returns no headers' do
-    allow(response).to receive(:headers).and_return(nil)
+  describe 'body' do
+    it 'returns body for application/json' do
+      allow(response).to receive(:content).and_return(
+        'text/plain' => 'other_media_type', 'application/json' => media_type
+      )
+      allow(media_type).to receive_message_chain(:schema, :to_example) { body }
 
-    expect(subject.headers).to eq({})
+      expect(subject.body).to eq(JSON.generate(body))
+    end
+
+    it 'returns body for vendor defined json' do
+      allow(response).to receive(:content).and_return(
+        'text/plain' => 'other_media_type', 'application/vnd.api+json' => media_type
+      )
+      allow(media_type).to receive_message_chain(:schema, :to_example) { body }
+
+      expect(subject.body).to eq(JSON.generate(body))
+    end
+
+    it 'returns no body' do
+      allow(response).to receive(:content).and_return(nil)
+
+      expect(subject.body).to eq('')
+    end
   end
 
-  it 'only returns body for application/json' do
-    allow(response).to receive(:content).and_return(
-      'text/plain' => 'other_media_type', 'application/json' => media_type
-    )
-    allow(media_type).to receive_message_chain(:schema, :to_example) { body }
+  describe 'validate' do
+    it 'validates body when not empty' do
+      expect(request_operation).to receive(:validate_request_body).with('application/json', 'request' => 'body')
 
-    expect(subject.body).to eq(JSON.generate(body))
-  end
+      subject.validate(body: '{"request": "body"}')
+    end
 
-  it 'only returns body for vendor defined json' do
-    allow(response).to receive(:content).and_return(
-      'text/plain' => 'other_media_type', 'application/vnd.api+json' => media_type
-    )
-    allow(media_type).to receive_message_chain(:schema, :to_example) { body }
+    it 'raises validation error' do
+      allow(request_operation).to receive(:validate_request_body).and_raise(StandardError.new('some error'))
 
-    expect(subject.body).to eq(JSON.generate(body))
-  end
+      expect { subject.validate(body: '{"request": "body"}') }
+        .to raise_error(Fakeit::Validation::ValidationError, 'some error')
+    end
 
-  it 'returns no body' do
-    allow(response).to receive(:content).and_return(nil)
+    it 'does not validate body when empty' do
+      expect(request_operation).not_to receive(:validate_request_body)
 
-    expect(subject.body).to eq('')
+      subject.validate(body: '')
+    end
   end
 end

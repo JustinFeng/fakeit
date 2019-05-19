@@ -16,6 +16,12 @@ module Fakeit::Openapi
       openapi_content&.schema&.to_example&.then(&JSON.method(:generate)).to_s
     end
 
+    def validate(body:)
+      @request_operation.validate_request_body('application/json', JSON.parse(body)) unless body.empty?
+    rescue StandardError => e
+      raise Fakeit::Validation::ValidationError, e.message
+    end
+
     private
 
     def openapi_content

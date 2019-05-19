@@ -101,6 +101,19 @@
           }
         }
       }
+    },
+    "/invalid_request": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/invalid_request"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -125,6 +138,14 @@
         "type": "object",
         "properties": {
           "id": {
+            "type": "integer"
+          }
+        }
+      },
+      "invalid_request": {
+        "type": "object",
+        "properties": {
+          "integer": {
             "type": "integer"
           }
         }
