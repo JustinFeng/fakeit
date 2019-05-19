@@ -2,6 +2,7 @@ module Fakeit::Openapi
   class Operation
     def initialize(request_operation)
       @request_operation = request_operation
+      @validator = Fakeit::Validation::Validator.new(request_operation)
     end
 
     def status
@@ -16,10 +17,8 @@ module Fakeit::Openapi
       openapi_content&.schema&.to_example&.then(&JSON.method(:generate)).to_s
     end
 
-    def validate(body:)
-      @request_operation.validate_request_body('application/json', JSON.parse(body)) unless body.empty?
-    rescue StandardError => e
-      raise Fakeit::Validation::ValidationError, e.message
+    def validate(**request_parts)
+      @validator.validate(request_parts)
     end
 
     private

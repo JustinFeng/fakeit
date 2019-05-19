@@ -16,6 +16,7 @@ module Fakeit
 end
 
 require 'fakeit/validation/validation_error'
+require 'fakeit/validation/validator'
 require 'fakeit/app/app'
 require 'fakeit/core_extensions/schema'
 require 'fakeit/openapi/loader'

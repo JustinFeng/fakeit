@@ -67,23 +67,17 @@ describe Fakeit::Openapi::Operation do
   end
 
   describe 'validate' do
-    it 'validates body when not empty' do
-      expect(request_operation).to receive(:validate_request_body).with('application/json', 'request' => 'body')
+    let(:validator) { double(Fakeit::Validation::Validator) }
+    let(:body) { 'body' }
 
-      subject.validate(body: '{"request": "body"}')
+    before(:each) do
+      allow(Fakeit::Validation::Validator).to receive(:new).with(request_operation).and_return(validator)
     end
 
-    it 'raises validation error' do
-      allow(request_operation).to receive(:validate_request_body).and_raise(StandardError.new('some error'))
+    it 'validates request' do
+      expect(validator).to receive(:validate).with(body: body)
 
-      expect { subject.validate(body: '{"request": "body"}') }
-        .to raise_error(Fakeit::Validation::ValidationError, 'some error')
-    end
-
-    it 'does not validate body when empty' do
-      expect(request_operation).not_to receive(:validate_request_body)
-
-      subject.validate(body: '')
+      subject.validate(body: body)
     end
   end
 end
