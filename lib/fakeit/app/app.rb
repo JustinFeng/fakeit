@@ -33,7 +33,8 @@ module Fakeit
 
       def validate(operation, request)
         operation.validate(
-          body: request.body&.read.to_s
+          body: request.body&.read.to_s,
+          params: request.params
         )
       end
     end

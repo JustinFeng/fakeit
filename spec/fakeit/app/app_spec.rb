@@ -3,17 +3,24 @@ describe Fakeit::App do
 
   let(:spec_file) { 'spec_file' }
   let(:specification) { double(Fakeit::Openapi::Specification) }
+  let(:env) do
+    {
+      'REQUEST_METHOD' => 'GET',
+      'PATH_INFO' => '/',
+      'rack.input' => StringIO.new('body'),
+      'rack.request.query_hash' => {}
+    }
+  end
 
   before(:each) do
     allow(Fakeit::Openapi).to receive(:load).with(spec_file).and_return(specification)
   end
 
   it 'handles valid request' do
-    operation = double(Fakeit::Openapi::Operation, status: 200, headers: {}, body: 'body')
+    operation = double(Fakeit::Openapi::Operation, status: 200, headers: {}, body: 'body', validate: nil)
     allow(specification).to receive(:operation).with(:get, '/').and_return(operation)
-    allow(operation).to receive(:validate)
 
-    status, headers, body = subject[{ 'REQUEST_METHOD' => 'GET', 'PATH_INFO' => '/' }]
+    status, headers, body = subject[env]
 
     expect(status).to be(200)
     expect(headers).to eq({})
@@ -30,18 +37,26 @@ describe Fakeit::App do
     expect(body).to eq(['Not Found'])
   end
 
-  it 'handles invalid request' do
-    operation = double(Fakeit::Openapi::Operation)
+  describe 'validation' do
+    let(:operation) { double(Fakeit::Openapi::Operation) }
 
-    allow(operation).to receive(:validate).and_raise(Fakeit::Validation::ValidationError, 'some error')
-    allow(specification).to receive(:operation).with(:get, '/').and_return(operation)
+    before(:each) do
+      allow(specification).to receive(:operation).with(:get, '/').and_return(operation)
+      allow(operation).to receive(:validate).and_raise(Fakeit::Validation::ValidationError, 'some error')
+    end
 
-    status, headers, body = subject[{
-      'REQUEST_METHOD' => 'GET', 'PATH_INFO' => '/', 'rack.input' => StringIO.new('body')
-    }]
+    it 'validates request' do
+      expect(operation).to receive(:validate).with(body: 'body', params: {})
 
-    expect(status).to be(418)
-    expect(headers).to eq('Content-Type' => 'application/json')
-    expect(body).to eq(['{"message":"some error"}'])
+      subject[env]
+    end
+
+    it 'handles invalid request' do
+      status, headers, body = subject[env]
+
+      expect(status).to be(418)
+      expect(headers).to eq('Content-Type' => 'application/json')
+      expect(body).to eq(['{"message":"some error"}'])
+    end
   end
 end

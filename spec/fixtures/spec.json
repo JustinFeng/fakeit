@@ -111,6 +111,13 @@
             "schema": {
               "type": "integer"
             }
+          },
+          {
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "requestBody": {
@@ -160,7 +167,7 @@
         "type": "object",
         "properties": {
           "integer": {
-            "type": "integer"
+            "type": "number"
           }
         }
       }

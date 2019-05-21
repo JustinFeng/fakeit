@@ -107,7 +107,7 @@ describe Fakeit do
       it 'returns validation error message' do
         post '/invalid_request/123', '{"integer": "1"}'
 
-        expect(JSON.parse(last_response.body)['message']).to include('not valid integer')
+        expect(JSON.parse(last_response.body)['message']).to include('not valid number')
       end
     end
 
@@ -128,6 +128,26 @@ describe Fakeit do
         post '/invalid_request/abc'
 
         expect(JSON.parse(last_response.body)['message']).to include('not valid integer')
+      end
+    end
+
+    describe 'request query parameter' do
+      it 'returns 418' do
+        post '/invalid_request/1?type=abc'
+
+        expect(last_response.status).to be(418)
+      end
+
+      it 'returns headers' do
+        post '/invalid_request/1?type=abc'
+
+        expect(last_response.headers).to include('Content-Type' => 'application/json')
+      end
+
+      it 'returns validation error message' do
+        post '/invalid_request/1?type=abc'
+
+        expect(JSON.parse(last_response.body)['message']).to include('not valid boolean')
       end
     end
   end

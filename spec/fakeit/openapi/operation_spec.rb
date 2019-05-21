@@ -69,15 +69,16 @@ describe Fakeit::Openapi::Operation do
   describe 'validate' do
     let(:validator) { double(Fakeit::Validation::Validator) }
     let(:body) { 'body' }
+    let(:params) { 'params' }
 
     before(:each) do
       allow(Fakeit::Validation::Validator).to receive(:new).with(request_operation).and_return(validator)
     end
 
     it 'validates request' do
-      expect(validator).to receive(:validate).with(body: body)
+      expect(validator).to receive(:validate).with(body: body, params: params)
 
-      subject.validate(body: body)
+      subject.validate(body: body, params: params)
     end
   end
 end
