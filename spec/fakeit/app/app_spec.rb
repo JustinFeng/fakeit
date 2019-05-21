@@ -8,7 +8,8 @@ describe Fakeit::App do
       'REQUEST_METHOD' => 'GET',
       'PATH_INFO' => '/',
       'rack.input' => StringIO.new('body'),
-      'rack.request.query_hash' => {}
+      'rack.request.query_hash' => {},
+      'HTTP_SOME_HEADER' => 'header'
     }
   end
 
@@ -39,6 +40,7 @@ describe Fakeit::App do
 
   describe 'validation' do
     let(:operation) { double(Fakeit::Openapi::Operation) }
+    let(:headers) { { 'Some-Header' => 'header' } }
 
     before(:each) do
       allow(specification).to receive(:operation).with(:get, '/').and_return(operation)
@@ -46,7 +48,7 @@ describe Fakeit::App do
     end
 
     it 'validates request' do
-      expect(operation).to receive(:validate).with(body: 'body', params: {})
+      expect(operation).to receive(:validate).with(body: 'body', params: {}, headers: headers)
 
       subject[env]
     end

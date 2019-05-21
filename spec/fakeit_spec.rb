@@ -150,5 +150,28 @@ describe Fakeit do
         expect(JSON.parse(last_response.body)['message']).to include('not valid boolean')
       end
     end
+
+    describe 'request headers' do
+      it 'returns 418' do
+        header 'Api-Version', '1'
+        post '/invalid_request/1'
+
+        expect(last_response.status).to be(418)
+      end
+
+      it 'returns headers' do
+        header 'Api-Version', '1'
+        post '/invalid_request/1'
+
+        expect(last_response.headers).to include('Content-Type' => 'application/json')
+      end
+
+      it 'returns validation error message' do
+        header 'Api-Version', '1'
+        post '/invalid_request/1'
+
+        expect(JSON.parse(last_response.body)['message']).to include('isn\'t include enum')
+      end
+    end
   end
 end

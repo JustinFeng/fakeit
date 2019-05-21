@@ -118,6 +118,16 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "in": "header",
+            "name": "Api-Version",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "v1"
+              ]
+            }
           }
         ],
         "requestBody": {

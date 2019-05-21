@@ -34,8 +34,17 @@ module Fakeit
       def validate(operation, request)
         operation.validate(
           body: request.body&.read.to_s,
-          params: request.params
+          params: request.params,
+          headers: headers(request)
         )
+      end
+
+      def headers(request)
+        request
+          .each_header
+          .select { |k, _| k.start_with? 'HTTP_' }
+          .map { |k, v| [k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-'), v] }
+          .to_h
       end
     end
   end
