@@ -102,8 +102,17 @@
         }
       }
     },
-    "/invalid_request": {
+    "/invalid_request/{id}": {
       "post": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -111,6 +120,11 @@
                 "$ref": "#/components/schemas/invalid_request"
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
           }
         }
       }
