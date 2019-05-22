@@ -18,13 +18,14 @@ describe Fakeit::App do
   end
 
   it 'handles valid request' do
-    operation = double(Fakeit::Openapi::Operation, status: 200, headers: {}, body: 'body', validate: nil)
+    headers = { 'Content-Type' => 'application' }
+    operation = double(Fakeit::Openapi::Operation, status: 200, headers: headers, body: 'body', validate: nil)
     allow(specification).to receive(:operation).with(:get, '/').and_return(operation)
 
     status, headers, body = subject[env]
 
     expect(status).to be(200)
-    expect(headers).to eq({})
+    expect(headers).to eq(headers)
     expect(body).to eq(['body'])
   end
 

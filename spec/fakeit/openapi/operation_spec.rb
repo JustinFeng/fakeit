@@ -27,10 +27,15 @@ describe Fakeit::Openapi::Operation do
   describe 'headers' do
     it 'returns headers' do
       allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
+      allow(response).to receive(:content).and_return('application/json' => media_type)
       allow(header_1).to receive_message_chain(:schema, :to_example) { header_1_value }
       allow(header_2).to receive_message_chain(:schema, :to_example) { header_2_value }
 
-      expect(subject.headers).to eq('header_1' => header_1_value, 'header_2' => header_2_value)
+      expect(subject.headers).to eq(
+        'header_1' => header_1_value,
+        'header_2' => header_2_value,
+        'Content-Type' => 'application/json'
+      )
     end
 
     it 'returns no headers' do

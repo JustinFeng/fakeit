@@ -19,9 +19,6 @@ opts = Slop.parse do |o|
 end
 
 server = Rack::Handler::WEBrick
-app = Fakeit.build(opts[:spec])
-
-server.run(app, Port: opts[:port])
 
 trap(:INT) do
   if server.respond_to?(:shutdown)
@@ -30,3 +27,6 @@ trap(:INT) do
     exit
   end
 end
+
+app = Fakeit.build(opts[:spec])
+server.run(app, Port: opts[:port])
