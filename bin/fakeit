@@ -1,8 +1,27 @@
 #!/usr/bin/env ruby
 
+require 'slop'
 require 'fakeit'
 
+opts = Slop.parse do |o|
+  o.string '--spec', 'spec file uri'
+  o.integer '-p', '--port', 'custom port'
+  o.separator ''
+  o.separator 'other options:'
+  o.on '-v', '--version' do
+    puts Fakeit::VERSION
+    exit
+  end
+  o.on '-h', '--help' do
+    puts o
+    exit
+  end
+end
+
 server = Rack::Handler::WEBrick
+app = Fakeit.build(opts[:spec])
+
+server.run(app, Port: opts[:port])
 
 trap(:INT) do
   if server.respond_to?(:shutdown)
@@ -11,5 +30,3 @@ trap(:INT) do
     exit
   end
 end
-
-server.run Fakeit.build('spec/fixtures/spec.json')

@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'faker', '~> 1.9'
   spec.add_dependency 'openapi_parser', '0.2.4'
   spec.add_dependency 'rack', '~> 2.0'
+  spec.add_dependency 'slop', '~> 4.6'
 end

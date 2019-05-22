@@ -5,6 +5,7 @@ PATH
       faker (~> 1.9)
       openapi_parser (= 0.2.4)
       rack (~> 2.0)
+      slop (~> 4.6)
 
 GEM
   remote: https://rubygems.org/
@@ -57,6 +58,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.2)
+    slop (4.6.2)
     unicode-display_width (1.5.0)
 
 PLATFORMS
