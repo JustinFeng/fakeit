@@ -4,6 +4,15 @@
 
 Create mock server from Openapi specification
 
+## Description
+
+* Randomly generated response
+* Request validation
+* Load specification from local or remote
+* Support specification in yaml or json format
+
+**Note:** Only support json content type as of now
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +31,18 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ fakeit --spec http://url/to/spec
+
+Command line options:
+
+    $ fakeit --help
+    usage:
+        --spec         spec file uri
+        -p, --port     custom port
+
+    other options:
+        -v, --version
+        -h, --help
 
 ## Development
 
