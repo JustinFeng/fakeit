@@ -3,19 +3,28 @@
 require 'slop'
 require 'fakeit'
 
-opts = Slop.parse do |o|
-  o.string '--spec', 'spec file uri'
-  o.integer '-p', '--port', 'custom port'
-  o.separator ''
-  o.separator 'other options:'
-  o.on '-v', '--version' do
-    puts Fakeit::VERSION
-    exit
+usage = nil
+begin
+  opts = Slop.parse do |o|
+    o.string '--spec', 'spec file uri (required)', required: true
+    o.integer '-p', '--port', 'custom port'
+    o.separator ''
+    o.separator 'other options:'
+    o.on '-v', '--version' do
+      puts Fakeit::VERSION
+      exit
+    end
+    o.on '-h', '--help' do
+      puts o
+      exit
+    end
+
+    usage = o
   end
-  o.on '-h', '--help' do
-    puts o
-    exit
-  end
+rescue Slop::Error => e
+  puts e.message
+  puts usage
+  exit
 end
 
 server = Rack::Handler::WEBrick
