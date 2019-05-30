@@ -13,68 +13,75 @@ describe OpenAPIParser::Schemas::Schema do
   end
 
   it 'generates object example' do
-    object_schema = schema.items
+    object = schema.items
 
-    expect(object_schema.to_example).to be_a_kind_of(Hash)
+    expect(object.to_example).to be_a_kind_of(Hash)
   end
 
-  it 'generates string pattern example' do
-    string_pattern_schema = schema.items.properties['string_pattern']
+  context 'string' do
+    it 'generates example' do
+      string = schema.items.properties['string']
 
-    expect(string_pattern_schema.to_example).to be_a_kind_of(String).and match(pattern)
+      expect(string.to_example).to be_a_kind_of(String)
+    end
+
+    it 'generates pattern example' do
+      string_pattern = schema.items.properties['string_pattern']
+
+      expect(string_pattern.to_example).to be_a_kind_of(String).and match(pattern)
+    end
+
+    it 'generates enum example' do
+      string_enum = schema.items.properties['string_enum']
+
+      expect(string_enum.to_example).to eq('A').or eq('B')
+    end
+
+    it 'generates uri format example' do
+      uri = schema.items.properties['string_uri'].to_example
+
+      expect { URI.parse(uri) }.not_to raise_error
+    end
   end
 
-  it 'generates string example' do
-    string_schema = schema.items.properties['string']
+  context 'integer' do
+    it 'generates example' do
+      integer = schema.items.properties['integer']
 
-    expect(string_schema.to_example).to be_a_kind_of(String)
-  end
+      expect(integer.to_example).to be_a_kind_of(Integer)
+    end
 
-  it 'generates string enum example' do
-    string_enum_schema = schema.items.properties['string_enum']
+    it 'generates range example' do
+      integer_range = schema.items.properties['integer_range']
 
-    expect(string_enum_schema.to_example).to eq('A').or eq('B')
-  end
+      expect(integer_range.to_example).to be(1)
+    end
 
-  it 'generates integer example' do
-    integer_schema = schema.items.properties['integer']
+    it 'generates enum example' do
+      integer_enum = schema.items.properties['integer_enum']
 
-    expect(integer_schema.to_example).to be_a_kind_of(Integer)
-  end
-
-  it 'generates integer range example' do
-    integer_range_schema = schema.items.properties['integer_range']
-
-    expect(integer_range_schema.to_example).to be(1)
-  end
-
-  it 'generates integer enum example' do
-    integer_enum_schema = schema.items.properties['integer_enum']
-
-    expect(integer_enum_schema.to_example).to eq(1).or eq(2)
+      expect(integer_enum.to_example).to eq(1).or eq(2)
+    end
   end
 
   it 'generates number example' do
-    number_schema = schema.items.properties['number']
+    number = schema.items.properties['number']
 
-    expect(number_schema.to_example).to be_a_kind_of(Float)
+    expect(number.to_example).to be_a_kind_of(Float)
   end
 
   it 'generates boolean example' do
-    boolean_schema = schema.items.properties['boolean']
+    boolean = schema.items.properties['boolean']
 
-    expect(boolean_schema.to_example).to be_a_kind_of(TrueClass).or be_a_kind_of(FalseClass)
+    expect(boolean.to_example).to be_a_kind_of(TrueClass).or be_a_kind_of(FalseClass)
   end
 
   it 'recursively generates example' do
     example = schema.to_example
 
     expect(example.first).to include(
-      'string_pattern' => a_kind_of(String).and(match(pattern)),
       'string' => a_kind_of(String),
-      'string_enum' => eq('A').or(eq('B')),
       'integer' => a_kind_of(Integer),
-      'integer_enum' => eq(1).or(eq(2)),
       'number' => a_kind_of(Float),
       'boolean' => a_kind_of(TrueClass).or(be_a_kind_of(FalseClass))
     )
