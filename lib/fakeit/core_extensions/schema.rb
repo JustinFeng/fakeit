@@ -3,6 +3,12 @@ module OpenAPIParser
     class Schema
       BIG_INT = 2**32
 
+      alias old_type type
+
+      def type
+        old_type || inferred_type
+      end
+
       def to_example
         case type
         when 'string' then string_example
@@ -16,6 +22,14 @@ module OpenAPIParser
       end
 
       private
+
+      def inferred_type
+        if properties
+          'object'
+        elsif items
+          'array'
+        end
+      end
 
       def integer_example
         if enum

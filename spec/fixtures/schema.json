@@ -66,6 +66,14 @@
             },
             "boolean": {
               "type": "boolean"
+            },
+            "implied_object": {
+              "properties": {}
+            },
+            "implied_array": {
+              "items": {
+                "type": "string"
+              }
             }
           }
         }
