@@ -38,6 +38,18 @@ describe Fakeit::Openapi::Operation do
       )
     end
 
+    it 'returns no Content-Type header when no content matches' do
+      allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
+      allow(response).to receive(:content).and_return(nil)
+      allow(header_1).to receive_message_chain(:schema, :to_example) { header_1_value }
+      allow(header_2).to receive_message_chain(:schema, :to_example) { header_2_value }
+
+      expect(subject.headers).to eq(
+        'header_1' => header_1_value,
+        'header_2' => header_2_value
+      )
+    end
+
     it 'returns no headers' do
       allow(response).to receive(:headers).and_return(nil)
 

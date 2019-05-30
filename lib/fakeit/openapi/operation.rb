@@ -13,7 +13,7 @@ module Fakeit
       def headers
         openapi_headers
           &.map { |k, v| [k, v.schema.to_example] }
-          &.push(['Content-Type', openapi_content_type])
+          &.tap { |headers| headers.push(['Content-Type', openapi_content_type]) if openapi_content_type }
           .to_h
       end
 
