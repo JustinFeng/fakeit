@@ -102,6 +102,24 @@
         }
       }
     },
+    "/non_json": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "text/plain": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/invalid_request/{id}": {
       "post": {
         "parameters": [

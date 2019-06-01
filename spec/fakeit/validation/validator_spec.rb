@@ -7,11 +7,18 @@ describe Fakeit::Validation::Validator do
     allow(request_operation).to receive(:validate_request_body)
     allow(request_operation).to receive(:validate_path_params)
     allow(request_operation).to receive(:validate_request_parameter)
+
+    allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content)
   end
 
   describe 'body' do
-    it 'validates when not empty' do
-      expect(request_operation).to receive(:validate_request_body).with('application/json', 'request' => 'body')
+    before(:each) do
+      allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content)
+        .and_return('text/plain' => '', 'application/vnd.api+json' => '')
+    end
+
+    it 'validates' do
+      expect(request_operation).to receive(:validate_request_body).with('application/vnd.api+json', 'request' => 'body')
 
       subject.validate(body: '{"request": "body"}')
     end
@@ -23,10 +30,18 @@ describe Fakeit::Validation::Validator do
         .to raise_error(Fakeit::Validation::ValidationError, 'some error')
     end
 
-    it 'does not validate when empty' do
+    it 'does not validate when json content type not found' do
+      allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content).and_return(nil)
+
       expect(request_operation).not_to receive(:validate_request_body)
 
-      subject.validate(body: '')
+      subject.validate(body: '{"request": "body"}')
+    end
+
+    it 'does not validate when body is not valid json' do
+      expect(request_operation).not_to receive(:validate_request_body)
+
+      subject.validate(body: 'not a json')
     end
   end
 

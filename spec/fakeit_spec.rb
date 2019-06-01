@@ -90,6 +90,14 @@ describe Fakeit do
     end
   end
 
+  describe 'non json request content type' do
+    it 'returns 200' do
+      post '/non_json', 'text plain'
+
+      expect(last_response.ok?).to be_truthy
+    end
+  end
+
   describe 'invalid' do
     describe 'request body' do
       it 'returns 418' do

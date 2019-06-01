@@ -12,9 +12,8 @@ describe Fakeit::Openapi::Operation do
   let(:header_2_value) { '2' }
 
   before(:each) do
-    allow(request_operation).to receive_message_chain(:operation_object, :responses, :response) {
-      { '400' => 'other_response', '200' => response }
-    }
+    allow(request_operation).to receive_message_chain(:operation_object, :responses, :response)
+      .and_return('400' => 'other_response', '200' => response)
     allow(request_operation).to receive(:validate_request_body)
   end
 
@@ -28,8 +27,8 @@ describe Fakeit::Openapi::Operation do
     it 'returns headers' do
       allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
       allow(response).to receive(:content).and_return('application/json' => media_type)
-      allow(header_1).to receive_message_chain(:schema, :to_example) { header_1_value }
-      allow(header_2).to receive_message_chain(:schema, :to_example) { header_2_value }
+      allow(header_1).to receive_message_chain(:schema, :to_example).and_return(header_1_value)
+      allow(header_2).to receive_message_chain(:schema, :to_example).and_return(header_2_value)
 
       expect(subject.headers).to eq(
         'header_1' => header_1_value,
@@ -41,8 +40,8 @@ describe Fakeit::Openapi::Operation do
     it 'returns no Content-Type header when no content matches' do
       allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
       allow(response).to receive(:content).and_return(nil)
-      allow(header_1).to receive_message_chain(:schema, :to_example) { header_1_value }
-      allow(header_2).to receive_message_chain(:schema, :to_example) { header_2_value }
+      allow(header_1).to receive_message_chain(:schema, :to_example).and_return(header_1_value)
+      allow(header_2).to receive_message_chain(:schema, :to_example).and_return(header_2_value)
 
       expect(subject.headers).to eq(
         'header_1' => header_1_value,
@@ -62,7 +61,7 @@ describe Fakeit::Openapi::Operation do
       allow(response).to receive(:content).and_return(
         'text/plain' => 'other_media_type', 'application/json' => media_type
       )
-      allow(media_type).to receive_message_chain(:schema, :to_example) { body }
+      allow(media_type).to receive_message_chain(:schema, :to_example).and_return(body)
 
       expect(subject.body).to eq(JSON.generate(body))
     end
@@ -71,7 +70,7 @@ describe Fakeit::Openapi::Operation do
       allow(response).to receive(:content).and_return(
         'text/plain' => 'other_media_type', 'application/vnd.api+json' => media_type
       )
-      allow(media_type).to receive_message_chain(:schema, :to_example) { body }
+      allow(media_type).to receive_message_chain(:schema, :to_example).and_return(body)
 
       expect(subject.body).to eq(JSON.generate(body))
     end
