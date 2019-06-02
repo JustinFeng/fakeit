@@ -1,6 +1,6 @@
 module Fakeit
   module Middleware
-    class Logger
+    class Recorder
       def initialize(app)
         @app = app
       end
@@ -16,12 +16,12 @@ module Fakeit
 
       def log_request(env)
         env['rack.input']
-          &.tap { |body| puts "Request body: #{body.read}" }
+          &.tap { |body| Logger.info("Request body: #{body.read}") }
           &.tap { |body| body.rewind }
       end
 
       def log_response(response)
-        puts "Response body: #{response[2].first}"
+        Logger.info("Response body: #{response[2].first}")
       end
     end
   end

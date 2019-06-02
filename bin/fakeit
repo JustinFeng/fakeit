@@ -39,5 +39,5 @@ trap(:INT) do
 end
 
 app = Fakeit.build(opts[:spec])
-app.use(Fakeit::Middleware::Logger) unless opts[:quiet]
+app.use(Fakeit::Middleware::Recorder) unless opts[:quiet]
 server.run(app, Port: opts[:port], Host: '0.0.0.0')

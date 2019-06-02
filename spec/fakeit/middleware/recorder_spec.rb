@@ -1,10 +1,14 @@
-describe Fakeit::Middleware::Logger do
-  subject { Fakeit::Middleware::Logger.new(app) }
+describe Fakeit::Middleware::Recorder do
+  subject { Fakeit::Middleware::Recorder.new(app) }
 
   let(:response) { [200, {}, ['response body']] }
   let(:request_body) { StringIO.new('request body') }
   let(:app) { double('app', call: response) }
   let(:env) { { 'rack.input' => request_body } }
+
+  before(:each) do
+    allow(Fakeit::Logger).to receive(:info)
+  end
 
   it 'returns original response' do
     status, headers, body = subject.call(env)
@@ -15,7 +19,9 @@ describe Fakeit::Middleware::Logger do
   end
 
   it 'logs request body' do
-    expect { subject.call(env) }.to output(/Request body: request body/).to_stdout
+    expect(Fakeit::Logger).to receive(:info).with(/Request body: request body/)
+
+    subject.call(env)
   end
 
   it 'rewinds request body io' do
@@ -25,6 +31,8 @@ describe Fakeit::Middleware::Logger do
   end
 
   it 'logs response body' do
-    expect { subject.call(env) }.to output(/Response body: response body/).to_stdout
+    expect(Fakeit::Logger).to receive(:info).with(/Response body: response body/)
+
+    subject.call(env)
   end
 end
