@@ -41,6 +41,7 @@ Command line options:
         -p, --port     custom port
         -q, --quiet    mute request and response log
         --permissive   log validation error as warning instead of deny request
+        --use-example  use example provided in spec
 
     other options:
         -v, --version

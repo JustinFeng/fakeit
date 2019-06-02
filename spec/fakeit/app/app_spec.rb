@@ -21,7 +21,7 @@ describe Fakeit::App do
   it 'handles valid request' do
     headers = { 'Content-Type' => 'application' }
     operation = double(Fakeit::Openapi::Operation, status: 200, headers: headers, body: 'body', validate: nil)
-    allow(specification).to receive(:operation).with(:get, '/').and_return(operation)
+    allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
 
     status, headers, body = subject[env]
 
@@ -31,7 +31,7 @@ describe Fakeit::App do
   end
 
   it 'handles not found' do
-    allow(specification).to receive(:operation).with(:get, '/not_found').and_return(nil)
+    allow(specification).to receive(:operation).with(:get, '/not_found', options).and_return(nil)
 
     status, headers, body = subject[{ 'REQUEST_METHOD' => 'GET', 'PATH_INFO' => '/not_found' }]
 
@@ -45,7 +45,7 @@ describe Fakeit::App do
     let(:headers) { { 'Some-Header' => 'header' } }
 
     before(:each) do
-      allow(specification).to receive(:operation).with(:get, '/').and_return(operation)
+      allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
       allow(operation).to receive(:validate).and_raise(Fakeit::Validation::ValidationError, 'some error')
     end
 

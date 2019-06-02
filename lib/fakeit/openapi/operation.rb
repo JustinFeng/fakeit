@@ -1,9 +1,10 @@
 module Fakeit
   module Openapi
     class Operation
-      def initialize(request_operation)
+      def initialize(request_operation, options)
         @request_operation = request_operation
         @validator = Fakeit::Validation::Validator.new(request_operation)
+        @options = options
       end
 
       def status
@@ -12,13 +13,17 @@ module Fakeit
 
       def headers
         response_headers
-          &.map { |k, v| [k, v.schema.to_example] }
+          &.map { |k, v| [k, v.schema.to_example(@options.use_example)] }
           &.tap { |headers| headers.push(['Content-Type', response_content_type]) if response_content_type }
           .to_h
       end
 
       def body
-        response_schema&.schema&.to_example&.then(&JSON.method(:generate)).to_s
+        response_schema
+          &.schema
+          &.to_example(@options.use_example)
+          &.then(&JSON.method(:generate))
+          .to_s
       end
 
       def validate(**request_parts)

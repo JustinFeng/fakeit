@@ -5,8 +5,10 @@ module Fakeit
         @doc = doc
       end
 
-      def operation(method, path)
-        @doc.request_operation(method, path)&.then(&Operation.method(:new))
+      def operation(method, path, options)
+        @doc
+          .request_operation(method, path)
+          &.then { |operation| Operation.new(operation, options) }
       end
     end
   end

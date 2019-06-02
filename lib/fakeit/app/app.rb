@@ -7,7 +7,7 @@ module Fakeit
         proc do |env|
           request = Rack::Request.new(env)
           specification
-            .operation(request.request_method.downcase.to_sym, request.path_info)
+            .operation(request.request_method.downcase.to_sym, request.path_info, options)
             .then { |operation| operation ? handle(operation, request, options) : not_found }
         end
       end

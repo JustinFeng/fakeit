@@ -74,6 +74,34 @@
               "items": {
                 "type": "string"
               }
+            },
+            "unknown": {
+              "example": "you guess"
+            },
+            "with_example": {
+              "type": "string",
+              "enum": [
+                "useless"
+              ],
+              "example": "always fixed"
+            },
+            "with_nested_example": {
+              "type": "object",
+              "properties": {
+                "with_example": {
+                  "type": "string",
+                  "enum": [
+                    "useless"
+                  ],
+                  "example": "always fixed"
+                }
+              }
+            },
+            "no_example": {
+              "type": "string",
+              "enum": [
+                "useful"
+              ]
             }
           }
         }
