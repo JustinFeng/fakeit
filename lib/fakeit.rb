@@ -10,9 +10,9 @@ Dir.glob(File.join(File.dirname(__FILE__), 'fakeit', '/**/*.rb')).each { |file| 
 
 module Fakeit
   class << self
-    def build(spec_file)
+    def build(spec_file, options)
       Rack::Builder.new do
-        run App.create(spec_file)
+        run App.create(spec_file, options)
       end
     end
   end

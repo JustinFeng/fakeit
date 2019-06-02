@@ -9,6 +9,7 @@ begin
     o.string '--spec', 'spec file uri (required)', required: true
     o.integer '-p', '--port', 'custom port'
     o.bool '-q', '--quiet', 'mute request and response log'
+    o.bool '--permissive', 'log validation error as warning instead of deny request'
     o.separator ''
     o.separator 'other options:'
     o.on '-v', '--version' do
@@ -38,6 +39,7 @@ trap(:INT) do
   end
 end
 
-app = Fakeit.build(opts[:spec])
+options = Fakeit::App::Options.new(permissive: opts[:permissive])
+app = Fakeit.build(opts[:spec], options)
 app.use(Fakeit::Middleware::Recorder) unless opts[:quiet]
 server.run(app, Port: opts[:port], Host: '0.0.0.0')

@@ -31,7 +31,7 @@ Or install it yourself as:
 
 ## Usage
 
-    $ fakeit --spec http://url/to/spec
+    $ fakeit --spec <Local file or remote url>
 
 Command line options:
 
@@ -40,6 +40,7 @@ Command line options:
         --spec         spec file uri (required)
         -p, --port     custom port
         -q, --quiet    mute request and response log
+        --permissive   log validation error as warning instead of deny request
 
     other options:
         -v, --version

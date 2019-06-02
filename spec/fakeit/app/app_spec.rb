@@ -1,6 +1,7 @@
 describe Fakeit::App do
-  subject { Fakeit::App.create(spec_file) }
+  subject { Fakeit::App.create(spec_file, options) }
 
+  let(:options) { Fakeit::App::Options.new(permissive: false) }
   let(:spec_file) { 'spec_file' }
   let(:specification) { double(Fakeit::Openapi::Specification) }
   let(:env) do
@@ -40,7 +41,7 @@ describe Fakeit::App do
   end
 
   describe 'validation' do
-    let(:operation) { double(Fakeit::Openapi::Operation) }
+    let(:operation) { double(Fakeit::Openapi::Operation, status: 200, headers: headers, body: 'body') }
     let(:headers) { { 'Some-Header' => 'header' } }
 
     before(:each) do
@@ -54,12 +55,34 @@ describe Fakeit::App do
       subject[env]
     end
 
-    it 'handles invalid request' do
+    it 'fails invalid request by default' do
       status, headers, body = subject[env]
 
       expect(status).to be(418)
       expect(headers).to eq('Content-Type' => 'application/json')
       expect(body).to eq(['{"message":"some error"}'])
+    end
+
+    context 'permissive mode' do
+      let(:options) { Fakeit::App::Options.new(permissive: true) }
+
+      before(:each) do
+        allow(Fakeit::Logger).to receive(:warn)
+      end
+
+      it 'responds normally' do
+        status, headers, body = subject[env]
+
+        expect(status).to be(200)
+        expect(headers).to eq(headers)
+        expect(body).to eq(['body'])
+      end
+
+      it 'warns validation error' do
+        expect(Fakeit::Logger).to receive(:warn).with('some error')
+
+        subject[env]
+      end
     end
   end
 end

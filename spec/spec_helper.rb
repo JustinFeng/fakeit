@@ -15,4 +15,8 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.before do
+    allow(Fakeit::Logger).to receive(:warn)
+  end
 end

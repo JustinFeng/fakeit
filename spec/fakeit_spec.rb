@@ -1,8 +1,10 @@
 describe Fakeit do
   include Rack::Test::Methods
 
+  let(:options) { Fakeit::App::Options.new(permissive: false) }
+
   def app
-    Fakeit.build('spec/fixtures/spec.json')
+    Fakeit.build('spec/fixtures/spec.json', options)
   end
 
   describe 'GET /resource/{id}' do
@@ -179,6 +181,31 @@ describe Fakeit do
         post '/invalid_request/1'
 
         expect(JSON.parse(last_response.body)['message']).to include('isn\'t include enum')
+      end
+    end
+
+    context 'permissive mode' do
+      let(:options) { Fakeit::App::Options.new(permissive: true) }
+
+      it 'returns 201' do
+        post '/invalid_request/123', '{"integer": "1"}'
+
+        expect(last_response.created?).to be_truthy
+      end
+
+      it 'returns headers' do
+        post '/invalid_request/123', '{"integer": "1"}'
+
+        expect(last_response.headers).to include(
+          'Content-Type' => 'application/json',
+          'Correlation-Id' => a_kind_of(String)
+        )
+      end
+
+      it 'returns validation error message' do
+        post '/invalid_request/123', '{"integer": "1"}'
+
+        expect(JSON.parse(last_response.body)).to include('id' => a_kind_of(Integer))
       end
     end
   end
