@@ -3,7 +3,7 @@ PATH
   specs:
     fakeit (0.1.1)
       faker (~> 1.9)
-      openapi_parser (= 0.2.4)
+      openapi_parser (= 0.3.0)
       rack (~> 2.0)
       slop (~> 4.6)
 
@@ -21,7 +21,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.2)
     json (2.2.0)
-    openapi_parser (0.2.4)
+    openapi_parser (0.3.0)
     parallel (1.17.0)
     parser (2.6.2.1)
       ast (~> 2.4.0)
