@@ -33,7 +33,7 @@
           "integer_range": {
             "type": "integer",
             "minimum": 1,
-            "maximum": 1
+            "maximum": 10
           },
           "integer_enum": {
             "type": "integer",

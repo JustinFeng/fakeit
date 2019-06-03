@@ -25,9 +25,22 @@
   "components": {
     "schemas": {
       "response": {
-        "type": "array",
-        "items": {
-          "properties": {}
+        "type": "object",
+        "properties": {
+          "array": {
+            "type": "array",
+            "items": {
+              "properties": {}
+            }
+          },
+          "array_item_number": {
+            "type": "array",
+            "minItems": 5,
+            "maxItems": 10,
+            "items": {
+              "properties": {}
+            }
+          }
         }
       }
     }
