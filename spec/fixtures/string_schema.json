@@ -44,6 +44,10 @@
           "string_uri": {
             "type": "string",
             "format": "uri"
+          },
+          "string_uuid": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       }
