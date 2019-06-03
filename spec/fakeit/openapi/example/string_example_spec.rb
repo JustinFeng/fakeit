@@ -23,21 +23,27 @@ describe Fakeit::Openapi::Example do
   end
 
   it 'uri format example' do
-    uri = schema.properties['string_uri'].to_example
+    uri = schema.properties['string_uri']
 
-    expect { URI.parse(uri) }.not_to raise_error
+    expect { URI.parse(uri.to_example) }.not_to raise_error
   end
 
   it 'uuid format example' do
     uuid_pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
-    uuid = schema.properties['string_uuid'].to_example
+    uuid = schema.properties['string_uuid']
 
-    expect(uuid).to match(uuid_pattern)
+    expect(uuid.to_example).to match(uuid_pattern)
   end
 
   it 'email format example' do
-    email = schema.properties['string_email'].to_example
+    email = schema.properties['string_email']
 
-    expect(email).to match(URI::MailTo::EMAIL_REGEXP)
+    expect(email.to_example).to match(URI::MailTo::EMAIL_REGEXP)
+  end
+
+  it 'unknown format example' do
+    unknown = schema.properties['string_unknown']
+
+    expect(unknown.to_example).to be_a_kind_of(String)
   end
 end

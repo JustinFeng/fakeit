@@ -52,6 +52,10 @@
           "string_email": {
             "type": "string",
             "format": "email"
+          },
+          "string_unknown": {
+            "type": "string",
+            "format": "unknown"
           }
         }
       }

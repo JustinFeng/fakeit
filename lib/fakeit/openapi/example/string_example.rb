@@ -20,6 +20,7 @@ module Fakeit
         when 'uri' then Faker::Internet.url
         when 'uuid' then SecureRandom.uuid
         when 'email' then Faker::Internet.email
+        else Faker::Movie.quote
         end
       end
     end
