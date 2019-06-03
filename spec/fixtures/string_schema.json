@@ -48,6 +48,10 @@
           "string_uuid": {
             "type": "string",
             "format": "uuid"
+          },
+          "string_email": {
+            "type": "string",
+            "format": "email"
           }
         }
       }

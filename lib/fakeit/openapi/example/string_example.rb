@@ -19,6 +19,7 @@ module Fakeit
         case format
         when 'uri' then Faker::Internet.url
         when 'uuid' then SecureRandom.uuid
+        when 'email' then Faker::Internet.email
         end
       end
     end

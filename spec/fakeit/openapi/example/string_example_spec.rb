@@ -34,4 +34,10 @@ describe Fakeit::Openapi::Example do
 
     expect(uuid).to match(uuid_pattern)
   end
+
+  it 'email format example' do
+    email = schema.properties['string_email'].to_example
+
+    expect(email).to match(URI::MailTo::EMAIL_REGEXP)
+  end
 end
