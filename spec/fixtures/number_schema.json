@@ -25,7 +25,24 @@
   "components": {
     "schemas": {
       "response": {
-        "type": "number"
+        "type": "object",
+        "properties": {
+          "number": {
+            "type": "number"
+          },
+          "number_range": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "number_range_exclusive": {
+            "type": "number",
+            "minimum": 0,
+            "exclusiveMinimum": true,
+            "maximum": 10,
+            "exclusiveMaximum": true
+          }
+        }
       }
     }
   }

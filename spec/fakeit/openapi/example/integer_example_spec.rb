@@ -15,6 +15,12 @@ describe Fakeit::Openapi::Example do
     expect(integer_range.to_example).to be_between(1, 10).inclusive
   end
 
+  it 'range exclusive example' do
+    integer_range = schema.properties['integer_range_exclusive']
+
+    expect(integer_range.to_example).to be(2)
+  end
+
   it 'enum example' do
     integer_enum = schema.properties['integer_enum']
 

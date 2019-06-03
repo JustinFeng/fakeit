@@ -7,7 +7,7 @@ describe Fakeit::Openapi::Example do
     expect(schema.properties['array'].to_example).to be_a_kind_of(Array)
   end
 
-  it 'array item number example' do
+  it 'item number example' do
     expect(schema.properties['array_item_number'].to_example.size).to be_between(5, 10).inclusive
   end
 end
