@@ -1,0 +1,42 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Schema Type"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "response": {
+        "type": "object",
+        "properties": {
+          "implied_object": {
+            "properties": {}
+          },
+          "implied_array": {
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

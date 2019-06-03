@@ -6,7 +6,7 @@ require 'faker'
 require 'rack'
 require 'logger'
 
-Dir.glob(File.join(File.dirname(__FILE__), 'fakeit', '/**/*.rb')).each { |file| require file }
+Dir.glob(File.join(File.dirname(__FILE__), 'fakeit', '**/*.rb')).each { |file| require file }
 
 module Fakeit
   class << self

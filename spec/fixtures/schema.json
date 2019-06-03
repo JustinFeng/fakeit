@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "version": "1.0.0",
-    "title": "Test"
+    "title": "Schema"
   },
   "paths": {
     "/": {
@@ -13,7 +13,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/array"
+                  "$ref": "#/components/schemas/response"
                 }
               }
             }
@@ -24,56 +24,21 @@
   },
   "components": {
     "schemas": {
-      "array": {
+      "response": {
         "type": "array",
         "items": {
           "properties": {
             "string": {
               "type": "string"
             },
-            "string_enum": {
-              "type": "string",
-              "enum": [
-                "A",
-                "B"
-              ]
-            },
-            "string_pattern": {
-              "type": "string",
-              "pattern": "^[12][0-9]{3}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$"
-            },
-            "string_uri": {
-              "type": "string",
-              "format": "uri"
-            },
             "integer": {
               "type": "integer"
-            },
-            "integer_range": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 1
-            },
-            "integer_enum": {
-              "type": "integer",
-              "enum": [
-                1,
-                2
-              ]
             },
             "number": {
               "type": "number"
             },
             "boolean": {
               "type": "boolean"
-            },
-            "implied_object": {
-              "properties": {}
-            },
-            "implied_array": {
-              "items": {
-                "type": "string"
-              }
             },
             "unknown": {
               "example": "you guess"

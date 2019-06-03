@@ -1,0 +1,49 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Integer"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/response"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "response": {
+        "type": "object",
+        "properties": {
+          "integer": {
+            "type": "integer"
+          },
+          "integer_range": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1
+          },
+          "integer_enum": {
+            "type": "integer",
+            "enum": [
+              1,
+              2
+            ]
+          }
+        }
+      }
+    }
+  }
+}
