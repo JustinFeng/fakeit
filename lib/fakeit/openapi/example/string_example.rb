@@ -1,29 +1,44 @@
 module Fakeit
   module Openapi
     module Example
+      FORMAT_HANDLERS = {
+        'uri' => -> { Faker::Internet.url },
+        'uuid' => -> { SecureRandom.uuid },
+        'email' => -> { Faker::Internet.email },
+        'date' => -> { Faker::Date.backward(100).iso8601 },
+        'date-time' => -> { Faker::Date.backward(100).rfc3339 }
+      }.freeze
+
       def string_example
-        if enum
-          enum.to_a.sample
-        elsif pattern
-          Faker::Base.regexify(pattern)
-        elsif format
-          string_format
-        else
-          Faker::Book.title
+        if enum then enum.to_a.sample
+        elsif pattern then Faker::Base.regexify(pattern)
+        elsif format then string_format
+        elsif minLength || maxLength then string_with_length
+        else Faker::Book.title
         end
       end
 
       private
 
+      def string_with_length
+        Faker::Internet.user_name(min_string_length..max_string_length)
+      end
+
+      def min_string_length
+        minLength || 0
+      end
+
+      def max_string_length
+        maxLength || min_string_length + 10
+      end
+
       def string_format
-        case format
-        when 'uri' then Faker::Internet.url
-        when 'uuid' then SecureRandom.uuid
-        when 'email' then Faker::Internet.email
-        when 'date' then Faker::Date.backward(100).iso8601
-        when 'date-time' then Faker::Date.backward(100).rfc3339
-        else Faker::Movie.quote
-        end
+        (FORMAT_HANDLERS[format] || method(:unknown_format))[]
+      end
+
+      def unknown_format
+        Fakeit::Logger.warn("Unknown string format: #{format}")
+        'Unknown string format'
       end
     end
   end

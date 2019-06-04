@@ -60,9 +60,15 @@ describe Fakeit::Openapi::Example do
     expect(date_time.to_example).to match(rfc3339_date_time_pattern)
   end
 
+  it 'length example' do
+    length = schema.properties['string_length']
+
+    expect(length.to_example.length).to be_between(1, 3).inclusive
+  end
+
   it 'unknown format example' do
     unknown = schema.properties['string_unknown']
 
-    expect(unknown.to_example).to be_a_kind_of(String)
+    expect(unknown.to_example).to eq('Unknown string format')
   end
 end

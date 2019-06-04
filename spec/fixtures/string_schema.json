@@ -61,6 +61,11 @@
             "type": "string",
             "format": "date-time"
           },
+          "string_length": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3
+          },
           "string_unknown": {
             "type": "string",
             "format": "unknown"
