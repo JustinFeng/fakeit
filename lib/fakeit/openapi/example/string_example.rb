@@ -20,6 +20,8 @@ module Fakeit
         when 'uri' then Faker::Internet.url
         when 'uuid' then SecureRandom.uuid
         when 'email' then Faker::Internet.email
+        when 'date' then Faker::Date.backward(100).iso8601
+        when 'date-time' then Faker::Date.backward(100).rfc3339
         else Faker::Movie.quote
         end
       end

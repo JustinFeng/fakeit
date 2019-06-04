@@ -41,6 +41,25 @@ describe Fakeit::Openapi::Example do
     expect(email.to_example).to match(URI::MailTo::EMAIL_REGEXP)
   end
 
+  it 'date format example' do
+    rfc3339_date_pattern = /^[12][0-9]{3}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])$/
+    date = schema.properties['string_date']
+
+    expect(date.to_example).to match(rfc3339_date_pattern)
+  end
+
+  it 'date time format example' do
+    rfc3339_date_time_pattern = /
+      ^[12][0-9]{3}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])
+      T
+      (2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]
+      ([Zz]|[\+|\-](2[0-3]|[01][0-9]):[0-5][0-9])$
+    /x
+    date_time = schema.properties['string_date_time']
+
+    expect(date_time.to_example).to match(rfc3339_date_time_pattern)
+  end
+
   it 'unknown format example' do
     unknown = schema.properties['string_unknown']
 

@@ -53,6 +53,14 @@
             "type": "string",
             "format": "email"
           },
+          "string_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "string_date_time": {
+            "type": "string",
+            "format": "date-time"
+          },
           "string_unknown": {
             "type": "string",
             "format": "unknown"
