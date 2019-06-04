@@ -15,19 +15,11 @@ Create mock server from Openapi specification
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'fakeit'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install it with:
 
     $ gem install fakeit
+
+Or use the [docker image](https://hub.docker.com/r/realfengjia/fakeit)
 
 ## Usage
 
