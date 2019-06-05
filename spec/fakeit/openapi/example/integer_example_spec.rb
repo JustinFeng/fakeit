@@ -3,19 +3,25 @@ describe Fakeit::Openapi::Example do
     load_schema('integer_schema')
   end
 
-  it 'integer example' do
+  it 'default integer example' do
+    expect(Faker::Number).to receive(:between).with(1, Fakeit::Openapi::Example::BIG_INT).and_return(1)
+
     integer = schema.properties['integer']
 
-    expect(integer.to_example).to be_a_kind_of(Integer)
+    expect(integer.to_example).to be(1)
   end
 
   it 'range example' do
+    expect(Faker::Number).to receive(:between).with(1, 10).and_return(1)
+
     integer_range = schema.properties['integer_range']
 
-    expect(integer_range.to_example).to be_between(1, 10).inclusive
+    expect(integer_range.to_example).to be(1)
   end
 
   it 'range exclusive example' do
+    expect(Faker::Number).to receive(:between).with(2, 2).and_return(2)
+
     integer_range = schema.properties['integer_range_exclusive']
 
     expect(integer_range.to_example).to be(2)

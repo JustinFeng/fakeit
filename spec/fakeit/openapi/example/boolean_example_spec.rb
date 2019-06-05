@@ -4,6 +4,10 @@ describe Fakeit::Openapi::Example do
   end
 
   it 'boolean example' do
-    expect(schema.to_example).to be_a_kind_of(TrueClass).or be_a_kind_of(FalseClass)
+    expect(Faker::Boolean).to receive(:boolean).and_return(true)
+
+    boolean = schema.to_example
+
+    expect(boolean).to be(true)
   end
 end

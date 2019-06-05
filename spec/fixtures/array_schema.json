@@ -33,7 +33,7 @@
               "properties": {}
             }
           },
-          "array_item_number": {
+          "array_min_max": {
             "type": "array",
             "minItems": 5,
             "maxItems": 10,

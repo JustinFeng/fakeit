@@ -6,7 +6,7 @@ module Fakeit
         'uuid' => -> { SecureRandom.uuid },
         'email' => -> { Faker::Internet.email },
         'date' => -> { Faker::Date.backward(100).iso8601 },
-        'date-time' => -> { Faker::Date.backward(100).rfc3339 }
+        'date-time' => -> { Faker::Time.backward(100).iso8601 }
       }.freeze
 
       def string_example
