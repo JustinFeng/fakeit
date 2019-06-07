@@ -1,6 +1,11 @@
 # Fakeit
 
-[![CircleCI](https://circleci.com/gh/JustinFeng/fakeit.svg?style=svg)](https://circleci.com/gh/JustinFeng/fakeit)
+[![CircleCI](https://img.shields.io/circleci/build/github/JustinFeng/fakeit.svg)](https://circleci.com/gh/JustinFeng/fakeit)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/JustinFeng/fakeit.svg)](https://codeclimate.com/github/JustinFeng/fakeit)
+[![Gem](https://img.shields.io/gem/v/fakeit.svg)](https://rubygems.org/gems/fakeit)
+[![Gem](https://img.shields.io/gem/dt/fakeit.svg)](https://rubygems.org/gems/fakeit)
+[![Docker Pulls](https://img.shields.io/docker/pulls/realfengjia/fakeit.svg)](https://hub.docker.com/r/realfengjia/fakeit)
+[![GitHub](https://img.shields.io/github/license/JustinFeng/fakeit.svg)](https://opensource.org/licenses/MIT)
 
 Create mock server from Openapi specification
 
