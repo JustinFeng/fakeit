@@ -18,4 +18,12 @@ describe Fakeit::Openapi::Example do
 
     expect(number.to_example).to be(5.1)
   end
+
+  it 'multiple by example' do
+    expect(Faker::Number).to receive(:between).with(1, 3).and_return(2)
+
+    number = schema.properties['number_multiple']
+
+    expect(number.to_example).to be(5.0)
+  end
 end

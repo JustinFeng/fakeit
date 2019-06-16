@@ -7,25 +7,25 @@ module Fakeit
         if enum
           enum.to_a.sample
         else
-          Faker::Number.between(rand_begin, rand_end) * multiple
+          Faker::Number.between(int_rand_begin, int_rand_end) * int_multiple
         end
       end
 
       private
 
-      def rand_begin
-        min_int / multiple + rand_begin_adjust
+      def int_rand_begin
+        min_int / int_multiple + int_rand_begin_adjust
       end
 
-      def rand_end
-        max_int / multiple
+      def int_rand_end
+        max_int / int_multiple
       end
 
-      def rand_begin_adjust
-        (min_int % multiple).zero? ? 0 : 1
+      def int_rand_begin_adjust
+        (min_int % int_multiple).zero? ? 0 : 1
       end
 
-      def multiple
+      def int_multiple
         multipleOf || 1
       end
 

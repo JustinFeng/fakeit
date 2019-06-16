@@ -4,10 +4,22 @@ module Fakeit
       BIG_NUM = 2**32
 
       def number_example
-        Faker::Number.between(min_num, max_num).round(2)
+        (Faker::Number.between(num_rand_begin, num_rand_end) * num_multiple).round(2)
       end
 
       private
+
+      def num_rand_begin
+        multipleOf ? (min_num / multipleOf).ceil : min_num
+      end
+
+      def num_rand_end
+        multipleOf ? (max_num / multipleOf).floor : max_num
+      end
+
+      def num_multiple
+        multipleOf || 1
+      end
 
       def min_num
         (minimum || 0).to_f.ceil(2)
