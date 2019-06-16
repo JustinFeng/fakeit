@@ -40,6 +40,14 @@
             "items": {
               "properties": {}
             }
+          },
+          "array_unique": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "properties": {}
+            }
           }
         }
       }
