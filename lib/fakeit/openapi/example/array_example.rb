@@ -5,27 +5,21 @@ module Fakeit
 
       def array_example(use_example)
         size = retries = uniqueItems ? min_array : Faker::Number.between(min_array, max_array)
-
-        generate_items(size, retries, use_example)
+        [].tap { |result| generate_items(size, retries, use_example, result) }
       end
 
       private
 
-      def generate_items(size, retries, use_example)
-        result = []
-
+      def generate_items(size, retries, use_example, result)
         loop do
           item = items.to_example(use_example)
 
           if need_retry?(item, result, retries)
             retries -= 1
-            next
+          elsif (result << item).size >= size
+            break
           end
-
-          break if (result << item).size >= size
         end
-
-        result
       end
 
       def need_retry?(item, result, retries)

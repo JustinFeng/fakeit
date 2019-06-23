@@ -13,12 +13,16 @@ module Fakeit
         if enum then enum.to_a.sample
         elsif pattern then Faker::Base.regexify(pattern)
         elsif format then string_format
-        elsif minLength || maxLength then string_with_length
+        elsif length_constraint then string_with_length
         else Faker::Book.title
         end
       end
 
       private
+
+      def length_constraint
+        minLength || maxLength
+      end
 
       def string_with_length
         Faker::Internet.user_name(min_string_length..max_string_length)
