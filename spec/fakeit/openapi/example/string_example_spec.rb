@@ -42,6 +42,14 @@ describe Fakeit::Openapi::Example do
     expect(uuid.to_example).to eq('uuid')
   end
 
+  it 'guid format example' do
+    expect(SecureRandom).to receive(:uuid).and_return('guid')
+
+    guid = schema.properties['string_guid']
+
+    expect(guid.to_example).to eq('guid')
+  end
+
   it 'email format example' do
     expect(Faker::Internet).to receive(:email).and_return('email')
 

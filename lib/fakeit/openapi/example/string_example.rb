@@ -4,6 +4,7 @@ module Fakeit
       FORMAT_HANDLERS = {
         'uri' => -> { Faker::Internet.url },
         'uuid' => -> { SecureRandom.uuid },
+        'guid' => -> { SecureRandom.uuid },
         'email' => -> { Faker::Internet.email },
         'date' => -> { Faker::Date.backward(100).iso8601 },
         'date-time' => -> { Faker::Time.backward(100).iso8601 }

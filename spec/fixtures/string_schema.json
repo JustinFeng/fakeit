@@ -49,6 +49,10 @@
             "type": "string",
             "format": "uuid"
           },
+          "string_guid": {
+            "type": "string",
+            "format": "guid"
+          },
           "string_email": {
             "type": "string",
             "format": "email"
