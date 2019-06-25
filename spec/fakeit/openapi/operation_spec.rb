@@ -50,8 +50,16 @@ describe Fakeit::Openapi::Operation do
       )
     end
 
+    it 'only returns Content-Type header when no custom headers defined' do
+      allow(response).to receive(:headers).and_return(nil)
+      allow(response).to receive(:content).and_return('application/json' => media_type)
+
+      expect(subject.headers).to eq('Content-Type' => 'application/json')
+    end
+
     it 'returns no headers' do
       allow(response).to receive(:headers).and_return(nil)
+      allow(response).to receive(:content).and_return(nil)
 
       expect(subject.headers).to eq({})
     end

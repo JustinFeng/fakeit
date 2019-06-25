@@ -14,8 +14,8 @@ module Fakeit
       def headers
         response_headers
           &.map { |k, v| [k, v.schema.to_example(@options.use_example)] }
-          &.tap { |headers| headers.push(['Content-Type', response_content_type]) if response_content_type }
           .to_h
+          .tap { |headers| headers['Content-Type'] = response_content_type if response_content_type }
       end
 
       def body
