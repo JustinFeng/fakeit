@@ -44,6 +44,9 @@ Command line options:
         -v, --version
         -h, --help
 
+**Notes:**
+* Random response generation can not handle recursive schema reference. If you do need it in your spec file, please provide `example` property for the recursive part of schema and specify `--use-example` option.
+
 ## Development
 
 After checking out the repo, run `bundle install` to install dependencies. Then, run `rake` to run the tests.
