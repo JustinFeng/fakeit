@@ -8,19 +8,24 @@ module Fakeit
           request = Rack::Request.new(env)
           specification
             .operation(request.request_method.downcase.to_sym, request.path_info, options)
-            .then { |operation| operation ? handle(operation, request, options) : not_found }
+            .then { |operation| send_response(operation ? handle(operation, request, options) : not_found, options) }
         end
       end
 
       private
 
+      def send_response(response, options)
+        add_cors_headers(response) if options.allow_cors
+        response
+      end
+
       def handle(operation, request, options)
         validate(operation, request)
-        response(operation, options)
+        response(operation)
       rescue Fakeit::Validation::ValidationError => e
         if options.permissive
           Fakeit::Logger.warn(e.message)
-          response(operation, options)
+          response(operation)
         else
           error(e)
         end
@@ -34,12 +39,12 @@ module Fakeit
         [404, {}, ['Not Found']]
       end
 
-      def response(operation, options)
-        [operation.status, operation.headers.merge(options.allow_cors ? cors_headers : {}), [operation.body]]
+      def response(operation)
+        [operation.status, operation.headers, [operation.body]]
       end
 
-      def cors_headers
-        { 'Access-Control-Allow-Origin' => '*' }
+      def add_cors_headers(response)
+        response[1]['Access-Control-Allow-Origin'] = '*'
       end
 
       def validate(operation, request)

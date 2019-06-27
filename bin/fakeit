@@ -41,7 +41,11 @@ trap(:INT) do
   end
 end
 
-options = Fakeit::App::Options.new(permissive: opts.permissive?, use_example: opts.use_example?, allow_cors: opts.allow_cors?)
+options = Fakeit::App::Options.new(
+  permissive: opts.permissive?,
+  use_example: opts.use_example?,
+  allow_cors: opts.allow_cors?
+)
 app = Fakeit.build(opts[:spec], options)
 app.use(Fakeit::Middleware::Recorder) unless opts.quiet?
 server.run(app, Port: opts[:port], Host: '0.0.0.0')
