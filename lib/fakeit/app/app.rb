@@ -16,11 +16,11 @@ module Fakeit
 
       def handle(operation, request, options)
         validate(operation, request)
-        response(operation)
+        response(operation, options)
       rescue Fakeit::Validation::ValidationError => e
         if options.permissive
           Fakeit::Logger.warn(e.message)
-          response(operation)
+          response(operation, options)
         else
           error(e)
         end
@@ -34,8 +34,12 @@ module Fakeit
         [404, {}, ['Not Found']]
       end
 
-      def response(operation)
-        [operation.status, operation.headers, [operation.body]]
+      def response(operation, options)
+        [operation.status, operation.headers.merge(options.allow_cors ? cors_headers : {}), [operation.body]]
+      end
+
+      def cors_headers
+        { 'Access-Control-Allow-Origin' => '*' }
       end
 
       def validate(operation, request)
