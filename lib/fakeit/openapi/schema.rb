@@ -13,12 +13,24 @@ module Fakeit
       def to_example(use_example = false)
         return example if use_example && example
 
-        return one_of.sample.to_example(use_example) if one_of
+        return one_of_example(use_example) if one_of
+        return all_of_example(use_example) if all_of
 
         type_based_example(use_example)
       end
 
       private
+
+      def one_of_example(use_example)
+        one_of.sample.to_example(use_example)
+      end
+
+      def all_of_example(use_example)
+        all_of
+          .select { |option| option.type == 'object' }
+          .map { |option| option.to_example(use_example) }
+          .reduce(&:merge)
+      end
 
       def type_based_example(use_example)
         case type

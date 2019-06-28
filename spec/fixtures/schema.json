@@ -77,6 +77,16 @@
                   "$ref": "#/components/schemas/option2"
                 }
               ]
+            },
+            "all_of_example": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/option1"
+                },
+                {
+                  "$ref": "#/components/schemas/option2"
+                }
+              ]
             }
           }
         }
