@@ -11,7 +11,6 @@ begin
     o.bool '-q', '--quiet', 'mute request and response log'
     o.bool '--permissive', 'log validation error as warning instead of deny request'
     o.bool '--use-example', 'use example provided in spec'
-    o.bool '--allow-cors', 'set Access-Control-Allow-Origin Header to *'
     o.separator ''
     o.separator 'other options:'
     o.on '-v', '--version' do
@@ -41,11 +40,14 @@ trap(:INT) do
   end
 end
 
-options = Fakeit::App::Options.new(
-  permissive: opts.permissive?,
-  use_example: opts.use_example?,
-  allow_cors: opts.allow_cors?
-)
+options = Fakeit::App::Options.new(permissive: opts.permissive?, use_example: opts.use_example?)
 app = Fakeit.build(opts[:spec], options)
+app.use Rack::Cors do
+  allow do 
+    origins '*'
+    resource '*', headers: :any, methods: :any
+  end
+end
+
 app.use(Fakeit::Middleware::Recorder) unless opts.quiet?
 server.run(app, Port: opts[:port], Host: '0.0.0.0')

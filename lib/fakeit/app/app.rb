@@ -8,16 +8,11 @@ module Fakeit
           request = Rack::Request.new(env)
           specification
             .operation(request.request_method.downcase.to_sym, request.path_info, options)
-            .then { |operation| send_response(operation ? handle(operation, request, options) : not_found, options) }
+            .then { |operation| operation ? handle(operation, request, options) : not_found }
         end
       end
 
       private
-
-      def send_response(response, options)
-        add_cors_headers(response) if options.allow_cors
-        response
-      end
 
       def handle(operation, request, options)
         validate(operation, request)
@@ -41,10 +36,6 @@ module Fakeit
 
       def response(operation)
         [operation.status, operation.headers, [operation.body]]
-      end
-
-      def add_cors_headers(response)
-        response[1]['Access-Control-Allow-Origin'] = '*'
       end
 
       def validate(operation, request)

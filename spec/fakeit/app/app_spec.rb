@@ -85,31 +85,4 @@ describe Fakeit::App do
       end
     end
   end
-
-  context 'allow cors' do
-    let(:options) { Fakeit::App::Options.new(allow_cors: true) }
-
-    it 'handles valid request' do
-      headers = { 'Content-Type' => 'application' }
-      headers_spec = { 'Content-Type' => 'application', 'Access-Control-Allow-Origin' => '*' }
-      operation = double(Fakeit::Openapi::Operation, status: 200, headers: headers, body: 'body', validate: nil)
-      allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
-
-      status, headers, body = subject[env]
-
-      expect(status).to be(200)
-      expect(headers).to eq(headers_spec)
-      expect(body).to eq(['body'])
-    end
-
-    it 'handles not found' do
-      allow(specification).to receive(:operation).with(:get, '/not_found', options).and_return(nil)
-
-      status, headers, body = subject[{ 'REQUEST_METHOD' => 'GET', 'PATH_INFO' => '/not_found' }]
-
-      expect(status).to be(404)
-      expect(headers).to eq('Access-Control-Allow-Origin' => '*')
-      expect(body).to eq(['Not Found'])
-    end
-  end
 end

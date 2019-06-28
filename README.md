@@ -39,7 +39,6 @@ Command line options:
         -q, --quiet    mute request and response log
         --permissive   log validation error as warning instead of deny request
         --use-example  use example provided in spec
-        --allow-cors   set Access-Control-Allow-Origin Header to *
 
     other options:
         -v, --version

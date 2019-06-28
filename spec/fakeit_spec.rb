@@ -1,7 +1,7 @@
 describe Fakeit do
   include Rack::Test::Methods
 
-  let(:options) { Fakeit::App::Options.new(permissive: false, allow_cors: false) }
+  let(:options) { Fakeit::App::Options.new(permissive: false) }
 
   def app
     Fakeit.build('spec/fixtures/spec.json', options)
@@ -27,20 +27,6 @@ describe Fakeit do
         'Content-Type' => 'application/json',
         'Correlation-Id' => a_kind_of(String)
       )
-    end
-
-    context 'allow cors' do
-      let(:options) { Fakeit::App::Options.new(allow_cors: true) }
-
-      it 'returns headers' do
-        get '/resource/1'
-
-        expect(last_response.headers).to include(
-          'Access-Control-Allow-Origin' => '*',
-          'Content-Type' => 'application/json',
-          'Correlation-Id' => a_kind_of(String)
-        )
-      end
     end
   end
 
