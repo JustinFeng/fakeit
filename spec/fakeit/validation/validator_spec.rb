@@ -38,10 +38,17 @@ describe Fakeit::Validation::Validator do
       subject.validate(body: '{"request": "body"}')
     end
 
-    it 'does not validate when body is not valid json' do
+    it 'does not validate when body is invalid json and content type is not json' do
+      allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content).and_return(nil)
+
       expect(request_operation).not_to receive(:validate_request_body)
 
       subject.validate(body: 'not a json')
+    end
+
+    it 'raise validation error when body is invalid json but content type is json' do
+      expect { subject.validate(body: 'not a json') }
+        .to raise_error(Fakeit::Validation::ValidationError, 'Invalid json payload')
     end
   end
 
