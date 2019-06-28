@@ -13,6 +13,14 @@ module Fakeit
       def to_example(use_example = false)
         return example if use_example && example
 
+        return one_of.sample.to_example(use_example) if one_of
+
+        type_based_example(use_example)
+      end
+
+      private
+
+      def type_based_example(use_example)
         case type
         when 'string', 'integer', 'number', 'boolean' then send("#{type}_example")
         when 'array', 'object' then send("#{type}_example", use_example)

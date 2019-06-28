@@ -20,6 +20,18 @@ describe Fakeit::Openapi::Schema do
         'boolean' => a_kind_of(TrueClass).or(be_a_kind_of(FalseClass))
       )
     end
+
+    it 'oneOf example' do
+      one_of_example = schema.items.properties['one_of_example']
+
+      expect(one_of_example.to_example).to include(
+        'integer' => a_kind_of(Integer),
+        'number' => a_kind_of(Float)
+      ).or include(
+        'string' => a_kind_of(String),
+        'boolean' => a_kind_of(TrueClass).or(be_a_kind_of(FalseClass))
+      )
+    end
   end
 
   context 'when use example' do

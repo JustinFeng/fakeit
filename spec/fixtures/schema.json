@@ -67,7 +67,39 @@
               "enum": [
                 "useful"
               ]
+            },
+            "one_of_example": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/option1"
+                },
+                {
+                  "$ref": "#/components/schemas/option2"
+                }
+              ]
             }
+          }
+        }
+      },
+      "option1": {
+        "type": "object",
+        "properties": {
+          "integer": {
+            "type": "integer"
+          },
+          "number": {
+            "type": "number"
+          }
+        }
+      },
+      "option2": {
+        "type": "object",
+        "properties": {
+          "string": {
+            "type": "string"
+          },
+          "boolean": {
+            "type": "boolean"
           }
         }
       }
