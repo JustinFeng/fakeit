@@ -4,6 +4,13 @@ describe Fakeit::Openapi::Schema do
   end
 
   context 'random generates' do
+    before(:each) do
+      allow(Faker::Book).to receive(:title).and_return('string')
+      allow(Faker::Number).to receive(:between).and_return(1)
+      allow(Faker::Number).to receive(:between).and_return(1.0)
+      allow(Faker::Boolean).to receive(:boolean).and_return(true)
+    end
+
     it 'handles unknown type' do
       unknown = schema.items.properties['unknown']
 
@@ -14,22 +21,20 @@ describe Fakeit::Openapi::Schema do
       example = schema.to_example
 
       expect(example.first).to include(
-        'string' => a_kind_of(String),
-        'integer' => a_kind_of(Integer),
-        'number' => a_kind_of(Float),
-        'boolean' => a_kind_of(TrueClass).or(be_a_kind_of(FalseClass))
+        'string' => 'string',
+        'integer' => 1,
+        'number' => 1.0,
+        'boolean' => true
       )
     end
 
     it 'oneOf example' do
       one_of_example = schema.items.properties['one_of_example']
+      allow(one_of_example.one_of).to receive(:sample).and_return(one_of_example.one_of.first)
 
       expect(one_of_example.to_example).to include(
-        'integer' => a_kind_of(Integer),
-        'number' => a_kind_of(Float)
-      ).or include(
-        'string' => a_kind_of(String),
-        'boolean' => a_kind_of(TrueClass).or(be_a_kind_of(FalseClass))
+        'integer' => 1,
+        'number' => 1.0
       )
     end
 
@@ -37,10 +42,22 @@ describe Fakeit::Openapi::Schema do
       all_of_example = schema.items.properties['all_of_example']
 
       expect(all_of_example.to_example).to include(
-        'integer' => a_kind_of(Integer),
-        'number' => a_kind_of(Float),
-        'string' => a_kind_of(String),
-        'boolean' => a_kind_of(TrueClass).or(be_a_kind_of(FalseClass))
+        'string' => 'string',
+        'integer' => 1,
+        'number' => 1.0,
+        'boolean' => true
+      )
+    end
+
+    it 'anyOf example' do
+      any_of_example = schema.items.properties['any_of_example']
+      allow(any_of_example.any_of).to receive_message_chain(:select, :sample).and_return(any_of_example.any_of)
+
+      expect(any_of_example.to_example).to include(
+        'string' => 'string',
+        'integer' => 1,
+        'number' => 1.0,
+        'boolean' => true
       )
     end
   end

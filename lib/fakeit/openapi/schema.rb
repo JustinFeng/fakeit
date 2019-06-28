@@ -15,6 +15,7 @@ module Fakeit
 
         return one_of_example(use_example) if one_of
         return all_of_example(use_example) if all_of
+        return any_of_example(use_example) if any_of
 
         type_based_example(use_example)
       end
@@ -28,6 +29,14 @@ module Fakeit
       def all_of_example(use_example)
         all_of
           .select { |option| option.type == 'object' }
+          .map { |option| option.to_example(use_example) }
+          .reduce(&:merge)
+      end
+
+      def any_of_example(use_example)
+        any_of
+          .select { |option| option.type == 'object' }
+          .sample(Faker::Number.between(1, any_of.size))
           .map { |option| option.to_example(use_example) }
           .reduce(&:merge)
       end

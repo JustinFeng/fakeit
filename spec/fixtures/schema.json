@@ -87,6 +87,16 @@
                   "$ref": "#/components/schemas/option2"
                 }
               ]
+            },
+            "any_of_example": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/option1"
+                },
+                {
+                  "$ref": "#/components/schemas/option2"
+                }
+              ]
             }
           }
         }
