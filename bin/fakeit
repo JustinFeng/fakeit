@@ -42,5 +42,12 @@ end
 
 options = Fakeit::App::Options.new(permissive: opts.permissive?, use_example: opts.use_example?)
 app = Fakeit.build(opts[:spec], options)
+app.use Rack::Cors do
+  allow do 
+    origins '*'
+    resource '*', headers: :any, methods: :any
+  end
+end
+
 app.use(Fakeit::Middleware::Recorder) unless opts.quiet?
 server.run(app, Port: opts[:port], Host: '0.0.0.0')
