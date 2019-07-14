@@ -10,8 +10,11 @@ begin
     o.string '--spec', 'spec file uri (required)', required: true
     o.integer '-p', '--port', 'custom port'
     o.bool '-q', '--quiet', 'mute request and response log'
-    o.bool '--permissive', 'log validation error as warning instead of deny request'
-    o.bool '--use-example', 'use example provided in spec'
+    o.bool '--permissive', 'log validation error as warning instead of denying request'
+    o.bool '--use-example', 'use example provided in spec if exists'
+    o.separator ''
+    o.separator 'trial options:'
+    o.bool '--static', 'generate static response'
     o.separator ''
     o.separator 'other options:'
     o.on '-v', '--version' do
@@ -41,7 +44,11 @@ trap(:INT) do
   end
 end
 
-options = Fakeit::App::Options.new(permissive: opts.permissive?, use_example: opts.use_example?)
+options = Fakeit::App::Options.new(
+  permissive: opts.permissive?,
+  use_example: opts.use_example?,
+  static: opts.static?
+)
 app = Fakeit.build(opts[:spec], options)
 
 app.use Rack::Cors do

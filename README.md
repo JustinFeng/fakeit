@@ -37,8 +37,11 @@ Command line options:
         --spec         spec file uri (required)
         -p, --port     custom port
         -q, --quiet    mute request and response log
-        --permissive   log validation error as warning instead of deny request
-        --use-example  use example provided in spec
+        --permissive   log validation error as warning instead of denying request
+        --use-example  use example provided in spec if exists
+
+    trial options:
+        --static       generate static response
 
     other options:
         -v, --version
