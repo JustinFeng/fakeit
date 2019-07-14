@@ -3,16 +3,16 @@ module Fakeit
     module Example
       MAX_SIZE = 3
 
-      def array_example(use_example)
+      def array_example(example_options)
         size = retries = uniqueItems ? min_array : Faker::Number.between(min_array, max_array)
-        [].tap { |result| generate_items(size, retries, use_example, result) }
+        [].tap { |result| generate_items(size, retries, example_options, result) }
       end
 
       private
 
-      def generate_items(size, retries, use_example, result)
+      def generate_items(size, retries, example_options, result)
         loop do
-          item = items.to_example(use_example)
+          item = items.to_example(example_options)
 
           if need_retry?(item, result, retries)
             retries -= 1

@@ -49,7 +49,7 @@ module Fakeit
       def type_based_example(example_options)
         case type
         when 'string', 'integer', 'number', 'boolean' then send(method_name(example_options[:static], type))
-        when 'array', 'object' then send("#{type}_example", example_options)
+        when 'array', 'object' then send(method_name(example_options[:static], type), example_options)
         end
       end
 
