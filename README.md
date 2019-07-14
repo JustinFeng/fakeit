@@ -9,9 +9,9 @@
 
 Create mock server from Openapi specification
 
-## Description
+## Features
 
-* Randomly generated response
+* Randomly or statically generated response
 * Request validation
 * Load specification from local or remote
 * Support specification in yaml or json format
@@ -48,6 +48,9 @@ Command line options:
         -h, --help
 
 **Notes:**
+* See [here](docs/random.md) for Openapi properties supported in random response generation
+* See [here](docs/static.md) for default value in static response generation
+* Regarding `--use-example` mode, property without example specified will still be randomly or statically generated
 * Random response generation can not handle recursive schema reference. If you do need it in your spec file, please provide `example` property for the recursive part of schema and specify `--use-example` option.
 
 ## Development
