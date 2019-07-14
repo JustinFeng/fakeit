@@ -48,7 +48,7 @@
               "enum": [
                 "useless"
               ],
-              "example": "always fixed"
+              "example": "provided example"
             },
             "with_nested_example": {
               "type": "object",
@@ -58,7 +58,7 @@
                   "enum": [
                     "useless"
                   ],
-                  "example": "always fixed"
+                  "example": "provided example"
                 }
               }
             },

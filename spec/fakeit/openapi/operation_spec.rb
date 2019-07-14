@@ -1,7 +1,7 @@
 describe Fakeit::Openapi::Operation do
-  subject { Fakeit::Openapi::Operation.new(request_operation, options) }
+  subject { Fakeit::Openapi::Operation.new(request_operation, app_options) }
 
-  let(:options) { Fakeit::App::Options.new(use_example: false) }
+  let(:app_options) { Fakeit::App::Options.new }
   let(:request_operation) { double(OpenAPIParser::RequestOperation) }
   let(:response) { double(OpenAPIParser::Schemas::Response) }
   let(:media_type) { double(OpenAPIParser::Schemas::MediaType) }

@@ -1,10 +1,10 @@
 module Fakeit
   module Openapi
     class Operation
-      def initialize(request_operation, options)
+      def initialize(request_operation, app_options)
         @request_operation = request_operation
         @validator = Fakeit::Validation::Validator.new(request_operation)
-        @options = options
+        @app_options = app_options
       end
 
       def status
@@ -13,7 +13,7 @@ module Fakeit
 
       def headers
         response_headers
-          &.map { |k, v| [k, v.schema.to_example(@options.use_example)] }
+          &.map { |k, v| [k, v.schema.to_example(example_options)] }
           .to_h
           .tap { |headers| headers['Content-Type'] = response_content_type if response_content_type }
       end
@@ -21,7 +21,7 @@ module Fakeit
       def body
         response_schema
           &.schema
-          &.to_example(@options.use_example)
+          &.to_example(example_options)
           &.then(&JSON.method(:generate))
           .to_s
       end
@@ -31,6 +31,10 @@ module Fakeit
       end
 
       private
+
+      def example_options
+        { use_example: @app_options.use_example, static: @app_options.static }
+      end
 
       def response_content
         response.last.content&.find { |k, _| k =~ %r{^application/.*json} }
