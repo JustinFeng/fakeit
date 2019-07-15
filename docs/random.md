@@ -9,7 +9,7 @@ The following Openapi properties are supported in random response generation
 | |anyOf| |
 |array|uniqueItems|Try to generate unique random items, but will give up after exceeding retry limits|
 | |minItems|Default: `1`|
-| |maxItems|Default: `3`|
+| |maxItems|Default: `minItems + 2`|
 |string|enum| |
 | |pattern| |
 | |format=uri| |

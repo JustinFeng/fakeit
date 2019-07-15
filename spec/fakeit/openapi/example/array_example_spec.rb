@@ -4,7 +4,7 @@ describe Fakeit::Openapi::Example do
   end
 
   it 'default array example' do
-    expect(Faker::Number).to receive(:between).with(1, Fakeit::Openapi::Example::MAX_SIZE).and_return(1)
+    expect(Faker::Number).to receive(:between).with(1, 3).and_return(1)
 
     array = schema.properties['array'].to_example
 

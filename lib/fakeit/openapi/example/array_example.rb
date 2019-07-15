@@ -1,8 +1,6 @@
 module Fakeit
   module Openapi
     module Example
-      MAX_SIZE = 3
-
       def array_example(example_options)
         size = retries = uniqueItems ? min_array : Faker::Number.between(min_array, max_array)
         [].tap { |result| generate_items(size, retries, example_options, result) }
@@ -31,7 +29,7 @@ module Fakeit
       end
 
       def max_array
-        maxItems || MAX_SIZE
+        maxItems || min_array + 2
       end
     end
   end

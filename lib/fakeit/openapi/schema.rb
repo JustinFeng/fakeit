@@ -5,6 +5,7 @@ require 'fakeit/openapi/example/number_example'
 require 'fakeit/openapi/example/object_example'
 require 'fakeit/openapi/example/string_example'
 
+require 'fakeit/openapi/example/static_array_example'
 require 'fakeit/openapi/example/static_boolean_example'
 require 'fakeit/openapi/example/static_number_example'
 require 'fakeit/openapi/example/static_integer_example'
