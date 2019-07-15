@@ -73,7 +73,7 @@ describe Fakeit::Openapi::Schema do
     end
   end
 
-  context 'random generates' do
+  context 'random' do
     before(:each) do
       allow(Faker::Book).to receive(:title).and_return('random string')
       allow(Faker::Number).to receive(:between).and_return(2)

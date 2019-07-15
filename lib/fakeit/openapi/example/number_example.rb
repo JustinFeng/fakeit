@@ -3,12 +3,21 @@ module Fakeit
     module Example
       BIG_NUM = 2**32
 
-      def number_example
-        (Faker::Number.between(num_rand_begin, num_rand_end) * num_multiple)
-          .then { |result| multipleOf ? result : result.round(2) }
+      def number_example(example_options)
+        example_options[:static] ? static_number_example : random_number_example
       end
 
       private
+
+      def static_number_example
+        (num_rand_begin * num_multiple)
+          .then { |result| multipleOf ? result : result.round(2) }
+      end
+
+      def random_number_example
+        (Faker::Number.between(num_rand_begin, num_rand_end) * num_multiple)
+          .then { |result| multipleOf ? result : result.round(2) }
+      end
 
       def num_rand_begin
         multipleOf ? (min_num / multipleOf).ceil : min_num

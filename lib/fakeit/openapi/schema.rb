@@ -5,12 +5,6 @@ require 'fakeit/openapi/example/number_example'
 require 'fakeit/openapi/example/object_example'
 require 'fakeit/openapi/example/string_example'
 
-require 'fakeit/openapi/example/static_array_example'
-require 'fakeit/openapi/example/static_boolean_example'
-require 'fakeit/openapi/example/static_number_example'
-require 'fakeit/openapi/example/static_integer_example'
-require 'fakeit/openapi/example/static_string_example'
-
 module Fakeit
   module Openapi
     module Schema
@@ -48,14 +42,7 @@ module Fakeit
       end
 
       def type_based_example(example_options)
-        case type
-        when 'string', 'integer', 'number', 'boolean' then send(method_name(example_options[:static], type))
-        when 'array', 'object' then send(method_name(example_options[:static], type), example_options)
-        end
-      end
-
-      def method_name(static, type)
-        "#{static ? 'static_' : ''}#{type}_example"
+        send("#{type}_example", example_options) if %w[string integer number boolean array object].include?(type)
       end
     end
   end

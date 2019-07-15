@@ -3,11 +3,21 @@ describe Fakeit::Openapi::Example do
     load_schema('boolean_schema')
   end
 
-  it 'boolean example' do
-    expect(Faker::Boolean).to receive(:boolean).and_return(true)
+  context 'static' do
+    it 'boolean example' do
+      boolean = schema.to_example(static: true)
 
-    boolean = schema.to_example
+      expect(boolean).to be(true)
+    end
+  end
 
-    expect(boolean).to be(true)
+  context 'random' do
+    it 'boolean example' do
+      expect(Faker::Boolean).to receive(:boolean).and_return(true)
+
+      boolean = schema.to_example
+
+      expect(boolean).to be(true)
+    end
   end
 end

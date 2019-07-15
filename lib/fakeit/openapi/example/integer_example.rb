@@ -3,15 +3,27 @@ module Fakeit
     module Example
       BIG_INT = 2**32
 
-      def integer_example
+      def integer_example(example_options)
+        example_options[:static] ? static_integer_example : random_integer_example
+      end
+
+      private
+
+      def static_integer_example
+        if enum
+          enum.to_a.first
+        else
+          int_rand_begin * int_multiple
+        end
+      end
+
+      def random_integer_example
         if enum
           enum.to_a.sample
         else
           Faker::Number.between(int_rand_begin, int_rand_end) * int_multiple
         end
       end
-
-      private
 
       def int_rand_begin
         min_int / int_multiple + int_rand_begin_adjust

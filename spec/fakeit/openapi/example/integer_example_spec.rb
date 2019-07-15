@@ -3,41 +3,75 @@ describe Fakeit::Openapi::Example do
     load_schema('integer_schema')
   end
 
-  it 'default integer example' do
-    expect(Faker::Number).to receive(:between).with(1, Fakeit::Openapi::Example::BIG_INT).and_return(1)
+  context 'static' do
+    it 'default integer example' do
+      integer = schema.properties['integer']
 
-    integer = schema.properties['integer']
+      expect(integer.to_example(static: true)).to be(1)
+    end
 
-    expect(integer.to_example).to be(1)
+    it 'range example' do
+      integer = schema.properties['integer_range']
+
+      expect(integer.to_example(static: true)).to be(1)
+    end
+
+    it 'range exclusive example' do
+      integer = schema.properties['integer_range_exclusive']
+
+      expect(integer.to_example(static: true)).to be(2)
+    end
+
+    it 'enum example' do
+      integer = schema.properties['integer_enum']
+
+      expect(integer.to_example(static: true)).to eq(1)
+    end
+
+    it 'multiple example' do
+      integer = schema.properties['integer_multiple']
+
+      expect(integer.to_example(static: true)).to be(2)
+    end
   end
 
-  it 'range example' do
-    expect(Faker::Number).to receive(:between).with(1, 10).and_return(1)
+  context 'random' do
+    it 'default integer example' do
+      expect(Faker::Number).to receive(:between).with(1, Fakeit::Openapi::Example::BIG_INT).and_return(1)
 
-    integer = schema.properties['integer_range']
+      integer = schema.properties['integer']
 
-    expect(integer.to_example).to be(1)
-  end
+      expect(integer.to_example).to be(1)
+    end
 
-  it 'range exclusive example' do
-    expect(Faker::Number).to receive(:between).with(2, 2).and_return(2)
+    it 'range example' do
+      expect(Faker::Number).to receive(:between).with(1, 10).and_return(1)
 
-    integer = schema.properties['integer_range_exclusive']
+      integer = schema.properties['integer_range']
 
-    expect(integer.to_example).to be(2)
-  end
+      expect(integer.to_example).to be(1)
+    end
 
-  it 'enum example' do
-    integer = schema.properties['integer_enum']
+    it 'range exclusive example' do
+      expect(Faker::Number).to receive(:between).with(2, 2).and_return(2)
 
-    expect(integer.to_example).to eq(1).or eq(2)
-  end
+      integer = schema.properties['integer_range_exclusive']
 
-  it 'multiple example' do
-    expect(Faker::Number).to receive(:between).with(1, 2).and_return(1)
+      expect(integer.to_example).to be(2)
+    end
 
-    integer = schema.properties['integer_multiple']
+    it 'enum example' do
+      integer = schema.properties['integer_enum']
 
-    expect(integer.to_example).to be(2)
+      expect(integer.to_example).to eq(1).or eq(2)
+    end
+
+    it 'multiple example' do
+      expect(Faker::Number).to receive(:between).with(1, 2).and_return(1)
+
+      integer = schema.properties['integer_multiple']
+
+      expect(integer.to_example).to be(2)
+    end
   end
 end

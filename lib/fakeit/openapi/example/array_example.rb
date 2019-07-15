@@ -2,11 +2,20 @@ module Fakeit
   module Openapi
     module Example
       def array_example(example_options)
-        size = retries = uniqueItems ? min_array : Faker::Number.between(min_array, max_array)
-        [].tap { |result| generate_items(size, retries, example_options, result) }
+        example_options[:static] ? static_array_example(example_options) : random_array_example(example_options)
       end
 
       private
+
+      def static_array_example(example_options)
+        size = retries = min_array
+        [].tap { |result| generate_items(size, retries, example_options, result) }
+      end
+
+      def random_array_example(example_options)
+        size = retries = uniqueItems ? min_array : Faker::Number.between(min_array, max_array)
+        [].tap { |result| generate_items(size, retries, example_options, result) }
+      end
 
       def generate_items(size, retries, example_options, result)
         loop do
