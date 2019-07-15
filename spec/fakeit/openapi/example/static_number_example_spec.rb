@@ -18,6 +18,6 @@ describe Fakeit::Openapi::Example do
   it 'multiple by example' do
     number = schema.properties['number_multiple']
 
-    expect(number.to_example(static: true)).to be(2.5)
+    expect(number.to_example(static: true)).to be(2.125)
   end
 end

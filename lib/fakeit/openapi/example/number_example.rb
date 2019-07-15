@@ -4,7 +4,8 @@ module Fakeit
       BIG_NUM = 2**32
 
       def number_example
-        (Faker::Number.between(num_rand_begin, num_rand_end) * num_multiple).round(2)
+        (Faker::Number.between(num_rand_begin, num_rand_end) * num_multiple)
+          .then { |result| multipleOf ? result : result.round(2) }
       end
 
       private

@@ -37,7 +37,7 @@
           },
           "number_multiple": {
             "type": "number",
-            "multipleOf": 2.5,
+            "multipleOf": 2.125,
             "minimum": 1,
             "maximum": 8
           }
