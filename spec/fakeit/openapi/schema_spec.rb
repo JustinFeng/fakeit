@@ -4,34 +4,38 @@ describe Fakeit::Openapi::Schema do
   end
 
   context 'when use example' do
+    let(:example_options) { { use_example: true } }
+
     it 'honors specification example' do
       with_example = schema.items.properties['with_example']
 
-      expect(with_example.to_example(use_example: true)).to eq('provided example')
+      expect(with_example.to_example(example_options)).to eq('provided example')
     end
 
     it 'honors specification example recursively' do
       with_nested_example = schema.items.properties['with_nested_example']
 
-      expect(with_nested_example.to_example(use_example: true)).to eq('with_example' => 'provided example')
+      expect(with_nested_example.to_example(example_options)).to eq('with_example' => 'provided example')
     end
 
     it 'still generates example when not provided' do
       no_example = schema.items.properties['no_example']
 
-      expect(no_example.to_example(use_example: true)).to eq('useful')
+      expect(no_example.to_example(example_options)).to eq('useful')
     end
   end
 
   context 'static' do
+    let(:example_options) { { static: true, depth: 0 } }
+
     it 'handles unknown type' do
       unknown = schema.items.properties['unknown']
 
-      expect(unknown.to_example(static: true)).to be_nil
+      expect(unknown.to_example(example_options)).to be_nil
     end
 
     it 'recursively examples' do
-      example = schema.to_example(static: true)
+      example = schema.to_example(example_options)
 
       expect(example.first).to include(
         'string' => 'string',
@@ -44,7 +48,7 @@ describe Fakeit::Openapi::Schema do
     it 'oneOf example' do
       one_of_example = schema.items.properties['one_of_example']
 
-      expect(one_of_example.to_example(static: true)).to include(
+      expect(one_of_example.to_example(example_options)).to include(
         'integer' => 1,
         'number' => 0.0
       )
@@ -53,7 +57,7 @@ describe Fakeit::Openapi::Schema do
     it 'allOf example' do
       all_of_example = schema.items.properties['all_of_example']
 
-      expect(all_of_example.to_example(static: true)).to include(
+      expect(all_of_example.to_example(example_options)).to include(
         'string' => 'string',
         'integer' => 1,
         'number' => 0.0,
@@ -64,7 +68,7 @@ describe Fakeit::Openapi::Schema do
     it 'anyOf example' do
       any_of_example = schema.items.properties['any_of_example']
 
-      expect(any_of_example.to_example(static: true)).to include(
+      expect(any_of_example.to_example(example_options)).to include(
         'string' => 'string',
         'integer' => 1,
         'number' => 0.0,
@@ -88,7 +92,7 @@ describe Fakeit::Openapi::Schema do
     end
 
     it 'recursively examples' do
-      example = schema.to_example
+      example = schema.to_example(depth: 0)
 
       expect(example.first).to include(
         'string' => 'random string',

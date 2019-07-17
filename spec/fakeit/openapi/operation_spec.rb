@@ -7,6 +7,7 @@ describe Fakeit::Openapi::Operation do
   let(:media_type) { double(OpenAPIParser::Schemas::MediaType) }
   let(:header_1) { double(OpenAPIParser::Schemas::Header) }
   let(:header_2) { double(OpenAPIParser::Schemas::Header) }
+  let(:schema) { double(OpenAPIParser::Schemas::Schema) }
 
   let(:body) { { 'some' => 'body' } }
   let(:header_1_value) { '1' }
@@ -70,8 +71,9 @@ describe Fakeit::Openapi::Operation do
       allow(response).to receive(:content).and_return(
         'text/plain' => 'other_media_type', 'application/json' => media_type
       )
-      allow(media_type).to receive_message_chain(:schema, :to_example).and_return(body)
+      allow(media_type).to receive(:schema).and_return(schema)
 
+      expect(schema).to receive(:to_example).with(use_example: false, static: false, depth: 0).and_return(body)
       expect(subject.body).to eq(JSON.generate(body))
     end
 
@@ -79,8 +81,9 @@ describe Fakeit::Openapi::Operation do
       allow(response).to receive(:content).and_return(
         'text/plain' => 'other_media_type', 'application/vnd.api+json' => media_type
       )
-      allow(media_type).to receive_message_chain(:schema, :to_example).and_return(body)
+      allow(media_type).to receive(:schema).and_return(schema)
 
+      expect(schema).to receive(:to_example).with(use_example: false, static: false, depth: 0).and_return(body)
       expect(subject.body).to eq(JSON.generate(body))
     end
 

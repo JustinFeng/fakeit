@@ -33,7 +33,7 @@ module Fakeit
       private
 
       def example_options
-        { use_example: @app_options.use_example, static: @app_options.static }
+        { use_example: @app_options.use_example, static: @app_options.static, depth: 0 }
       end
 
       def response_content
