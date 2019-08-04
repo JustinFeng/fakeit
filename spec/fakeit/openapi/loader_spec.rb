@@ -29,6 +29,16 @@ describe Fakeit::Openapi do
     end
   end
 
+  describe 'yaml' do
+    let(:yml_file) { 'spec.yaml' }
+
+    it 'loads spec file' do
+      expect(Fakeit::Openapi).to receive(:open).with(yml_file).and_return(content)
+      expect(YAML).to receive(:safe_load).with(content).and_return(data)
+      expect(Fakeit::Openapi.load(yml_file)).to be(spec)
+    end
+  end
+
   it 'raises error for other file type' do
     expect { Fakeit::Openapi.load('blah') }.to raise_error('Invalid openapi specification file')
   end
