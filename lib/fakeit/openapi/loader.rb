@@ -14,9 +14,9 @@ module Fakeit
 
       def parse_method(src)
         case File.extname(src)
-        when '.json' then
+        when '.json'
           JSON.method(:parse)
-        when '.yml', '.yaml' then
+        when '.yml', '.yaml'
           YAML.method(:safe_load)
         else
           raise 'Invalid openapi specification file'
