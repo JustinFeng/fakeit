@@ -21,11 +21,11 @@ The following Openapi properties are supported in random response generation
 | |minLength|Default: `0`|
 | |maxLength|Default: `minLength + 10`|
 |integer|enum| |
-| |minimum|Default: `1`|
-| |maximum|Default: `2^32`|
+| |minimum|Default: `-2^31`|
+| |maximum|Default: `2^31 - 1`|
 | |exclusiveMinimum| |
 | |exclusiveMaximum| |
 | |multipleOf| |
-|number|minimum|Default: `0.0`|
-| |maximum|Default: `2^32`|
+|number|minimum|Default: `-2^31`|
+| |maximum|Default: `2^31 - 1`|
 | |multipleOf| |

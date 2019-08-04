@@ -7,13 +7,13 @@ describe Fakeit::Openapi::Example do
     it 'default integer example' do
       integer = schema.properties['integer']
 
-      expect(integer.to_example(static: true)).to be(1)
+      expect(integer.to_example(static: true)).to be(2**31 - 1)
     end
 
     it 'range example' do
       integer = schema.properties['integer_range']
 
-      expect(integer.to_example(static: true)).to be(1)
+      expect(integer.to_example(static: true)).to be(10)
     end
 
     it 'range exclusive example' do
@@ -31,13 +31,13 @@ describe Fakeit::Openapi::Example do
     it 'multiple example' do
       integer = schema.properties['integer_multiple']
 
-      expect(integer.to_example(static: true)).to be(2)
+      expect(integer.to_example(static: true)).to be(4)
     end
   end
 
   context 'random' do
     it 'default integer example' do
-      expect(Faker::Number).to receive(:between).with(1, Fakeit::Openapi::Example::BIG_INT).and_return(1)
+      expect(Faker::Number).to receive(:between).with(-2**31, 2**31 - 1).and_return(1)
 
       integer = schema.properties['integer']
 

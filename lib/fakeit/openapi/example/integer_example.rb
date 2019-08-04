@@ -1,7 +1,8 @@
 module Fakeit
   module Openapi
     module Example
-      BIG_INT = 2**32
+      MIN_INT = -2**31
+      MAX_INT = 2**31 - 1
 
       def integer_example(example_options)
         example_options[:static] ? static_integer_example : random_integer_example
@@ -13,7 +14,7 @@ module Fakeit
         if enum
           enum.to_a.first
         else
-          int_rand_begin * int_multiple
+          int_rand_end * int_multiple
         end
       end
 
@@ -45,7 +46,7 @@ module Fakeit
         if minimum
           exclusiveMinimum ? minimum + 1 : minimum
         else
-          1
+          MIN_INT
         end
       end
 
@@ -53,7 +54,7 @@ module Fakeit
         if maximum
           exclusiveMaximum ? maximum - 1 : maximum
         else
-          BIG_INT
+          MAX_INT
         end
       end
     end

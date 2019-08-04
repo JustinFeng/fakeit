@@ -19,11 +19,11 @@ Static value generation rule
 | |format=date-time|midnight today|
 | |minLength|`1` repeats for (minLength + 10) times if no maxLength specified|
 | |maxLength|`1` repeats for maxLength times|
-|integer|N/A|`1`|
+|integer|N/A|`2^31 - 1`|
 | |enum|first item|
-| |minimum|minimum|
-| |exclusiveMinimum|minimum + 1|
-| |multipleOf|minimum value meets multipleOf condition|
-|number|N/A|0.0|
-| |minimum|minimum rounded to 2 decimal places|
-| |multipleOf|minimum value meets multipleOf condition|
+| |maximum|maximum|
+| |exclusiveMaximum|maximum - 1|
+| |multipleOf|maximum value meets multipleOf condition|
+|number|N/A|`2^31 - 1`|
+| |maximum|maximum rounded to 2 decimal places|
+| |multipleOf|maximum value meets multipleOf condition|

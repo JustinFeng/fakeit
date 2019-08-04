@@ -39,8 +39,8 @@ describe Fakeit::Openapi::Schema do
 
       expect(example.first).to include(
         'string' => 'string',
-        'integer' => 1,
-        'number' => 0.0,
+        'integer' => 2**31 - 1,
+        'number' => 2**31 - 1,
         'boolean' => true
       )
     end
@@ -49,8 +49,8 @@ describe Fakeit::Openapi::Schema do
       one_of_example = schema.items.properties['one_of_example']
 
       expect(one_of_example.to_example(example_options)).to include(
-        'integer' => 1,
-        'number' => 0.0
+        'integer' => 2**31 - 1,
+        'number' => 2**31 - 1
       )
     end
 
@@ -59,8 +59,8 @@ describe Fakeit::Openapi::Schema do
 
       expect(all_of_example.to_example(example_options)).to include(
         'string' => 'string',
-        'integer' => 1,
-        'number' => 0.0,
+        'integer' => 2**31 - 1,
+        'number' => 2**31 - 1,
         'boolean' => true
       )
     end
@@ -70,8 +70,8 @@ describe Fakeit::Openapi::Schema do
 
       expect(any_of_example.to_example(example_options)).to include(
         'string' => 'string',
-        'integer' => 1,
-        'number' => 0.0,
+        'integer' => 2**31 - 1,
+        'number' => 2**31 - 1,
         'boolean' => true
       )
     end

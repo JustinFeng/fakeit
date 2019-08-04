@@ -1,7 +1,8 @@
 module Fakeit
   module Openapi
     module Example
-      BIG_NUM = 2**32
+      MIN_NUM = -2**31
+      MAX_NUM = 2**31 - 1
 
       def number_example(example_options)
         example_options[:static] ? static_number_example : random_number_example
@@ -10,7 +11,7 @@ module Fakeit
       private
 
       def static_number_example
-        (num_rand_begin * num_multiple)
+        (num_rand_end * num_multiple)
           .then { |result| multipleOf ? result : result.round(2) }
       end
 
@@ -32,11 +33,11 @@ module Fakeit
       end
 
       def min_num
-        (minimum || 0).to_f.ceil(2)
+        (minimum || MIN_NUM).to_f.ceil(2)
       end
 
       def max_num
-        (maximum || BIG_NUM).to_f.floor(2)
+        (maximum || MAX_NUM).to_f.floor(2)
       end
     end
   end
