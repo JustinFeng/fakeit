@@ -24,6 +24,8 @@ Static value generation rule
 | |maximum|maximum|
 | |exclusiveMaximum|maximum - 1|
 | |multipleOf|maximum value meets multipleOf condition|
+| |format=int32|`2^31 - 1`|
+| |format=int64|`2^63 - 1`|
 |number|N/A|`2^31 - 1`|
 | |maximum|maximum rounded to 2 decimal places|
 | |multipleOf|maximum value meets multipleOf condition|
