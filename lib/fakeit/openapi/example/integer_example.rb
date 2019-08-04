@@ -1,9 +1,6 @@
 module Fakeit
   module Openapi
     module Example
-      MIN_INT = -2**31
-      MAX_INT = 2**31 - 1
-
       def integer_example(example_options)
         example_options[:static] ? static_integer_example : random_integer_example
       end
@@ -46,7 +43,7 @@ module Fakeit
         if minimum
           exclusiveMinimum ? minimum + 1 : minimum
         else
-          MIN_INT
+          -2**(int_bits - 1)
         end
       end
 
@@ -54,8 +51,12 @@ module Fakeit
         if maximum
           exclusiveMaximum ? maximum - 1 : maximum
         else
-          MAX_INT
+          2**(int_bits - 1) - 1
         end
+      end
+
+      def int_bits
+        (format || 'int32')[/\d+/].to_i
       end
     end
   end

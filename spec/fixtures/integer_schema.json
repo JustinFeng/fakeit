@@ -30,6 +30,14 @@
           "integer": {
             "type": "integer"
           },
+          "integer_int32": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "integer_int64": {
+            "type": "integer",
+            "format": "int64"
+          },
           "integer_range": {
             "type": "integer",
             "minimum": 1,
