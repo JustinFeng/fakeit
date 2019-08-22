@@ -39,8 +39,6 @@ Command line options:
         -q, --quiet    mute request and response log
         --permissive   log validation error as warning instead of denying request
         --use-example  use example provided in spec if exists
-
-    trial options:
         --static       generate static response
 
     other options:

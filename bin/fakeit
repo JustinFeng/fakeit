@@ -12,8 +12,6 @@ begin
     o.bool '-q', '--quiet', 'mute request and response log'
     o.bool '--permissive', 'log validation error as warning instead of denying request'
     o.bool '--use-example', 'use example provided in spec if exists'
-    o.separator ''
-    o.separator 'trial options:'
     o.bool '--static', 'generate static response'
     o.separator ''
     o.separator 'other options:'
