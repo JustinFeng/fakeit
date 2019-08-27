@@ -9,6 +9,25 @@
 
 Create mock server from Openapi specification
 
+## Motivation
+
+Openapi mock server is one of core components to support contract based development and testing. As part of our journal, several key requirements for such mock server have been identified:
+
+* Control response generation in non intrusive manner. i.e. without modifying example in contract
+* Randomly generated response to support property based testing
+* Fulfill property reference in response generation to support development against contract. i.e. regarding the following response, guarantee the `selectedId` property is always a valid `id` in the items
+```json
+{
+  "selectedId": 1,
+  "items": [
+    { "id": 1 },
+    { "id": 2 }
+  ]
+}
+```
+
+After tried several existing options, we cannot find a best solution to meet all the requirements. So we decide to __'Fakeit till you make it'__.
+
 ## Features
 
 * Randomly or statically generated response
