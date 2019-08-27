@@ -1,10 +1,17 @@
 describe Fakeit::Openapi::Example do
-  let(:schema) do
-    load_schema('integer_schema')
+  let(:schema) { load_schema('integer_schema') }
+
+  let(:use_static) { double('lambda', :[] => false) }
+  let(:example_options) { { use_static: use_static, property: 'static_integer' } }
+
+  it 'calls use_static' do
+    expect(use_static).to receive(:[]).with(type: 'integer', property: 'static_integer')
+
+    schema.properties['integer'].to_example(example_options)
   end
 
   context 'static' do
-    let(:example_options) { { use_static: proc { true } } }
+    let(:use_static) { double('lambda', :[] => true) }
 
     it 'default integer example' do
       integer = schema.properties['integer']
@@ -50,8 +57,6 @@ describe Fakeit::Openapi::Example do
   end
 
   context 'random' do
-    let(:example_options) { { use_static: proc { false } } }
-
     it 'default integer example' do
       expect(Faker::Number).to receive(:between).with(-2**31, 2**31 - 1).and_return(1)
 

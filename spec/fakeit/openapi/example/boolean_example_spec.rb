@@ -1,10 +1,17 @@
 describe Fakeit::Openapi::Example do
-  let(:schema) do
-    load_schema('boolean_schema')
+  let(:schema) { load_schema('boolean_schema') }
+
+  let(:use_static) { double('lambda', :[] => false) }
+  let(:example_options) { { use_static: use_static, property: 'static_boolean' } }
+
+  it 'calls use_static' do
+    expect(use_static).to receive(:[]).with(type: 'boolean', property: 'static_boolean')
+
+    schema.to_example(example_options)
   end
 
   context 'static' do
-    let(:example_options) { { use_static: proc { true } } }
+    let(:use_static) { double('lambda', :[] => true) }
 
     it 'boolean example' do
       boolean = schema.to_example(example_options)
@@ -14,8 +21,6 @@ describe Fakeit::Openapi::Example do
   end
 
   context 'random' do
-    let(:example_options) { { use_static: proc { false } } }
-
     it 'boolean example' do
       expect(Faker::Boolean).to receive(:boolean).and_return(true)
 
