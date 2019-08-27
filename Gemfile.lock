@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fakeit (0.2.1)
+    fakeit (0.3.0)
       faker (~> 1.9)
       openapi_parser (= 0.3.1)
       rack (~> 2.0)
