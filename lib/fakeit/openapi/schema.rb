@@ -23,7 +23,11 @@ module Fakeit
       private
 
       def one_of_example(example_options)
-        example_options[:static] ? one_of.first.to_example(example_options) : one_of.sample.to_example(example_options)
+        if example_options[:use_static][]
+          one_of.first.to_example(example_options)
+        else
+          one_of.sample.to_example(example_options)
+        end
       end
 
       def all_of_example(example_options)
@@ -34,11 +38,17 @@ module Fakeit
       end
 
       def any_of_example(example_options)
-        any_of
-          .select { |option| option.type == 'object' }
-          .then { |options| example_options[:static] ? options : options.sample(Faker::Number.between(1, any_of.size)) }
+        any_of_options(example_options)
           .map { |option| option.to_example(example_options) }
           .reduce(&:merge)
+      end
+
+      def any_of_options(example_options)
+        any_of
+          .select { |option| option.type == 'object' }
+          .then do |options|
+            example_options[:use_static][] ? options : options.sample(Faker::Number.between(1, any_of.size))
+          end
       end
 
       def type_based_example(example_options)

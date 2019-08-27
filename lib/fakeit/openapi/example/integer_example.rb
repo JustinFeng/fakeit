@@ -2,7 +2,7 @@ module Fakeit
   module Openapi
     module Example
       def integer_example(example_options)
-        example_options[:static] ? static_integer_example : random_integer_example
+        example_options[:use_static][type: 'integer'] ? static_integer_example : random_integer_example
       end
 
       private

@@ -23,20 +23,27 @@ module Fakeit
       }.freeze
 
       def string_example(example_options)
-        example_options[:static] ? static_string_example : random_string_example
+        example_options[:use_static][type: 'string'] ? static_string_example : random_string_example
       end
 
       private
 
       def static_string_example
-        Faker::Config.random = Random.new(1) # Fix seed for faker
-
-        if enum then enum.to_a.first
-        elsif pattern then Faker::Base.regexify(pattern)
-        elsif format then static_string_format
-        elsif length_constraint then static_string_with_length
-        else 'string'
+        fixed_faker do
+          if enum then enum.to_a.first
+          elsif pattern then Faker::Base.regexify(pattern)
+          elsif format then static_string_format
+          elsif length_constraint then static_string_with_length
+          else 'string'
+          end
         end
+      end
+
+      def fixed_faker(&block)
+        Faker::Config.random = Random.new(1)
+        result = block.call
+        Faker::Config.random = nil
+        result
       end
 
       def random_string_example

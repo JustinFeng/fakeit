@@ -4,46 +4,48 @@ describe Fakeit::Openapi::Example do
   end
 
   context 'static' do
+    let(:example_options) { { use_static: proc { true } } }
+
     it 'default string example' do
       string = schema.properties['string']
 
-      expect(string.to_example(static: true)).to eq('string')
+      expect(string.to_example(example_options)).to eq('string')
     end
 
     it 'enum example' do
       string_enum = schema.properties['string_enum']
 
-      expect(string_enum.to_example(static: true)).to eq('A')
+      expect(string_enum.to_example(example_options)).to eq('A')
     end
 
     it 'pattern example' do
       string_pattern = schema.properties['string_pattern']
 
-      expect(string_pattern.to_example(static: true)).to eq('2950-01-30T21:47:56')
+      expect(string_pattern.to_example(example_options)).to eq('2950-01-30T21:47:56')
     end
 
     it 'uri format example' do
       uri = schema.properties['string_uri']
 
-      expect(uri.to_example(static: true)).to eq('https://some.uri')
+      expect(uri.to_example(example_options)).to eq('https://some.uri')
     end
 
     it 'uuid format example' do
       uuid = schema.properties['string_uuid']
 
-      expect(uuid.to_example(static: true)).to eq('11111111-1111-1111-1111-111111111111')
+      expect(uuid.to_example(example_options)).to eq('11111111-1111-1111-1111-111111111111')
     end
 
     it 'guid format example' do
       guid = schema.properties['string_guid']
 
-      expect(guid.to_example(static: true)).to eq('11111111-1111-1111-1111-111111111111')
+      expect(guid.to_example(example_options)).to eq('11111111-1111-1111-1111-111111111111')
     end
 
     it 'email format example' do
       email = schema.properties['string_email']
 
-      expect(email.to_example(static: true)).to eq('some@email.com')
+      expect(email.to_example(example_options)).to eq('some@email.com')
     end
 
     it 'date format example' do
@@ -51,7 +53,7 @@ describe Fakeit::Openapi::Example do
 
       date = schema.properties['string_date']
 
-      expect(date.to_example(static: true)).to eq('2019-06-01')
+      expect(date.to_example(example_options)).to eq('2019-06-01')
     end
 
     it 'date time format example' do
@@ -60,47 +62,49 @@ describe Fakeit::Openapi::Example do
 
       date_time = schema.properties['string_date_time']
 
-      expect(date_time.to_example(static: true)).to eq('2019-06-01T00:00:00+08:00')
+      expect(date_time.to_example(example_options)).to eq('2019-06-01T00:00:00+08:00')
     end
 
     it 'min and max example' do
       length = schema.properties['string_min_max']
 
-      expect(length.to_example(static: true)).to eq('1' * 3)
+      expect(length.to_example(example_options)).to eq('1' * 3)
     end
 
     it 'min example' do
       length = schema.properties['string_min']
 
-      expect(length.to_example(static: true)).to eq('1' * 30)
+      expect(length.to_example(example_options)).to eq('1' * 30)
     end
 
     it 'max example' do
       length = schema.properties['string_max']
 
-      expect(length.to_example(static: true)).to eq('1' * 3)
+      expect(length.to_example(example_options)).to eq('1' * 3)
     end
 
     it 'unknown format example' do
       unknown = schema.properties['string_unknown']
 
-      expect(unknown.to_example(static: true)).to eq('Unknown string format')
+      expect(unknown.to_example(example_options)).to eq('Unknown string format')
     end
   end
 
   context 'random' do
+    let(:example_options) { { use_static: proc { false } } }
+
     it 'default string example' do
       expect(Faker::Book).to receive(:title).and_return('string')
 
       string = schema.properties['string']
 
-      expect(string.to_example).to eq('string')
+      expect(string.to_example(example_options)).to eq('string')
     end
 
     it 'enum example' do
       string_enum = schema.properties['string_enum']
 
-      expect(string_enum.to_example).to eq('A').or eq('B')
+      expect(string_enum.to_example(example_options)).to eq('A').or eq('B')
     end
 
     it 'pattern example' do
@@ -109,7 +113,7 @@ describe Fakeit::Openapi::Example do
 
       string_pattern = schema.properties['string_pattern']
 
-      expect(string_pattern.to_example).to eq('matched_string')
+      expect(string_pattern.to_example(example_options)).to eq('matched_string')
     end
 
     it 'uri format example' do
@@ -117,7 +121,7 @@ describe Fakeit::Openapi::Example do
 
       uri = schema.properties['string_uri']
 
-      expect(uri.to_example).to eq('url')
+      expect(uri.to_example(example_options)).to eq('url')
     end
 
     it 'uuid format example' do
@@ -125,7 +129,7 @@ describe Fakeit::Openapi::Example do
 
       uuid = schema.properties['string_uuid']
 
-      expect(uuid.to_example).to eq('uuid')
+      expect(uuid.to_example(example_options)).to eq('uuid')
     end
 
     it 'guid format example' do
@@ -133,7 +137,7 @@ describe Fakeit::Openapi::Example do
 
       guid = schema.properties['string_guid']
 
-      expect(guid.to_example).to eq('guid')
+      expect(guid.to_example(example_options)).to eq('guid')
     end
 
     it 'email format example' do
@@ -141,7 +145,7 @@ describe Fakeit::Openapi::Example do
 
       email = schema.properties['string_email']
 
-      expect(email.to_example).to eq('email')
+      expect(email.to_example(example_options)).to eq('email')
     end
 
     it 'date format example' do
@@ -150,7 +154,7 @@ describe Fakeit::Openapi::Example do
 
       date = schema.properties['string_date']
 
-      expect(date.to_example).to eq('2019-06-01')
+      expect(date.to_example(example_options)).to eq('2019-06-01')
     end
 
     it 'date time format example' do
@@ -159,7 +163,7 @@ describe Fakeit::Openapi::Example do
 
       date_time = schema.properties['string_date_time']
 
-      expect(date_time.to_example).to eq('2019-06-01T12:59:59+10:00')
+      expect(date_time.to_example(example_options)).to eq('2019-06-01T12:59:59+10:00')
     end
 
     it 'min and max example' do
@@ -167,7 +171,7 @@ describe Fakeit::Openapi::Example do
 
       length = schema.properties['string_min_max']
 
-      expect(length.to_example).to eq('m&m')
+      expect(length.to_example(example_options)).to eq('m&m')
     end
 
     it 'min example' do
@@ -175,7 +179,7 @@ describe Fakeit::Openapi::Example do
 
       length = schema.properties['string_min']
 
-      expect(length.to_example).to eq('min')
+      expect(length.to_example(example_options)).to eq('min')
     end
 
     it 'max example' do
@@ -183,13 +187,13 @@ describe Fakeit::Openapi::Example do
 
       length = schema.properties['string_max']
 
-      expect(length.to_example).to eq('max')
+      expect(length.to_example(example_options)).to eq('max')
     end
 
     it 'unknown format example' do
       unknown = schema.properties['string_unknown']
 
-      expect(unknown.to_example).to eq('Unknown string format')
+      expect(unknown.to_example(example_options)).to eq('Unknown string format')
     end
   end
 end

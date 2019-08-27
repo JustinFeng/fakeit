@@ -4,56 +4,60 @@ describe Fakeit::Openapi::Example do
   end
 
   context 'static' do
+    let(:example_options) { { use_static: proc { true } } }
+
     it 'default integer example' do
       integer = schema.properties['integer']
 
-      expect(integer.to_example(static: true)).to eq(2**31 - 1)
+      expect(integer.to_example(example_options)).to eq(2**31 - 1)
     end
 
     it 'int32 integer example' do
       integer = schema.properties['integer_int32']
 
-      expect(integer.to_example(static: true)).to eq(2**31 - 1)
+      expect(integer.to_example(example_options)).to eq(2**31 - 1)
     end
 
     it 'int64 integer example' do
       integer = schema.properties['integer_int64']
 
-      expect(integer.to_example(static: true)).to eq(2**63 - 1)
+      expect(integer.to_example(example_options)).to eq(2**63 - 1)
     end
 
     it 'range example' do
       integer = schema.properties['integer_range']
 
-      expect(integer.to_example(static: true)).to eq(10)
+      expect(integer.to_example(example_options)).to eq(10)
     end
 
     it 'range exclusive example' do
       integer = schema.properties['integer_range_exclusive']
 
-      expect(integer.to_example(static: true)).to eq(2)
+      expect(integer.to_example(example_options)).to eq(2)
     end
 
     it 'enum example' do
       integer = schema.properties['integer_enum']
 
-      expect(integer.to_example(static: true)).to eq(1)
+      expect(integer.to_example(example_options)).to eq(1)
     end
 
     it 'multiple example' do
       integer = schema.properties['integer_multiple']
 
-      expect(integer.to_example(static: true)).to eq(4)
+      expect(integer.to_example(example_options)).to eq(4)
     end
   end
 
   context 'random' do
+    let(:example_options) { { use_static: proc { false } } }
+
     it 'default integer example' do
       expect(Faker::Number).to receive(:between).with(-2**31, 2**31 - 1).and_return(1)
 
       integer = schema.properties['integer']
 
-      expect(integer.to_example).to eq(1)
+      expect(integer.to_example(example_options)).to eq(1)
     end
 
     it 'int32 integer example' do
@@ -61,7 +65,7 @@ describe Fakeit::Openapi::Example do
 
       integer = schema.properties['integer_int32']
 
-      expect(integer.to_example).to eq(1)
+      expect(integer.to_example(example_options)).to eq(1)
     end
 
     it 'int64 integer example' do
@@ -69,7 +73,7 @@ describe Fakeit::Openapi::Example do
 
       integer = schema.properties['integer_int64']
 
-      expect(integer.to_example).to eq(1)
+      expect(integer.to_example(example_options)).to eq(1)
     end
 
     it 'range example' do
@@ -77,7 +81,7 @@ describe Fakeit::Openapi::Example do
 
       integer = schema.properties['integer_range']
 
-      expect(integer.to_example).to eq(1)
+      expect(integer.to_example(example_options)).to eq(1)
     end
 
     it 'range exclusive example' do
@@ -85,13 +89,13 @@ describe Fakeit::Openapi::Example do
 
       integer = schema.properties['integer_range_exclusive']
 
-      expect(integer.to_example).to eq(2)
+      expect(integer.to_example(example_options)).to eq(2)
     end
 
     it 'enum example' do
       integer = schema.properties['integer_enum']
 
-      expect(integer.to_example).to eq(1).or eq(2)
+      expect(integer.to_example(example_options)).to eq(1).or eq(2)
     end
 
     it 'multiple example' do
@@ -99,7 +103,7 @@ describe Fakeit::Openapi::Example do
 
       integer = schema.properties['integer_multiple']
 
-      expect(integer.to_example).to eq(2)
+      expect(integer.to_example(example_options)).to eq(2)
     end
   end
 end

@@ -3,10 +3,8 @@ describe Fakeit::Openapi::Example do
     load_schema('array_schema')
   end
 
-  let(:example_options) { { depth: 0 } }
-
   context 'static' do
-    let(:example_options) { { static: true, depth: 0 } }
+    let(:example_options) { { use_static: proc { true }, depth: 0 } }
 
     it 'default array example' do
       array = schema.properties['array'].to_example(example_options)
@@ -23,6 +21,8 @@ describe Fakeit::Openapi::Example do
   end
 
   context 'random' do
+    let(:example_options) { { use_static: proc { false }, depth: 0 } }
+
     it 'first level array example' do
       expect(Faker::Number).to receive(:between).with(1, 10).and_return(3)
 

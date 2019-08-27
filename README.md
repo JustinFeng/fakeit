@@ -53,12 +53,13 @@ Command line options:
 
     $ fakeit --help
     usage:
-        --spec         spec file uri (required)
-        -p, --port     custom port
-        -q, --quiet    mute request and response log
-        --permissive   log validation error as warning instead of denying request
-        --use-example  use example provided in spec if exists
-        --static       generate static response
+        --spec          spec file uri (required)
+        -p, --port      custom port
+        -q, --quiet     mute request and response log
+        --permissive    log validation error as warning instead of denying request
+        --use-example   use example provided in spec if exists
+        --static        generate static response
+        --static-types  generate static value for specified types, e.g. --static-types integer,string
 
     other options:
         -v, --version

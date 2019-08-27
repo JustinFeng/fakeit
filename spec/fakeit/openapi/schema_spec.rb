@@ -21,12 +21,12 @@ describe Fakeit::Openapi::Schema do
     it 'still generates example when not provided' do
       no_example = schema.items.properties['no_example']
 
-      expect(no_example.to_example(example_options)).to eq('useful')
+      expect(no_example.to_example(example_options.merge(use_static: proc { false }))).to eq('useful')
     end
   end
 
   context 'static' do
-    let(:example_options) { { static: true, depth: 0 } }
+    let(:example_options) { { use_static: proc { true }, depth: 0 } }
 
     it 'handles unknown type' do
       unknown = schema.items.properties['unknown']
@@ -78,6 +78,8 @@ describe Fakeit::Openapi::Schema do
   end
 
   context 'random' do
+    let(:example_options) { { use_static: proc { false }, depth: 0 } }
+
     before(:each) do
       allow(Faker::Book).to receive(:title).and_return('random string')
       allow(Faker::Number).to receive(:between).and_return(2)
@@ -88,11 +90,11 @@ describe Fakeit::Openapi::Schema do
     it 'handles unknown type' do
       unknown = schema.items.properties['unknown']
 
-      expect(unknown.to_example).to be_nil
+      expect(unknown.to_example(example_options)).to be_nil
     end
 
     it 'recursively examples' do
-      example = schema.to_example(depth: 0)
+      example = schema.to_example(example_options)
 
       expect(example.first).to include(
         'string' => 'random string',
@@ -106,7 +108,7 @@ describe Fakeit::Openapi::Schema do
       one_of_example = schema.items.properties['one_of_example']
 
       expect(one_of_example.one_of).to receive(:sample).and_return(one_of_example.one_of.first)
-      expect(one_of_example.to_example).to include(
+      expect(one_of_example.to_example(example_options)).to include(
         'integer' => 2,
         'number' => 2.0
       )
@@ -115,7 +117,7 @@ describe Fakeit::Openapi::Schema do
     it 'allOf example' do
       all_of_example = schema.items.properties['all_of_example']
 
-      expect(all_of_example.to_example).to include(
+      expect(all_of_example.to_example(example_options)).to include(
         'string' => 'random string',
         'integer' => 2,
         'number' => 2.0,
@@ -127,7 +129,7 @@ describe Fakeit::Openapi::Schema do
       any_of_example = schema.items.properties['any_of_example']
 
       expect(any_of_example.any_of).to receive_message_chain(:select, :sample).and_return(any_of_example.any_of)
-      expect(any_of_example.to_example).to include(
+      expect(any_of_example.to_example(example_options)).to include(
         'string' => 'random string',
         'integer' => 2,
         'number' => 2.0,

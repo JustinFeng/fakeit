@@ -5,7 +5,7 @@ module Fakeit
       MAX_NUM = 2**31 - 1
 
       def number_example(example_options)
-        example_options[:static] ? static_number_example : random_number_example
+        example_options[:use_static][type: 'number'] ? static_number_example : random_number_example
       end
 
       private
