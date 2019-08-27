@@ -23,7 +23,11 @@ module Fakeit
       }.freeze
 
       def string_example(example_options)
-        example_options[:use_static][type: 'string'] ? static_string_example : random_string_example
+        if example_options[:use_static][type: 'string', property: example_options[:property]]
+          static_string_example
+        else
+          random_string_example
+        end
       end
 
       private

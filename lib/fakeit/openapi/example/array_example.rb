@@ -3,7 +3,7 @@ module Fakeit
     module Example
       def array_example(options)
         example_options = add_depth(options)
-        if example_options[:use_static][type: 'array']
+        if example_options[:use_static][type: 'array', property: example_options[:property]]
           static_array_example(example_options)
         else
           random_array_example(example_options)

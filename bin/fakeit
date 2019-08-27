@@ -14,6 +14,7 @@ begin
     o.bool '--use-example', 'use example provided in spec if exists'
     o.bool '--static', 'generate static response'
     o.array '--static-types', 'generate static value for specified types, e.g. --static-types integer,string'
+    o.array '--static-properties', 'generate static value for specified properties, e.g. --static-types id,uuid'
     o.separator ''
     o.separator 'other options:'
     o.on '-v', '--version' do
@@ -47,7 +48,8 @@ options = Fakeit::App::Options.new(
   permissive: opts.permissive?,
   use_example: opts.use_example?,
   static: opts.static?,
-  static_types: opts[:static_types]
+  static_types: opts[:static_types],
+  static_properties: opts[:static_properties]
 )
 app = Fakeit.build(opts[:spec], options)
 

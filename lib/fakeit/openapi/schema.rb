@@ -23,7 +23,7 @@ module Fakeit
       private
 
       def one_of_example(example_options)
-        if example_options[:use_static][]
+        if example_options[:use_static][property: example_options[:property]]
           one_of.first.to_example(example_options)
         else
           one_of.sample.to_example(example_options)
@@ -47,7 +47,11 @@ module Fakeit
         any_of
           .select { |option| option.type == 'object' }
           .then do |options|
-            example_options[:use_static][] ? options : options.sample(Faker::Number.between(1, any_of.size))
+            if example_options[:use_static][property: example_options[:property]]
+              options
+            else
+              options.sample(Faker::Number.between(1, any_of.size))
+            end
           end
       end
 
