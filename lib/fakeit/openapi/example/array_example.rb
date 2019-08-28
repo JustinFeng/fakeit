@@ -18,8 +18,12 @@ module Fakeit
       end
 
       def random_array_example(example_options)
-        size = retries = uniqueItems ? min_array : Faker::Number.between(min_array, max_array(example_options[:depth]))
+        size = retries = random_array_size(example_options)
         [].tap { |result| generate_items(size, retries, example_options, result) }
+      end
+
+      def random_array_size(example_options)
+        uniqueItems ? min_array : Faker::Number.between(from: min_array, to: max_array(example_options[:depth]))
       end
 
       def generate_items(size, retries, example_options, result)

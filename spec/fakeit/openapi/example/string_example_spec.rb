@@ -155,7 +155,7 @@ describe Fakeit::Openapi::Example do
 
     it 'date format example' do
       date = Date.new(2019, 6, 1)
-      expect(Faker::Date).to receive(:backward).with(100).and_return(date)
+      expect(Faker::Date).to receive(:backward).with(days: 100).and_return(date)
 
       date = schema.properties['string_date']
 
@@ -164,7 +164,7 @@ describe Fakeit::Openapi::Example do
 
     it 'date time format example' do
       time = Time.new(2019, 6, 1, 12, 59, 59, '+10:00')
-      expect(Faker::Time).to receive(:backward).with(100).and_return(time)
+      expect(Faker::Time).to receive(:backward).with(days: 100).and_return(time)
 
       date_time = schema.properties['string_date_time']
 
@@ -172,7 +172,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'min and max example' do
-      expect(Faker::Internet).to receive(:user_name).with(1..3).and_return('m&m')
+      expect(Faker::Internet).to receive(:username).with(specifier: 1..3).and_return('m&m')
 
       length = schema.properties['string_min_max']
 
@@ -180,7 +180,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'min example' do
-      expect(Faker::Internet).to receive(:user_name).with(20..30).and_return('min')
+      expect(Faker::Internet).to receive(:username).with(specifier: 20..30).and_return('min')
 
       length = schema.properties['string_min']
 
@@ -188,7 +188,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'max example' do
-      expect(Faker::Internet).to receive(:user_name).with(0..3).and_return('max')
+      expect(Faker::Internet).to receive(:username).with(specifier: 0..3).and_return('max')
 
       length = schema.properties['string_max']
 

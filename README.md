@@ -26,7 +26,7 @@ Openapi mock server is one of core components to support contract based developm
 }
 ```
 
-After tried several existing options, we cannot find a best solution to meet all the requirements. So we decide to __'Fakeit till you make it'__.
+After tried several existing options, we cannot find a best solution to meet all the requirements. So we end up with __Fakeit__.
 
 ## Features
 

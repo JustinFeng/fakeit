@@ -34,7 +34,7 @@ describe Fakeit::Openapi::Example do
 
   context 'random' do
     it 'default number example' do
-      expect(Faker::Number).to receive(:between).with(-2**31, 2**31 - 1).and_return(1.123)
+      expect(Faker::Number).to receive(:between).with(from: -2**31, to: 2**31 - 1).and_return(1.123)
 
       number = schema.properties['number']
 
@@ -42,7 +42,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'range example' do
-      expect(Faker::Number).to receive(:between).with(5.0, 10.0).and_return(5.1)
+      expect(Faker::Number).to receive(:between).with(from: 5.0, to: 10.0).and_return(5.1)
 
       number = schema.properties['number_range']
 
@@ -50,7 +50,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'multiple by example' do
-      expect(Faker::Number).to receive(:between).with(1, 3).and_return(3)
+      expect(Faker::Number).to receive(:between).with(from: 1, to: 3).and_return(3)
 
       number = schema.properties['number_multiple']
 

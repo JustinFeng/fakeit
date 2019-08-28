@@ -23,7 +23,7 @@ module Fakeit
         if enum
           enum.to_a.sample
         else
-          Faker::Number.between(int_rand_begin, int_rand_end) * int_multiple
+          Faker::Number.between(from: int_rand_begin, to: int_rand_end) * int_multiple
         end
       end
 

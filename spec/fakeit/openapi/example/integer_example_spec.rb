@@ -58,7 +58,7 @@ describe Fakeit::Openapi::Example do
 
   context 'random' do
     it 'default integer example' do
-      expect(Faker::Number).to receive(:between).with(-2**31, 2**31 - 1).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: -2**31, to: 2**31 - 1).and_return(1)
 
       integer = schema.properties['integer']
 
@@ -66,7 +66,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'int32 integer example' do
-      expect(Faker::Number).to receive(:between).with(-2**31, 2**31 - 1).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: -2**31, to: 2**31 - 1).and_return(1)
 
       integer = schema.properties['integer_int32']
 
@@ -74,7 +74,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'int64 integer example' do
-      expect(Faker::Number).to receive(:between).with(-2**63, 2**63 - 1).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: -2**63, to: 2**63 - 1).and_return(1)
 
       integer = schema.properties['integer_int64']
 
@@ -82,7 +82,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'range example' do
-      expect(Faker::Number).to receive(:between).with(1, 10).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: 1, to: 10).and_return(1)
 
       integer = schema.properties['integer_range']
 
@@ -90,7 +90,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'range exclusive example' do
-      expect(Faker::Number).to receive(:between).with(2, 2).and_return(2)
+      expect(Faker::Number).to receive(:between).with(from: 2, to: 2).and_return(2)
 
       integer = schema.properties['integer_range_exclusive']
 
@@ -104,7 +104,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'multiple example' do
-      expect(Faker::Number).to receive(:between).with(1, 2).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: 1, to: 2).and_return(1)
 
       integer = schema.properties['integer_multiple']
 

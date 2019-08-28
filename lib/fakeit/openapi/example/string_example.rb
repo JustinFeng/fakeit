@@ -18,8 +18,8 @@ module Fakeit
         'uuid' => -> { SecureRandom.uuid },
         'guid' => -> { SecureRandom.uuid },
         'email' => -> { Faker::Internet.email },
-        'date' => -> { Faker::Date.backward(100).iso8601 },
-        'date-time' => -> { Faker::Time.backward(100).iso8601 }
+        'date' => -> { Faker::Date.backward(days: 100).iso8601 },
+        'date-time' => -> { Faker::Time.backward(days: 100).iso8601 }
       }.freeze
 
       def string_example(example_options)
@@ -72,7 +72,7 @@ module Fakeit
       end
 
       def string_with_length
-        Faker::Internet.user_name(min_string_length..max_string_length)
+        Faker::Internet.username(specifier: min_string_length..max_string_length)
       end
 
       def min_string_length

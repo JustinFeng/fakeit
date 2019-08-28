@@ -29,7 +29,7 @@ describe Fakeit::Openapi::Example do
 
   context 'random' do
     it 'first level array example' do
-      expect(Faker::Number).to receive(:between).with(1, 10).and_return(3)
+      expect(Faker::Number).to receive(:between).with(from: 1, to: 10).and_return(3)
 
       array = schema.properties['array'].to_example(example_options)
 
@@ -38,7 +38,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'nested level array example' do
-      expect(Faker::Number).to receive(:between).with(1, 3).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: 1, to: 3).and_return(1)
 
       array = schema.properties['array'].to_example(example_options.merge(depth: 1))
 
@@ -47,7 +47,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'minItems and maxItems example' do
-      expect(Faker::Number).to receive(:between).with(5, 10).and_return(5)
+      expect(Faker::Number).to receive(:between).with(from: 5, to: 10).and_return(5)
 
       array = schema.properties['array_min_max'].to_example(example_options)
 

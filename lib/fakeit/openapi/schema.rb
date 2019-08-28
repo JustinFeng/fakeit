@@ -50,7 +50,7 @@ module Fakeit
             if example_options[:use_static][property: example_options[:property]]
               options
             else
-              options.sample(Faker::Number.between(1, any_of.size))
+              options.sample(Faker::Number.between(from: 1, to: any_of.size))
             end
           end
       end

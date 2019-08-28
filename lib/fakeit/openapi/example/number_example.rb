@@ -20,7 +20,7 @@ module Fakeit
       end
 
       def random_number_example
-        (Faker::Number.between(num_rand_begin, num_rand_end) * num_multiple)
+        (Faker::Number.between(from: num_rand_begin, to: num_rand_end) * num_multiple)
           .then { |result| multipleOf ? result : result.round(2) }
       end
 
