@@ -2,10 +2,11 @@ PATH
   remote: .
   specs:
     fakeit (0.3.0)
-      faker (~> 2.0)
+      faker (~> 2.2)
       openapi_parser (= 0.3.1)
       rack (~> 2.0)
       rack-cors (~> 1.0)
+      rainbow (~> 3.0)
       slop (~> 4.6)
 
 GEM

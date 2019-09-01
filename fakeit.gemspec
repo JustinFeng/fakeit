@@ -32,9 +32,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 0.67'
   spec.add_development_dependency 'simplecov', '~> 0.16'
 
-  spec.add_dependency 'faker', '~> 2.0'
+  spec.add_dependency 'faker', '~> 2.2'
   spec.add_dependency 'openapi_parser', '0.3.1'
   spec.add_dependency 'rack', '~> 2.0'
   spec.add_dependency 'rack-cors', '~> 1.0'
+  spec.add_dependency 'rainbow', '~> 3.0'
   spec.add_dependency 'slop', '~> 4.6'
 end

@@ -79,7 +79,7 @@ describe Fakeit::App do
       end
 
       it 'warns validation error' do
-        expect(Fakeit::Logger).to receive(:warn).with('some error')
+        expect(Fakeit::Logger).to receive(:warn).with(Rainbow('some error').red)
 
         subject[env]
       end

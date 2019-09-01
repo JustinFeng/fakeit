@@ -5,6 +5,7 @@ require 'openapi_parser'
 require 'faker'
 require 'rack'
 require 'logger'
+require 'rainbow'
 
 Dir.glob(File.join(File.dirname(__FILE__), 'fakeit', '**/*.rb')).each { |file| require file }
 

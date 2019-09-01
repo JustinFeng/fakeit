@@ -18,12 +18,8 @@ module Fakeit
         validate(operation, request)
         response(operation)
       rescue Fakeit::Validation::ValidationError => e
-        if options.permissive
-          Fakeit::Logger.warn(e.message)
-          response(operation)
-        else
-          error(e)
-        end
+        Fakeit::Logger.warn(Rainbow(e.message).red)
+        options.permissive ? response(operation) : error(e)
       end
 
       def error(err)
