@@ -40,7 +40,7 @@ describe Fakeit::Openapi::Example do
     it 'nested level array example' do
       expect(Faker::Number).to receive(:between).with(from: 1, to: 3).and_return(1)
 
-      array = schema.properties['array'].to_example(example_options.merge(depth: 1))
+      array = schema.properties['array'].to_example(**example_options, depth: 1)
 
       expect(array).to be_a_kind_of(Array)
       expect(array.size).to be(1)

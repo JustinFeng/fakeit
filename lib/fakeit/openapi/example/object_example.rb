@@ -3,7 +3,7 @@ module Fakeit
     module Example
       def object_example(example_options)
         properties.each_with_object({}) do |(name, schema), obj|
-          obj[name] = schema.to_example(example_options.merge(property: name))
+          obj[name] = schema.to_example(**example_options, property: name)
         end
       end
     end

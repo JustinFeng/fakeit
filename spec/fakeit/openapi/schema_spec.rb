@@ -21,7 +21,7 @@ describe Fakeit::Openapi::Schema do
     it 'still generates example when not provided' do
       no_example = schema.items.properties['no_example']
 
-      expect(no_example.to_example(example_options.merge(use_static: proc { false }))).to eq('useful')
+      expect(no_example.to_example(**example_options, use_static: proc { false })).to eq('useful')
     end
   end
 
