@@ -7,7 +7,6 @@ module Fakeit
         open(src, &:read)
           .then(&parse_method)
           .then(&OpenAPIParser.method(:parse))
-          .then(&Specification.method(:new))
       end
 
       private

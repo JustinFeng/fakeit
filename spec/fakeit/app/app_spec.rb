@@ -15,7 +15,7 @@ describe Fakeit::App do
   end
 
   before(:each) do
-    allow(Fakeit::Openapi).to receive(:load).with(spec_file).and_return(specification)
+    allow(Fakeit::Openapi::Specification).to receive(:new).with(spec_file).and_return(specification)
   end
 
   it 'handles valid request' do

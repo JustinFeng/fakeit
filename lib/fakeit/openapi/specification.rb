@@ -1,8 +1,9 @@
 module Fakeit
   module Openapi
     class Specification
-      def initialize(doc)
-        @doc = doc
+      def initialize(spec_file)
+        @spec_file = spec_file
+        @doc = Fakeit::Openapi.load(spec_file)
       end
 
       def operation(method, path, options)

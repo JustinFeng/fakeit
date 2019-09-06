@@ -2,7 +2,7 @@ module Fakeit
   module App
     class << self
       def create(spec_file, options)
-        specification = Fakeit::Openapi.load(spec_file)
+        specification = Fakeit::Openapi::Specification.new(spec_file)
 
         proc do |env|
           request = Rack::Request.new(env)
