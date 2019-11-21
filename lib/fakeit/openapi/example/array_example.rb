@@ -4,21 +4,16 @@ module Fakeit
       def array_example(options)
         example_options = add_depth(options)
         if example_options[:use_static][type: 'array', property: example_options[:property]]
-          static_array_example(example_options)
+          generate_array_example(example_options, -> { min_array })
         else
-          random_array_example(example_options)
+          generate_array_example(example_options, -> { random_array_size(example_options) })
         end
       end
 
       private
 
-      def static_array_example(example_options)
-        size = retries = min_array
-        [].tap { |result| generate_items(size, retries, example_options, result) }
-      end
-
-      def random_array_example(example_options)
-        size = retries = random_array_size(example_options)
+      def generate_array_example(example_options, get_size)
+        size = retries = get_size[]
         [].tap { |result| generate_items(size, retries, example_options, result) }
       end
 
