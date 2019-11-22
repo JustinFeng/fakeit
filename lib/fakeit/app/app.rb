@@ -37,7 +37,7 @@ module Fakeit
       def validate(operation, request)
         operation.validate(
           body: request.body&.read.to_s,
-          params: request.params,
+          params: parse_query(request.query_string),
           headers: headers(request)
         )
       end
@@ -48,6 +48,15 @@ module Fakeit
           .select { |k, _| k.start_with? 'HTTP_' }
           .map { |k, v| [k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-'), v] }
           .to_h
+      end
+
+      def parse_query(query_string)
+        rack_query = Rack::Utils.parse_nested_query(query_string)
+        cgi_query = CGI.parse(query_string)
+
+        rack_query.merge(cgi_query.slice(*rack_query.keys)) do |_, oldval, newval|
+          newval.is_a?(Array) && newval.size > 1 ? newval : oldval
+        end
       end
     end
   end

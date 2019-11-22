@@ -9,7 +9,7 @@ describe Fakeit::App do
       'REQUEST_METHOD' => 'GET',
       'PATH_INFO' => '/',
       'rack.input' => StringIO.new('body'),
-      'rack.request.query_hash' => {},
+      'QUERY_STRING' => 'q=a',
       'HTTP_SOME_HEADER' => 'header'
     }
   end
@@ -19,14 +19,14 @@ describe Fakeit::App do
   end
 
   it 'handles valid request' do
-    headers = { 'Content-Type' => 'application' }
-    operation = double(Fakeit::Openapi::Operation, status: 200, headers: headers, body: 'body', validate: nil)
+    operation_headers = { 'Content-Type' => 'application' }
+    operation = double(Fakeit::Openapi::Operation, status: 200, headers: operation_headers, body: 'body', validate: nil)
     allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
 
     status, headers, body = subject[env]
 
     expect(status).to be(200)
-    expect(headers).to eq(headers)
+    expect(headers).to eq(operation_headers)
     expect(body).to eq(['body'])
   end
 
@@ -41,47 +41,73 @@ describe Fakeit::App do
   end
 
   describe 'validation' do
-    let(:operation) { double(Fakeit::Openapi::Operation, status: 200, headers: headers, body: 'body') }
-    let(:headers) { { 'Some-Header' => 'header' } }
+    let(:operation) { double(Fakeit::Openapi::Operation, status: 200, headers: {}, body: 'body') }
 
     before(:each) do
       allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
-      allow(operation).to receive(:validate).and_raise(Fakeit::Validation::ValidationError, 'some error')
     end
 
-    it 'validates request' do
-      expect(operation).to receive(:validate).with(body: 'body', params: {}, headers: headers)
-
-      subject[env]
-    end
-
-    it 'fails invalid request by default' do
-      status, headers, body = subject[env]
-
-      expect(status).to be(418)
-      expect(headers).to eq('Content-Type' => 'application/json')
-      expect(body).to eq(['{"message":"some error"}'])
-    end
-
-    context 'permissive mode' do
-      let(:options) { Fakeit::App::Options.new(permissive: true) }
-
-      before(:each) do
-        allow(Fakeit::Logger).to receive(:warn)
-      end
-
-      it 'responds normally' do
-        status, headers, body = subject[env]
-
-        expect(status).to be(200)
-        expect(headers).to eq(headers)
-        expect(body).to eq(['body'])
-      end
-
-      it 'warns validation error' do
-        expect(Fakeit::Logger).to receive(:warn).with(Rainbow('some error').red)
+    context 'validates request' do
+      it 'passes request headers' do
+        expect(operation).to receive(:validate).with(hash_including(headers: { 'Some-Header' => 'header' }))
 
         subject[env]
+      end
+
+      context 'params' do
+        it 'passes single value param' do
+          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => 'a' }))
+
+          subject[env]
+        end
+
+        it 'passes array value param with [] postfix' do
+          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => %w[a b] }))
+
+          subject[env.merge('QUERY_STRING' => 'q[]=a&q[]=b')]
+        end
+
+        it 'passes array value param without [] postfix' do
+          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => %w[a b] }))
+
+          subject[env.merge('QUERY_STRING' => 'q=a&q=b')]
+        end
+      end
+    end
+
+    context 'failed' do
+      before(:each) do
+        allow(operation).to receive(:validate).and_raise(Fakeit::Validation::ValidationError, 'some error')
+      end
+
+      it 'fails invalid request by default' do
+        status, headers, body = subject[env]
+
+        expect(status).to be(418)
+        expect(headers).to eq('Content-Type' => 'application/json')
+        expect(body).to eq(['{"message":"some error"}'])
+      end
+
+      context 'permissive mode' do
+        let(:options) { Fakeit::App::Options.new(permissive: true) }
+
+        before(:each) do
+          allow(Fakeit::Logger).to receive(:warn)
+        end
+
+        it 'responds normally' do
+          status, headers, body = subject[env]
+
+          expect(status).to be(200)
+          expect(headers).to eq({})
+          expect(body).to eq(['body'])
+        end
+
+        it 'warns validation error' do
+          expect(Fakeit::Logger).to receive(:warn).with(Rainbow('some error').red)
+
+          subject[env]
+        end
       end
     end
   end
