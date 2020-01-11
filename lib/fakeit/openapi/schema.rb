@@ -10,7 +10,7 @@ module Fakeit
     module Schema
       include Fakeit::Openapi::Example
 
-      def to_example(**example_options)
+      def to_example(example_options)
         return example if example_options[:use_example] && example
 
         return one_of_example(example_options) if one_of
