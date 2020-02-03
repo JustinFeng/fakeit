@@ -32,20 +32,20 @@ module Fakeit
 
       def all_of_example(example_options)
         all_of
-          .select { |option| option.type == 'object' }
-          .map { |option| option.to_example(example_options) }
+          .select { _1.type == 'object' }
+          .map { _1.to_example(example_options) }
           .reduce(&:merge)
       end
 
       def any_of_example(example_options)
         any_of_options(example_options)
-          .map { |option| option.to_example(example_options) }
+          .map { _1.to_example(example_options) }
           .reduce(&:merge)
       end
 
       def any_of_options(example_options)
         any_of
-          .select { |option| option.type == 'object' }
+          .select { _1.type == 'object' }
           .then do |options|
             if example_options[:use_static][property: example_options[:property]]
               options

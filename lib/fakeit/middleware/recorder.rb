@@ -8,7 +8,7 @@ module Fakeit
       def call(env)
         env
           .tap(&method(:log_request))
-          .then { |e| @app.call(e) }
+          .then { @app.call(_1) }
           .tap(&method(:log_response))
       end
 

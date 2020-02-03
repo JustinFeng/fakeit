@@ -17,3 +17,12 @@ Metrics/BlockLength:
 
 Security/Open:
   Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: false
+
+Style/HashTransformValues:
+  Enabled: true

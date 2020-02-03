@@ -8,7 +8,7 @@ module Fakeit
           request = Rack::Request.new(env)
           specification
             .operation(request.request_method.downcase.to_sym, request.path_info, options)
-            .then { |operation| operation ? handle(operation, request, options) : not_found }
+            .then { _1 ? handle(_1, request, options) : not_found }
         end
       end
 

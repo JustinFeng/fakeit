@@ -12,7 +12,7 @@ module Fakeit
 
         @doc
           .request_operation(method, path)
-          &.then { |operation| Operation.new(operation, options) }
+          &.then { Operation.new(_1, options) }
       end
 
       private
