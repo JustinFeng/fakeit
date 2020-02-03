@@ -22,7 +22,6 @@ GEM
     i18n (1.7.1)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
-    json (2.3.0)
     openapi_parser (0.6.1)
     parallel (1.19.1)
     parser (2.7.0.2)
@@ -55,11 +54,10 @@ GEM
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
-    simplecov (0.17.1)
+    simplecov (0.18.1)
       docile (~> 1.1)
-      json (>= 1.8, < 3)
-      simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.2)
+      simplecov-html (~> 0.11.0)
+    simplecov-html (0.11.0)
     slop (4.7.0)
     unicode-display_width (1.6.0)
 
@@ -74,7 +72,7 @@ DEPENDENCIES
   rake (~> 12.0)
   rspec (~> 3.0)
   rubocop (~> 0.67)
-  simplecov (~> 0.16)
+  simplecov (~> 0.18)
 
 BUNDLED WITH
    2.1.2

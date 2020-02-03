@@ -30,6 +30,16 @@ describe Fakeit::Middleware::Recorder do
     expect(request_body.read).to eq('request body')
   end
 
+  context 'empty request body' do
+    let(:request_body) { nil }
+
+    it 'skips logging' do
+      expect(Fakeit::Logger).not_to receive(:info).with(/Request body:.*/)
+
+      subject.call(env)
+    end
+  end
+
   it 'logs response body' do
     expect(Fakeit::Logger).to receive(:info).with(/Response body: response body/)
 

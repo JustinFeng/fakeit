@@ -73,6 +73,20 @@ describe Fakeit::App do
           subject[env.merge('QUERY_STRING' => 'q=a&q=b')]
         end
       end
+
+      context 'body' do
+        it 'passes request body' do
+          expect(operation).to receive(:validate).with(hash_including(body: 'body'))
+
+          subject[env]
+        end
+
+        it 'passes empty request body' do
+          expect(operation).to receive(:validate).with(hash_including(body: ''))
+
+          subject[env.merge('rack.input' => nil)]
+        end
+      end
     end
 
     context 'failed' do

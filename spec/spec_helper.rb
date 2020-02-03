@@ -1,8 +1,9 @@
 require 'simplecov'
 SimpleCov.start do
   add_filter '/spec/'
+  enable_coverage :branch
 end
-SimpleCov.minimum_coverage 100
+SimpleCov.minimum_coverage line: 100, branch: 100
 
 require 'bundler/setup'
 require 'fakeit'
