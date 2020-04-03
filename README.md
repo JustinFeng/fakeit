@@ -61,7 +61,7 @@ Command line options:
         --use-example        use example provided in spec if exists
         --static             generate static response
         --static-types       generate static value for specified types, e.g. --static-types integer,string
-        --static-properties  generate static value for specified properties, e.g. --static-types id,uuid
+        --static-properties  generate static value for specified properties, e.g. --static-properties id,uuid
 
     other options:
         -v, --version
