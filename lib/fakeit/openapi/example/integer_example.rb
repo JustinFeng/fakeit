@@ -1,6 +1,8 @@
 module Fakeit
   module Openapi
     module Example
+      DEFAULT_BITS = 32
+
       def integer_example(example_options)
         if example_options[:use_static][type: 'integer', property: example_options[:property]]
           static_integer_example
@@ -60,7 +62,9 @@ module Fakeit
       end
 
       def int_bits
-        (format || 'int32')[/\d+/].to_i
+        return DEFAULT_BITS unless format =~ /int\d+/
+
+        format[/\d+/].to_i
       end
     end
   end
