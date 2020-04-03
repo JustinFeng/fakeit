@@ -78,6 +78,12 @@ describe Fakeit::Openapi::Example do
       expect(binary.to_example(example_options)).to eq('binary')
     end
 
+    it 'byte format example' do
+      byte = schema.properties['string_byte']
+
+      expect(byte.to_example(example_options)).to eq('Ynl0ZQ==')
+    end
+
     it 'min and max example' do
       length = schema.properties['string_min_max']
 
@@ -178,11 +184,19 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'binary format example' do
-      expect(Faker::String).to receive(:random).with(length: 1..100).and_return('binary')
+      expect(Faker::String).to receive(:random).with(length: 1..30).and_return('binary')
 
-      date_time = schema.properties['string_binary']
+      binary = schema.properties['string_binary']
 
-      expect(date_time.to_example(example_options)).to eq('binary')
+      expect(binary.to_example(example_options)).to eq('binary')
+    end
+
+    it 'byte format example' do
+      expect(Faker::String).to receive(:random).with(length: 1..30).and_return('byte')
+
+      byte = schema.properties['string_byte']
+
+      expect(byte.to_example(example_options)).to eq('Ynl0ZQ==')
     end
 
     it 'min and max example' do

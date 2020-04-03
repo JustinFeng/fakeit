@@ -1,6 +1,7 @@
 require 'json'
 require 'yaml'
 require 'open-uri'
+require 'base64'
 require 'openapi_parser'
 require 'faker'
 require 'rack'

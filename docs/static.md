@@ -18,6 +18,7 @@ Static value generation rule
 | |format=date|today|
 | |format=date-time|midnight today|
 | |format=binary|`binary`|
+| |format=byte|`Ynl0ZQ==`|
 | |minLength|`1` repeats for (minLength + 10) times if no maxLength specified|
 | |maxLength|`1` repeats for maxLength times|
 |integer|N/A|`2^31 - 1`|

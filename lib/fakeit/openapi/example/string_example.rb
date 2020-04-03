@@ -11,7 +11,8 @@ module Fakeit
           now = Time.now
           Time.new(now.year, now.month, now.day, 0, 0, 0, now.utc_offset).iso8601
         end,
-        'binary' => -> { 'binary' }
+        'binary' => -> { 'binary' },
+        'byte' => -> { 'Ynl0ZQ==' }
       }.freeze
 
       RANDOM_FORMAT_HANDLERS = {
@@ -21,7 +22,8 @@ module Fakeit
         'email' => -> { Faker::Internet.email },
         'date' => -> { Faker::Date.backward(days: 100).iso8601 },
         'date-time' => -> { Faker::Time.backward(days: 100).iso8601 },
-        'binary' => -> { Faker::String.random(length: 1..100) }
+        'binary' => -> { Faker::String.random(length: 1..30) },
+        'byte' => -> { Base64.strict_encode64(Faker::String.random(length: 1..30)) }
       }.freeze
 
       def string_example(example_options)

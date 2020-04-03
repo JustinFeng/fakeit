@@ -18,7 +18,8 @@ The following Openapi properties are supported in random response generation
 | |format=email| |
 | |format=date|In past 100 days|
 | |format=date-time|In past 100 days|
-| |format=binary|UTF-8 string with length 1 ~ 100|
+| |format=binary|UTF-8 string|
+| |format=byte|Base64 encoded UTF-8 string|
 | |minLength|Default: `0`|
 | |maxLength|Default: `minLength + 10`|
 |integer|enum| |

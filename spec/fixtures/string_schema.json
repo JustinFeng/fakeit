@@ -69,6 +69,10 @@
             "type": "string",
             "format": "binary"
           },
+          "string_byte": {
+            "type": "string",
+            "format": "byte"
+          },
           "string_min_max": {
             "type": "string",
             "minLength": 1,
