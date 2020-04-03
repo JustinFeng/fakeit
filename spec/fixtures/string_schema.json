@@ -65,6 +65,10 @@
             "type": "string",
             "format": "date-time"
           },
+          "string_binary": {
+            "type": "string",
+            "format": "binary"
+          },
           "string_min_max": {
             "type": "string",
             "minLength": 1,

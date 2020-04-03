@@ -10,7 +10,8 @@ module Fakeit
         'date-time' => lambda do
           now = Time.now
           Time.new(now.year, now.month, now.day, 0, 0, 0, now.utc_offset).iso8601
-        end
+        end,
+        'binary' => -> { '1111' }
       }.freeze
 
       RANDOM_FORMAT_HANDLERS = {
@@ -19,7 +20,8 @@ module Fakeit
         'guid' => -> { SecureRandom.uuid },
         'email' => -> { Faker::Internet.email },
         'date' => -> { Faker::Date.backward(days: 100).iso8601 },
-        'date-time' => -> { Faker::Time.backward(days: 100).iso8601 }
+        'date-time' => -> { Faker::Time.backward(days: 100).iso8601 },
+        'binary' => -> { Faker::String.random(length: (4..100).step(4)) }
       }.freeze
 
       def string_example(example_options)
