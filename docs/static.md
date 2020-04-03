@@ -17,7 +17,7 @@ Static value generation rule
 | |format=email|`some@email.com`|
 | |format=date|today|
 | |format=date-time|midnight today|
-| |format=binary|`1111`|
+| |format=binary|`binary`|
 | |minLength|`1` repeats for (minLength + 10) times if no maxLength specified|
 | |maxLength|`1` repeats for maxLength times|
 |integer|N/A|`2^31 - 1`|

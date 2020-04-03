@@ -75,7 +75,7 @@ describe Fakeit::Openapi::Example do
     it 'binary format example' do
       binary = schema.properties['string_binary']
 
-      expect(binary.to_example(example_options)).to eq('1111')
+      expect(binary.to_example(example_options)).to eq('binary')
     end
 
     it 'min and max example' do
@@ -178,7 +178,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'binary format example' do
-      expect(Faker::String).to receive(:random).with(length: (4..100).step(4)).and_return('binary')
+      expect(Faker::String).to receive(:random).with(length: 1..100).and_return('binary')
 
       date_time = schema.properties['string_binary']
 
