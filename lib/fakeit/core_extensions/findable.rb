@@ -1,3 +1,4 @@
+# https://github.com/ota42y/openapi_parser/issues/41
 module OpenAPIParser
   module Findable
     def purge_object_cache
