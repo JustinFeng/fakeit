@@ -6,6 +6,7 @@ Static value generation rule
 |---|---|---|
 |complex|oneOf|first item|
 | |anyOf|same as allOf|
+|boolean|N/A|`true`|
 |array|N/A|size is `1`|
 | |minItems|size is minItems|
 |string|N/A|`string`|
