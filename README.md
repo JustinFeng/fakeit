@@ -30,13 +30,11 @@ After tried several existing options, we cannot find a best solution to meet all
 
 ## Features
 
-* Randomly or statically generated response
-* Request validation
+* Randomly or statically generated response (`application/.*json`)
+* Request validation (`application/.*json`, `multipart/form-data`)
 * Load specification from local or remote
 * Support hot reload local specification
 * Support specification in yaml or json format
-
-**Note:** Only support json content type as of now
 
 ## Installation
 
