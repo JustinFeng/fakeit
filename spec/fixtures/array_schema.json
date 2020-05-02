@@ -48,6 +48,14 @@
             "items": {
               "properties": {}
             }
+          },
+          "array_unique_min_0": {
+            "type": "array",
+            "minItems": 0,
+            "uniqueItems": true,
+            "items": {
+              "properties": {}
+            }
           }
         }
       }

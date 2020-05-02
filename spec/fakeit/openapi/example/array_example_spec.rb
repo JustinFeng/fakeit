@@ -78,6 +78,12 @@ describe Fakeit::Openapi::Example do
 
         expect(array).to eq([1, 1])
       end
+
+      it 'tries to generate at least 1 item' do
+        array = schema.properties['array_unique_min_0'].to_example(example_options)
+
+        expect(array.size).to be(1)
+      end
     end
   end
 end

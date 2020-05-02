@@ -18,17 +18,17 @@ module Fakeit
       end
 
       def random_array_size(example_options)
-        uniqueItems ? min_array : Faker::Number.between(from: min_array, to: max_array(example_options[:depth]))
+        uniqueItems ? unique_array_size : Faker::Number.between(from: min_array, to: max_array(example_options[:depth]))
       end
 
       def generate_items(size, retries, example_options, result)
-        loop do
+        while result.size < size
           item = items.to_example(example_options)
 
           if need_retry?(item, result, retries)
             retries -= 1
-          elsif (result << item).size >= size
-            break
+          else
+            result << item
           end
         end
       end
@@ -39,6 +39,10 @@ module Fakeit
 
       def need_retry?(item, result, retries)
         uniqueItems && result.include?(item) && retries.positive?
+      end
+
+      def unique_array_size
+        [min_array, 1].max
       end
 
       def min_array
