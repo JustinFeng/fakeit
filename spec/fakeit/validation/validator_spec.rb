@@ -12,43 +12,96 @@ describe Fakeit::Validation::Validator do
   end
 
   describe 'body' do
-    before(:each) do
-      allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content)
-        .and_return('text/plain' => '', 'application/vnd.api+json' => '')
+    context 'request body content not exists' do
+      before(:each) do
+        allow(request_operation).to receive_message_chain(:operation_object, :request_body).and_return(nil)
+      end
+
+      it 'skips validation' do
+        expect(request_operation).not_to receive(:validate_request_body)
+
+        subject.validate(body: {})
+      end
     end
 
-    it 'validates' do
-      expect(request_operation).to receive(:validate_request_body).with('application/vnd.api+json', 'request' => 'body')
+    context 'request body content exists' do
+      before(:each) do
+        allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content)
+          .and_return(contents)
+      end
 
-      subject.validate(body: '{"request": "body"}')
-    end
+      context 'media type is in request body content' do
+        let(:contents) do
+          {
+            'application/json' => '',
+            'application/vnd.api+json' => '',
+            'multipart/form-data' => '',
+            'text/plain' => ''
+          }
+        end
 
-    it 'raises validation error' do
-      allow(request_operation).to receive(:validate_request_body).and_raise(StandardError.new('some error'))
+        context 'can validate' do
+          %w[application/json application/vnd.api+json multipart/form-data].each do |media_type|
+            it "validates #{media_type}" do
+              expect(request_operation).to receive(:validate_request_body).with(media_type, 'request' => 'body')
 
-      expect { subject.validate(body: '{"request": "body"}') }
-        .to raise_error(Fakeit::Validation::ValidationError, 'some error')
-    end
+              subject.validate(body: { media_type: media_type, data: { 'request' => 'body' } })
+            end
+          end
 
-    it 'does not validate when json content type not found' do
-      allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content).and_return(nil)
+          it 'raises validation error' do
+            allow(request_operation).to receive(:validate_request_body).and_raise(StandardError.new('some error'))
 
-      expect(request_operation).not_to receive(:validate_request_body)
+            expect { subject.validate(body: { media_type: 'application/json', data: { 'request' => 'body' } }) }
+              .to raise_error(Fakeit::Validation::ValidationError, 'some error')
+          end
+        end
 
-      subject.validate(body: '{"request": "body"}')
-    end
+        context 'cannot validate' do
+          it 'skips validation' do
+            expect(request_operation).not_to receive(:validate_request_body)
 
-    it 'does not validate when body is invalid json and content type is not json' do
-      allow(request_operation).to receive_message_chain(:operation_object, :request_body, :content).and_return(nil)
+            subject.validate(body: { media_type: 'text/plain', data: 'body' })
+          end
+        end
+      end
 
-      expect(request_operation).not_to receive(:validate_request_body)
+      context 'media type is not in request body content' do
+        let(:contents) { { 'application/json' => '' } }
 
-      subject.validate(body: 'not a json')
-    end
+        context 'media type is nil' do
+          before(:each) do
+            allow(request_operation).to receive_message_chain(:operation_object, :request_body, :required)
+              .and_return(required)
+          end
 
-    it 'raise validation error when body is invalid json but content type is json' do
-      expect { subject.validate(body: 'not a json') }
-        .to raise_error(Fakeit::Validation::ValidationError, 'Invalid json payload')
+          context 'request body is required' do
+            let(:required) { true }
+
+            it 'raises validation error' do
+              expect { subject.validate(body: { media_type: nil, data: '' }) }
+                .to raise_error(Fakeit::Validation::ValidationError, 'Request body is required')
+            end
+          end
+
+          context 'request body is not required' do
+            let(:required) { false }
+
+            it 'skips validation' do
+              expect(request_operation).not_to receive(:validate_request_body)
+
+              subject.validate(body: { media_type: nil, data: '' })
+            end
+          end
+        end
+
+        context 'media type is not nil' do
+          it 'raises validation error' do
+            expect { subject.validate(body: { media_type: 'text/plain', data: 'body' }) }
+              .to raise_error(Fakeit::Validation::ValidationError, 'Invalid request content type')
+          end
+        end
+      end
     end
   end
 

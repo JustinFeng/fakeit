@@ -94,6 +94,7 @@ describe Fakeit do
 
   describe 'non json request content type' do
     it 'returns 200' do
+      header 'CONTENT_TYPE', 'text/plain'
       post '/non_json', 'text plain'
 
       expect(last_response.ok?).to be_truthy
@@ -103,67 +104,77 @@ describe Fakeit do
   describe 'invalid' do
     describe 'request body' do
       it 'returns 418' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/123', '{"integer": "1"}'
 
         expect(last_response.status).to be(418)
       end
 
       it 'returns headers' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/123', '{"integer": "1"}'
 
         expect(last_response.headers).to include('Content-Type' => 'application/json')
       end
 
       it 'returns validation error message' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/123', '{"integer": "1"}'
 
-        expect(JSON.parse(last_response.body)['message']).not_to be_nil
+        expect(JSON.parse(last_response.body)['message']).to include('expected number')
       end
     end
 
     describe 'request path parameter' do
       it 'returns 418' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/abc', '{"integer": 1}'
 
         expect(last_response.status).to be(418)
       end
 
       it 'returns headers' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/abc', '{"integer": 1}'
 
         expect(last_response.headers).to include('Content-Type' => 'application/json')
       end
 
       it 'returns validation error message' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/abc', '{"integer": 1}'
 
-        expect(JSON.parse(last_response.body)['message']).not_to be_nil
+        expect(JSON.parse(last_response.body)['message']).to include('expected integer')
       end
     end
 
     describe 'request query parameter' do
       it 'returns 418' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/1?type=abc', '{"integer": 1}'
 
         expect(last_response.status).to be(418)
       end
 
       it 'returns headers' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/1?type=abc', '{"integer": 1}'
 
         expect(last_response.headers).to include('Content-Type' => 'application/json')
       end
 
       it 'returns validation error message' do
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/1?type=abc', '{"integer": 1}'
 
-        expect(JSON.parse(last_response.body)['message']).not_to be_nil
+        expect(JSON.parse(last_response.body)['message']).to include('expected boolean')
       end
     end
 
     describe 'request headers' do
       it 'returns 418' do
         header 'Api-Version', '1'
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/1', '{"integer": 1}'
 
         expect(last_response.status).to be(418)
@@ -171,6 +182,7 @@ describe Fakeit do
 
       it 'returns headers' do
         header 'Api-Version', '1'
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/1', '{"integer": 1}'
 
         expect(last_response.headers).to include('Content-Type' => 'application/json')
@@ -178,6 +190,7 @@ describe Fakeit do
 
       it 'returns validation error message' do
         header 'Api-Version', '1'
+        header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/1', '{"integer": 1}'
 
         expect(JSON.parse(last_response.body)['message']).to include('isn\'t include enum')
