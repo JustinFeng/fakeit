@@ -75,16 +75,16 @@ describe Fakeit::App do
       end
 
       context 'body' do
-        it 'passes request body' do
-          expect(operation).to receive(:validate).with(hash_including(body: 'body'))
+        let(:parsed_body) { {} }
 
-          subject[env]
+        before(:each) do
+          allow(Fakeit::App::BodyParser).to receive(:parse).and_return(parsed_body)
         end
 
-        it 'passes empty request body' do
-          expect(operation).to receive(:validate).with(hash_including(body: ''))
+        it 'passes parsed request body' do
+          expect(operation).to receive(:validate).with(hash_including(body: parsed_body))
 
-          subject[env.merge('rack.input' => nil)]
+          subject[env]
         end
       end
     end
@@ -94,12 +94,26 @@ describe Fakeit::App do
         allow(operation).to receive(:validate).and_raise(Fakeit::Validation::ValidationError, 'some error')
       end
 
-      it 'fails invalid request by default' do
+      it 'fails invalid request' do
         status, headers, body = subject[env]
 
         expect(status).to be(418)
         expect(headers).to eq('Content-Type' => 'application/json')
         expect(body).to eq(['{"message":"some error"}'])
+      end
+
+      context 'body parse failed' do
+        before(:each) do
+          allow(Fakeit::App::BodyParser).to receive(:parse).and_raise(Fakeit::Validation::ValidationError, 'some error')
+        end
+
+        it 'fails invalid request' do
+          status, headers, body = subject[env]
+
+          expect(status).to be(418)
+          expect(headers).to eq('Content-Type' => 'application/json')
+          expect(body).to eq(['{"message":"some error"}'])
+        end
       end
 
       context 'permissive mode' do

@@ -36,7 +36,7 @@ module Fakeit
 
       def validate(operation, request)
         operation.validate(
-          body: request.body&.read.to_s,
+          body: BodyParser.parse(request),
           params: parse_query(request.query_string),
           headers: headers(request)
         )
