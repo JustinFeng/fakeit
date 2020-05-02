@@ -8,7 +8,7 @@ Static value generation rule
 | |anyOf|same as allOf|
 |boolean|N/A|`true`|
 |array|N/A|size is `1`|
-| |minItems|size is minItems|
+| |minItems|size is max(minItems,1)|
 |string|N/A|`string`|
 | |enum|first item|
 | |pattern|Generated but always the same|

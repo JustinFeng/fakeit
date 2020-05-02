@@ -4,7 +4,7 @@ module Fakeit
       def array_example(options)
         example_options = add_depth(options)
         if example_options[:use_static][type: 'array', property: example_options[:property]]
-          generate_array_example(example_options, -> { min_array })
+          generate_array_example(example_options, -> { non_empty_size })
         else
           generate_array_example(example_options, -> { random_array_size(example_options) })
         end
@@ -18,7 +18,7 @@ module Fakeit
       end
 
       def random_array_size(example_options)
-        uniqueItems ? unique_array_size : Faker::Number.between(from: min_array, to: max_array(example_options[:depth]))
+        uniqueItems ? non_empty_size : Faker::Number.between(from: min_array, to: max_array(example_options[:depth]))
       end
 
       def generate_items(size, retries, example_options, result)
@@ -41,7 +41,7 @@ module Fakeit
         uniqueItems && result.include?(item) && retries.positive?
       end
 
-      def unique_array_size
+      def non_empty_size
         [min_array, 1].max
       end
 

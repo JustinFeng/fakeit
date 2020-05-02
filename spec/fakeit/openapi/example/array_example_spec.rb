@@ -25,6 +25,12 @@ describe Fakeit::Openapi::Example do
 
       expect(array.size).to be(5)
     end
+
+    it 'generates at least 1 item' do
+      array = schema.properties['array_unique_min_0'].to_example(example_options)
+
+      expect(array.size).to be(1)
+    end
   end
 
   context 'random' do
