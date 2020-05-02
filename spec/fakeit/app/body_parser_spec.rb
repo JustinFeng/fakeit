@@ -5,38 +5,28 @@ describe Fakeit::App::BodyParser do
 
   subject { Fakeit::App::BodyParser.parse(request) }
 
-  context 'application/json' do
-    let(:content_type) { 'application/json' }
+  %w[application/json application/vnd.api+json].each do |media_type|
+    context media_type do
+      let(:content_type) { media_type }
 
-    context 'valid' do
-      let(:input) { '{}' }
+      context 'valid' do
+        let(:input) { '{"a":1}' }
 
-      it { is_expected.to eq({ media_type: 'application/json', data: {} }) }
-    end
-
-    context 'invalid' do
-      let(:input) { '' }
-
-      it 'raises error' do
-        expect { subject }.to raise_error(Fakeit::Validation::ValidationError, 'Invalid json payload')
+        it { is_expected.to eq({ media_type: media_type, data: { 'a' => 1 } }) }
       end
-    end
-  end
 
-  context 'vendor defined json' do
-    let(:content_type) { 'application/vnd.api+json' }
+      context 'empty body' do
+        let(:input) { nil }
 
-    context 'valid' do
-      let(:input) { '{}' }
+        it { is_expected.to eq({ media_type: media_type, data: {} }) }
+      end
 
-      it { is_expected.to eq({ media_type: 'application/vnd.api+json', data: {} }) }
-    end
+      context 'invalid' do
+        let(:input) { '{' }
 
-    context 'invalid' do
-      let(:input) { '' }
-
-      it 'raises error' do
-        expect { subject }.to raise_error(Fakeit::Validation::ValidationError, 'Invalid json payload')
+        it 'raises error' do
+          expect { subject }.to raise_error(Fakeit::Validation::ValidationError, 'Invalid json payload')
+        end
       end
     end
   end

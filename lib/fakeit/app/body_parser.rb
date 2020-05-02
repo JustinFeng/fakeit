@@ -16,7 +16,7 @@ module Fakeit
         private
 
         def parse_json(body)
-          JSON.parse(body)
+          body.empty? ? {} : JSON.parse(body)
         rescue StandardError
           raise Fakeit::Validation::ValidationError, 'Invalid json payload'
         end
