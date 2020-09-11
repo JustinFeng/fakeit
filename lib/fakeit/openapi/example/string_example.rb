@@ -100,7 +100,7 @@ module Fakeit
       end
 
       def random_string_pattern
-        @string_pattern.random_example(max_repeater_variance: 1)
+        @random_string_pattern ||= @string_pattern.random_example(max_repeater_variance: 1)
       end
 
       def unknown_format

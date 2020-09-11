@@ -11,7 +11,7 @@ The following Openapi properties are supported in random response generation
 | |minItems|Default: `1`|
 | |maxItems|Default: `minItems + 2`|
 |string|enum| |
-| |pattern| |
+| |pattern|Random generated once and cached for performance concern|
 | |format=uri| |
 | |format=uuid| |
 | |format=guid| |
