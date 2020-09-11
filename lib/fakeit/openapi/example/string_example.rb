@@ -27,6 +27,8 @@ module Fakeit
       }.freeze
 
       def string_example(example_options)
+        @string_pattern ||= Regexp.new(pattern) if pattern
+
         if example_options[:use_static][type: 'string', property: example_options[:property]]
           static_string_example
         else
@@ -39,7 +41,7 @@ module Fakeit
       def static_string_example
         fixed_faker do
           if enum then enum.to_a.first
-          elsif pattern then Faker::Base.regexify(pattern)
+          elsif pattern then static_string_pattern
           elsif format then static_string_format
           elsif length_constraint then static_string_with_length
           else 'string'
@@ -56,7 +58,7 @@ module Fakeit
 
       def random_string_example
         if enum then enum.to_a.sample
-        elsif pattern then Faker::Base.regexify(pattern)
+        elsif pattern then random_string_pattern
         elsif format then random_string_format
         elsif length_constraint then string_with_length
         else Faker::Book.title
@@ -69,6 +71,12 @@ module Fakeit
 
       def static_string_format
         (STATIC_FORMAT_HANDLERS[format] || method(:unknown_format))[]
+      end
+
+      def static_string_pattern
+        @static_string_pattern ||= @string_pattern.examples(
+          max_repeater_variance: 1, max_group_results: 1, max_results_limit: 1
+        ).first
       end
 
       def length_constraint
@@ -89,6 +97,10 @@ module Fakeit
 
       def random_string_format
         (RANDOM_FORMAT_HANDLERS[format] || method(:unknown_format))[]
+      end
+
+      def random_string_pattern
+        @string_pattern.random_example(max_repeater_variance: 1)
       end
 
       def unknown_format

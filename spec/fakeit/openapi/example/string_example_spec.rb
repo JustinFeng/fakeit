@@ -28,7 +28,7 @@ describe Fakeit::Openapi::Example do
     it 'pattern example' do
       string_pattern = schema.properties['string_pattern']
 
-      expect(string_pattern.to_example(example_options)).to eq('2950-01-30T21:47:56')
+      expect(string_pattern.to_example(example_options)).to eq('000')
     end
 
     it 'uri format example' do
@@ -125,8 +125,9 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'pattern example' do
-      pattern = '^[12][0-9]{3}-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$'
-      expect(Faker::Base).to receive(:regexify).with(pattern).and_return('matched_string')
+      pattern = '^\\d{3}$'
+      regexp = double(Regexp, random_example: 'matched_string')
+      expect(Regexp).to receive(:new).with(pattern).and_return(regexp)
 
       string_pattern = schema.properties['string_pattern']
 

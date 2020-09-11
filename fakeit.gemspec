@@ -34,6 +34,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'faker', '2.13.0'
   spec.add_dependency 'openapi_parser', '0.12.1'
+  spec.add_dependency 'regexp-examples', '1.5.1'
   spec.add_dependency 'rack', '~> 2.0'
   spec.add_dependency 'rack-cors', '~> 1.0'
   spec.add_dependency 'rainbow', '~> 3.0'
