@@ -9,11 +9,13 @@ module Fakeit
         end
 
         def call(request)
-          case request.request_method
-          when 'GET'
+          case [request.request_method, request.media_type]
+          in ['GET', _]
             Fakeit::App::Helpers::ResponseBuilder.ok(@options.to_hash)
-          when 'PUT'
+          in ['PUT', %r{^application/.*json}]
             update(request)
+          in ['PUT', _]
+            Fakeit::App::Helpers::ResponseBuilder.unsupported_media_type
           else
             Fakeit::App::Helpers::ResponseBuilder.method_not_allowed
           end
@@ -22,9 +24,8 @@ module Fakeit
         private
 
         def update(request)
-          data = Fakeit::App::Helpers::BodyParser.parse(request)[:data]
-          config = data.transform_keys(&:to_sym)
-          @options = Fakeit::App::Options.new(**config)
+          body = Fakeit::App::Helpers::BodyParser.parse(request)[:data]
+          @options = Fakeit::App::Options.new(**body.transform_keys(&:to_sym))
 
           Fakeit::App::Helpers::ResponseBuilder.ok(@options.to_hash)
         rescue ArgumentError => e

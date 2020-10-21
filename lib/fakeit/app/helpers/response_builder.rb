@@ -2,8 +2,6 @@ module Fakeit
   module App
     module Helpers
       class ResponseBuilder
-        HEADERS = { 'Content-Type' => 'application/json' }.freeze
-
         class << self
           def error(code, err)
             [code, { 'Content-Type' => 'application/json' }, [{ message: err.message }.to_json]]
@@ -17,8 +15,12 @@ module Fakeit
             [405, {}, ['Method Not Allowed']]
           end
 
+          def unsupported_media_type
+            [415, {}, ['Unsupported Media Type']]
+          end
+
           def ok(body)
-            [200, HEADERS, [body.to_json]]
+            [200, { 'Content-Type' => 'application/json' }, [body.to_json]]
           end
         end
       end

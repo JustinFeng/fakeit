@@ -15,6 +15,10 @@ describe Fakeit::App::Helpers::ResponseBuilder do
     expect(subject.method_not_allowed).to eq([405, {}, ['Method Not Allowed']])
   end
 
+  it 'unsupported_media_type' do
+    expect(subject.unsupported_media_type).to eq([415, {}, ['Unsupported Media Type']])
+  end
+
   it 'ok' do
     expect(subject.ok({})).to eq([200, headers, ['{}']])
   end

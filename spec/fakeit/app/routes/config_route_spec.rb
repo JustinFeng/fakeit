@@ -2,7 +2,8 @@ describe Fakeit::App::Routes::ConfigRoute do
   subject { Fakeit::App::Routes::ConfigRoute.new(options) }
 
   let(:options) { double(Fakeit::App::Options, to_hash: { some: 'config' }) }
-  let(:env) { { 'REQUEST_METHOD' => method } }
+  let(:media_type) { nil }
+  let(:env) { { 'REQUEST_METHOD' => method, 'CONTENT_TYPE' => media_type } }
   let(:request) { Rack::Request.new(env) }
 
   context 'GET' do
@@ -20,6 +21,7 @@ describe Fakeit::App::Routes::ConfigRoute do
 
   context 'PUT' do
     let(:method) { 'PUT' }
+    let(:media_type) { 'application/json' }
     let(:config) do
       {
         permissive: true,
@@ -56,6 +58,18 @@ describe Fakeit::App::Routes::ConfigRoute do
         expect(status).to be(422)
         expect(headers).to eq({ 'Content-Type' => 'application/json' })
         expect(body).to eq(['{"message":"unknown keyword: :unknown"}'])
+      end
+    end
+
+    context 'invalid media type' do
+      let(:media_type) { 'text/plain' }
+
+      it 'returns error response' do
+        status, headers, body = subject.call(request)
+
+        expect(status).to be(415)
+        expect(headers).to eq({})
+        expect(body).to eq(['Unsupported Media Type'])
       end
     end
   end
