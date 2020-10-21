@@ -1,142 +1,20 @@
 describe Fakeit::App do
   subject { Fakeit::App.create(spec_file, options) }
 
-  let(:options) { Fakeit::App::Options.new(permissive: false) }
+  let(:options) { 'options' }
   let(:spec_file) { 'spec_file' }
-  let(:specification) { double(Fakeit::Openapi::Specification) }
-  let(:env) do
-    {
-      'REQUEST_METHOD' => 'GET',
-      'PATH_INFO' => '/',
-      'rack.input' => StringIO.new('body'),
-      'QUERY_STRING' => 'q=a',
-      'HTTP_SOME_HEADER' => 'header'
-    }
-  end
+  let(:env) { 'env' }
+  let(:request) { 'request' }
+  let(:openapi_route) { double(Fakeit::App::Routes::OpenapiRoute) }
 
   before(:each) do
-    allow(Fakeit::Openapi::Specification).to receive(:new).with(spec_file).and_return(specification)
+    allow(Rack::Request).to receive(:new).with(env).and_return(request)
+    allow(Fakeit::App::Routes::OpenapiRoute).to receive(:new).with(spec_file).and_return(openapi_route)
   end
 
-  it 'handles valid request' do
-    operation_headers = { 'Content-Type' => 'application' }
-    operation = double(Fakeit::Openapi::Operation, status: 200, headers: operation_headers, body: 'body', validate: nil)
-    allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
+  it 'handles openapi route' do
+    expect(openapi_route).to receive(:call).with(request, options)
 
-    status, headers, body = subject[env]
-
-    expect(status).to be(200)
-    expect(headers).to eq(operation_headers)
-    expect(body).to eq(['body'])
-  end
-
-  it 'handles not found' do
-    allow(specification).to receive(:operation).with(:get, '/not_found', options).and_return(nil)
-
-    status, headers, body = subject[{ 'REQUEST_METHOD' => 'GET', 'PATH_INFO' => '/not_found' }]
-
-    expect(status).to be(404)
-    expect(headers).to eq({})
-    expect(body).to eq(['Not Found'])
-  end
-
-  describe 'validation' do
-    let(:operation) { double(Fakeit::Openapi::Operation, status: 200, headers: {}, body: 'body') }
-
-    before(:each) do
-      allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
-    end
-
-    context 'validates request' do
-      it 'passes request headers' do
-        expect(operation).to receive(:validate).with(hash_including(headers: { 'Some-Header' => 'header' }))
-
-        subject[env]
-      end
-
-      context 'params' do
-        it 'passes single value param' do
-          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => 'a' }))
-
-          subject[env]
-        end
-
-        it 'passes array value param with [] postfix' do
-          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => %w[a b] }))
-
-          subject[env.merge('QUERY_STRING' => 'q[]=a&q[]=b')]
-        end
-
-        it 'passes array value param without [] postfix' do
-          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => %w[a b] }))
-
-          subject[env.merge('QUERY_STRING' => 'q=a&q=b')]
-        end
-      end
-
-      context 'body' do
-        let(:parsed_body) { {} }
-
-        before(:each) do
-          allow(Fakeit::App::BodyParser).to receive(:parse).and_return(parsed_body)
-        end
-
-        it 'passes parsed request body' do
-          expect(operation).to receive(:validate).with(hash_including(body: parsed_body))
-
-          subject[env]
-        end
-      end
-    end
-
-    context 'failed' do
-      before(:each) do
-        allow(operation).to receive(:validate).and_raise(Fakeit::Validation::ValidationError, 'some error')
-      end
-
-      it 'fails invalid request' do
-        status, headers, body = subject[env]
-
-        expect(status).to be(418)
-        expect(headers).to eq('Content-Type' => 'application/json')
-        expect(body).to eq(['{"message":"some error"}'])
-      end
-
-      context 'body parse failed' do
-        before(:each) do
-          allow(Fakeit::App::BodyParser).to receive(:parse).and_raise(Fakeit::Validation::ValidationError, 'some error')
-        end
-
-        it 'fails invalid request' do
-          status, headers, body = subject[env]
-
-          expect(status).to be(418)
-          expect(headers).to eq('Content-Type' => 'application/json')
-          expect(body).to eq(['{"message":"some error"}'])
-        end
-      end
-
-      context 'permissive mode' do
-        let(:options) { Fakeit::App::Options.new(permissive: true) }
-
-        before(:each) do
-          allow(Fakeit::Logger).to receive(:warn)
-        end
-
-        it 'responds normally' do
-          status, headers, body = subject[env]
-
-          expect(status).to be(200)
-          expect(headers).to eq({})
-          expect(body).to eq(['body'])
-        end
-
-        it 'warns validation error' do
-          expect(Fakeit::Logger).to receive(:warn).with(Rainbow('some error').red)
-
-          subject[env]
-        end
-      end
-    end
+    subject[env]
   end
 end

@@ -1,9 +1,9 @@
-describe Fakeit::App::BodyParser do
+describe Fakeit::App::Helpers::BodyParser do
   let(:request) do
     Rack::Request.new(Rack::MockRequest.env_for('', { 'CONTENT_TYPE' => content_type, input: input }))
   end
 
-  subject { Fakeit::App::BodyParser.parse(request) }
+  subject { Fakeit::App::Helpers::BodyParser.parse(request) }
 
   %w[application/json application/vnd.api+json].each do |media_type|
     context media_type do
