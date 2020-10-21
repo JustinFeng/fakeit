@@ -14,6 +14,16 @@ module Fakeit
       def use_static?(type: nil, property: nil)
         @static || @static_types.include?(type) || @static_properties.include?(property)
       end
+
+      def to_hash
+        {
+          permissive: @permissive,
+          use_example: @use_example,
+          static: @static,
+          static_types: @static_types,
+          static_properties: @static_properties
+        }
+      end
     end
   end
 end

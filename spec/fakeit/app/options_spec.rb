@@ -1,4 +1,4 @@
-describe Fakeit::App do
+describe Fakeit::App::Options do
   it 'uses static when global static toggle is true' do
     option = Fakeit::App::Options.new(static: true)
 
@@ -21,5 +21,17 @@ describe Fakeit::App do
     option = Fakeit::App::Options.new(static_types: ['string'], static_properties: ['id'])
 
     expect(option.use_static?(type: 'integer', property: 'name')).to be(false)
+  end
+
+  it 'to hash' do
+    option = Fakeit::App::Options.new
+
+    expect(option.to_hash).to eq({
+      permissive: false,
+      use_example: false,
+      static: false,
+      static_types: [],
+      static_properties: []
+    })
   end
 end
