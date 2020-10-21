@@ -9,7 +9,7 @@ module Fakeit
         def call(request, options)
           @specification
             .operation(request.request_method.downcase.to_sym, request.path_info, options)
-            .then { _1 ? handle(_1, request, options) : not_found }
+            .then { _1 ? handle(_1, request, options) : Fakeit::App::Helpers::ResponseBuilder.not_found }
         end
 
         private
@@ -19,15 +19,7 @@ module Fakeit
           response(operation)
         rescue Fakeit::Validation::ValidationError => e
           Fakeit::Logger.warn(Rainbow(e.message).red)
-          options.permissive ? response(operation) : error(e)
-        end
-
-        def error(err)
-          [418, { 'Content-Type' => 'application/json' }, [{ message: err.message }.to_json]]
-        end
-
-        def not_found
-          [404, {}, ['Not Found']]
+          options.permissive ? response(operation) : Fakeit::App::Helpers::ResponseBuilder.error(418, e)
         end
 
         def response(operation)

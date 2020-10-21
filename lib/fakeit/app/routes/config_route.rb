@@ -4,8 +4,6 @@ module Fakeit
       class ConfigRoute
         attr_reader :options
 
-        HEADERS = { 'Content-Type' => 'application/json' }.freeze
-
         def initialize(options)
           @options = options
         end
@@ -13,11 +11,11 @@ module Fakeit
         def call(request)
           case request.request_method
           when 'GET'
-            [200, HEADERS, @options.to_hash.to_json]
+            Fakeit::App::Helpers::ResponseBuilder.ok(@options.to_hash)
           when 'PUT'
             update(request)
           else
-            [405, {}, ['Method Not Allowed']]
+            Fakeit::App::Helpers::ResponseBuilder.method_not_allowed
           end
         end
 
@@ -27,10 +25,10 @@ module Fakeit
           config = Fakeit::App::Helpers::BodyParser.parse(request)
           @options = Fakeit::App::Options.new(**config)
 
-          [200, HEADERS, @options.to_hash.to_json]
+          Fakeit::App::Helpers::ResponseBuilder.ok(@options.to_hash)
         rescue ArgumentError => e
           Fakeit::Logger.warn(Rainbow(e.message).red)
-          [422, HEADERS, [{ message: e.message }.to_json]]
+          Fakeit::App::Helpers::ResponseBuilder.error(422, e)
         end
       end
     end

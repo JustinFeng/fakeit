@@ -13,8 +13,8 @@ describe Fakeit::App::Routes::ConfigRoute do
       status, headers, body = subject.call(request)
 
       expect(status).to be(200)
-      expect(headers).to eq(Fakeit::App::Routes::ConfigRoute::HEADERS)
-      expect(body).to eq('{"some":"config"}')
+      expect(headers).to eq({ 'Content-Type' => 'application/json' })
+      expect(body).to eq(['{"some":"config"}'])
     end
   end
 
@@ -42,8 +42,8 @@ describe Fakeit::App::Routes::ConfigRoute do
       status, headers, body = subject.call(request)
 
       expect(status).to be(200)
-      expect(headers).to eq(Fakeit::App::Routes::ConfigRoute::HEADERS)
-      expect(body).to eq(config.to_json)
+      expect(headers).to eq({ 'Content-Type' => 'application/json' })
+      expect(body).to eq([config.to_json])
     end
 
     context 'invalid config' do
@@ -53,7 +53,7 @@ describe Fakeit::App::Routes::ConfigRoute do
         status, headers, body = subject.call(request)
 
         expect(status).to be(422)
-        expect(headers).to eq(Fakeit::App::Routes::ConfigRoute::HEADERS)
+        expect(headers).to eq({ 'Content-Type' => 'application/json' })
         expect(body).to eq(['{"message":"unknown keyword: :unknown"}'])
       end
     end
