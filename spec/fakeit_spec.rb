@@ -222,4 +222,63 @@ describe Fakeit do
       end
     end
   end
+
+  describe 'GET /__fakeit_config__' do
+    it 'returns 200' do
+      get '/__fakeit_config__'
+
+      expect(last_response.ok?).to be_truthy
+    end
+
+    it 'returns body' do
+      get '/__fakeit_config__'
+
+      expect(JSON.parse(last_response.body)).to eq(
+        'permissive' => false,
+        'use_example' => false,
+        'static' => false,
+        'static_types' => [],
+        'static_properties' => []
+      )
+    end
+
+    it 'returns headers' do
+      get '/__fakeit_config__'
+
+      expect(last_response.headers).to eq('Content-Type' => 'application/json')
+    end
+  end
+
+  describe 'PUT /__fakeit_config__' do
+    let(:config) do
+      {
+        'permissive' => true,
+        'use_example' => true,
+        'static' => true,
+        'static_types' => ['string'],
+        'static_properties' => ['id']
+      }
+    end
+
+    it 'returns 200' do
+      header 'CONTENT_TYPE', 'application/json'
+      put '/__fakeit_config__', config.to_json
+
+      expect(last_response.ok?).to be_truthy
+    end
+
+    it 'returns body' do
+      header 'CONTENT_TYPE', 'application/json'
+      put '/__fakeit_config__', config.to_json
+
+      expect(JSON.parse(last_response.body)).to eq(config)
+    end
+
+    it 'returns headers' do
+      header 'CONTENT_TYPE', 'application/json'
+      put '/__fakeit_config__', config.to_json
+
+      expect(last_response.headers).to eq('Content-Type' => 'application/json')
+    end
+  end
 end

@@ -29,8 +29,9 @@ describe Fakeit::App::Routes::ConfigRoute do
         static_properties: ['id']
       }
     end
+    let(:parse_result) { { data: config } }
 
-    before(:each) { allow(Fakeit::App::Helpers::BodyParser).to receive(:parse).with(request).and_return(config) }
+    before(:each) { allow(Fakeit::App::Helpers::BodyParser).to receive(:parse).with(request).and_return(parse_result) }
 
     it 'update config' do
       subject.call(request)

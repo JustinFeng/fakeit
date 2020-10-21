@@ -22,7 +22,8 @@ module Fakeit
         private
 
         def update(request)
-          config = Fakeit::App::Helpers::BodyParser.parse(request)
+          data = Fakeit::App::Helpers::BodyParser.parse(request)[:data]
+          config = data.transform_keys(&:to_sym)
           @options = Fakeit::App::Options.new(**config)
 
           Fakeit::App::Helpers::ResponseBuilder.ok(@options.to_hash)
