@@ -15,7 +15,7 @@ module Fakeit
   class << self
     def build(spec_file, options)
       Rack::Builder.new do
-        run App.create(spec_file, options)
+        run App::AppBuilder.new(spec_file, options).build
       end
     end
   end

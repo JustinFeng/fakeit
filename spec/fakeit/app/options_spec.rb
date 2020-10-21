@@ -24,14 +24,15 @@ describe Fakeit::App::Options do
   end
 
   it 'to hash' do
-    option = Fakeit::App::Options.new
-
-    expect(option.to_hash).to eq({
+    expected_config = {
       permissive: false,
       use_example: false,
       static: false,
       static_types: [],
       static_properties: []
-    })
+    }
+    option = Fakeit::App::Options.new
+
+    expect(option.to_hash).to eq(expected_config)
   end
 end

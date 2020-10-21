@@ -1,5 +1,5 @@
-describe Fakeit::App do
-  subject { Fakeit::App.create(spec_file, options) }
+describe Fakeit::App::AppBuilder do
+  subject { Fakeit::App::AppBuilder.new(spec_file, options).build }
 
   let(:options) { 'options' }
   let(:spec_file) { 'spec_file' }
