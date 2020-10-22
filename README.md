@@ -48,7 +48,7 @@ Or use the [docker image](https://hub.docker.com/r/realfengjia/fakeit)
 
     $ fakeit --spec <Local file or remote url>
 
-Command line options:
+### Command line options
 
     $ fakeit --help
     usage:
@@ -64,6 +64,29 @@ Command line options:
     other options:
         -v, --version
         -h, --help
+
+### Configuration endpoint
+
+Mock server behaviour can be changed on the fly
+
+Retrieve current config:
+
+    GET /__fakeit_config__
+
+Update config:
+
+    PUT /__fakeit_config__
+
+Request and response:
+```json
+{
+  'permissive' => false,
+  'use_example' => true,
+  'static' => false,
+  'static_types' => ['integer'],
+  'static_properties' => ['id']
+}
+```
 
 **Notes:**
 * See [here](docs/random.md) for Openapi properties supported in random response generation
