@@ -81,11 +81,15 @@ Update config:
 Request and response:
 ```json
 {
-  'permissive' => false,
-  'use_example' => true,
-  'static' => false,
-  'static_types' => ['integer'],
-  'static_properties' => ['id']
+  "permissive": false,
+  "use_example": true,
+  "static": false,
+  "static_types": [
+    "integer"
+  ],
+  "static_properties": [
+    "id"
+  ]
 }
 ```
 

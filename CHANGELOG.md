@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.7.0](https://github.com/JustinFeng/fakeit/tree/v0.7.0) (2020-10-22)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.6.3...v0.7.0)
+
+**Implemented enhancements:**
+
+- Supported change mock server behaviour on the fly
+- Allowed to redirect console log to a file
+
 ## [v0.6.3](https://github.com/JustinFeng/fakeit/tree/v0.6.3) (2020-09-11)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.6.2...v0.6.3)
