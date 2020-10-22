@@ -104,7 +104,7 @@ module Fakeit
       end
 
       def unknown_format
-        Fakeit::Logger.info("Unknown string format: #{format}")
+        Logger.info("Unknown string format: #{format}")
         'Unknown string format'
       end
     end

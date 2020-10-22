@@ -55,6 +55,7 @@ Or use the [docker image](https://hub.docker.com/r/realfengjia/fakeit)
         --spec               spec file uri (required)
         -p, --port           custom port
         -q, --quiet          mute request and response log
+        -l, --log-file       redirect log to a file
         --permissive         log validation error as warning instead of denying request
         --use-example        use example provided in spec if exists
         --static             generate static response

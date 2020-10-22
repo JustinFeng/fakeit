@@ -10,6 +10,7 @@ begin
     o.string '--spec', 'spec file uri (required)', required: true
     o.integer '-p', '--port', 'custom port'
     o.bool '-q', '--quiet', 'mute request and response log'
+    o.string '-l', '--log-file', 'redirect log to a file'
     o.bool '--permissive', 'log validation error as warning instead of denying request'
     o.bool '--use-example', 'use example provided in spec if exists'
     o.bool '--static', 'generate static response'
@@ -52,6 +53,9 @@ options = Fakeit::App::Options.new(
   static_properties: opts[:static_properties]
 )
 app = Fakeit.build(opts[:spec], options)
+
+$stderr.reopen(File.new(opts[:log_file], File::WRONLY | File::TRUNC | File::CREAT)) if opts[:log_file]
+$stderr.sync = true
 
 app.use Rack::Cors do
   allow do

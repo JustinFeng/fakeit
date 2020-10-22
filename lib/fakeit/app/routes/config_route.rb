@@ -29,7 +29,7 @@ module Fakeit
 
           Fakeit::App::Helpers::ResponseBuilder.ok(@options.to_hash)
         rescue ArgumentError => e
-          Fakeit::Logger.warn(Rainbow(e.message).red)
+          Logger.warn(Rainbow(e.message).red)
           Fakeit::App::Helpers::ResponseBuilder.error(422, e)
         end
       end

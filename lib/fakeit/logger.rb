@@ -1,4 +1,3 @@
 module Fakeit
-  $stdout.sync = true
-  Logger = ::Logger.new($stdout)
+  Logger = ::Logger.new($stderr)
 end
