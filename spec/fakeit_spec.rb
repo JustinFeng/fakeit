@@ -101,7 +101,7 @@ describe Fakeit do
     end
   end
 
-  describe 'invalid' do
+  describe 'invalid request' do
     describe 'request body' do
       it 'returns 418' do
         header 'CONTENT_TYPE', 'application/json'
