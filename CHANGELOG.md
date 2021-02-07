@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.7.1](https://github.com/JustinFeng/fakeit/tree/v0.7.1) (2021-02-07)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.7.0...v0.7.1)
+
+**Fixed bugs:**
+
+- ERROR NoMethodError: undefined method `to\_example' for \# [\#20](https://github.com/JustinFeng/fakeit/issues/20)
+
 ## [v0.7.0](https://github.com/JustinFeng/fakeit/tree/v0.7.0) (2020-10-22)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.6.3...v0.7.0)
