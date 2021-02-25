@@ -29,21 +29,13 @@ module Fakeit
         end
       end
 
-      def int_rand_begin
-        min_int / int_multiple + int_rand_begin_adjust
-      end
+      def int_rand_begin = min_int / int_multiple + int_rand_begin_adjust
 
-      def int_rand_end
-        max_int / int_multiple
-      end
+      def int_rand_end = max_int / int_multiple
 
-      def int_rand_begin_adjust
-        (min_int % int_multiple).zero? ? 0 : 1
-      end
+      def int_rand_begin_adjust = (min_int % int_multiple).zero? ? 0 : 1
 
-      def int_multiple
-        multipleOf || 1
-      end
+      def int_multiple = multipleOf || 1
 
       def min_int
         if minimum

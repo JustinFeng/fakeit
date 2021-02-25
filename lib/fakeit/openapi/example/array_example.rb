@@ -33,25 +33,15 @@ module Fakeit
         end
       end
 
-      def add_depth(example_options)
-        { **example_options, depth: example_options[:depth] + 1 }
-      end
+      def add_depth(example_options) = { **example_options, depth: example_options[:depth] + 1 }
 
-      def need_retry?(item, result, retries)
-        uniqueItems && result.include?(item) && retries.positive?
-      end
+      def need_retry?(item, result, retries) = uniqueItems && result.include?(item) && retries.positive?
 
-      def non_empty_size
-        [min_array, 1].max
-      end
+      def non_empty_size = [min_array, 1].max
 
-      def min_array
-        minItems || 1
-      end
+      def min_array = minItems || 1
 
-      def max_array(depth)
-        maxItems || min_array + (depth > 1 ? 2 : 9)
-      end
+      def max_array(depth) = maxItems || min_array + (depth > 1 ? 2 : 9)
     end
   end
 end

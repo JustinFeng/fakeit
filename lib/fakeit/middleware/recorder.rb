@@ -1,9 +1,7 @@
 module Fakeit
   module Middleware
     class Recorder
-      def initialize(app)
-        @app = app
-      end
+      def initialize(app) = @app = app
 
       def call(env)
         env
@@ -20,9 +18,7 @@ module Fakeit
           &.tap { |body| body.rewind }
       end
 
-      def log_response(response)
-        Logger.info("Response body: #{response[2].first}")
-      end
+      def log_response(response) = Logger.info("Response body: #{response[2].first}")
     end
   end
 end

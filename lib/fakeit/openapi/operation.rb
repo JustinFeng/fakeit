@@ -7,9 +7,7 @@ module Fakeit
         @app_options = app_options
       end
 
-      def status
-        response.first.to_i
-      end
+      def status = response.first.to_i
 
       def headers
         response_headers
@@ -26,9 +24,7 @@ module Fakeit
           .to_s
       end
 
-      def validate(...)
-        @validator.validate(...)
-      end
+      def validate(...) = @validator.validate(...)
 
       private
 
@@ -36,25 +32,15 @@ module Fakeit
         { use_example: @app_options.use_example, use_static: @app_options.method(:use_static?), depth: 0 }
       end
 
-      def response_content
-        response.last.content&.find { |k, _| k =~ %r{^application/.*json} }
-      end
+      def response_content = response.last.content&.find { |k, _| k =~ %r{^application/.*json} }
 
-      def response_schema
-        response_content&.last
-      end
+      def response_schema = response_content&.last
 
-      def response_content_type
-        response_content&.first
-      end
+      def response_content_type = response_content&.first
 
-      def response_headers
-        response.last.headers
-      end
+      def response_headers = response.last.headers
 
-      def response
-        @request_operation.operation_object.responses.response.min
-      end
+      def response = @request_operation.operation_object.responses.response.min
     end
   end
 end

@@ -7,9 +7,7 @@ module OpenAPIParser
 
       alias old_type type
 
-      def type
-        old_type || inferred_type
-      end
+      def type = old_type || inferred_type
 
       private
 

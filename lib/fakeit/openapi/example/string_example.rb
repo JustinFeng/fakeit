@@ -65,13 +65,9 @@ module Fakeit
         end
       end
 
-      def static_string_with_length
-        '1' * max_string_length
-      end
+      def static_string_with_length = '1' * max_string_length
 
-      def static_string_format
-        (STATIC_FORMAT_HANDLERS[format] || method(:unknown_format))[]
-      end
+      def static_string_format = (STATIC_FORMAT_HANDLERS[format] || method(:unknown_format))[]
 
       def static_string_pattern
         @static_string_pattern ||= @string_pattern.examples(
@@ -79,29 +75,17 @@ module Fakeit
         ).first
       end
 
-      def length_constraint
-        minLength || maxLength
-      end
+      def length_constraint = minLength || maxLength
 
-      def string_with_length
-        Faker::Internet.username(specifier: min_string_length..max_string_length)
-      end
+      def string_with_length = Faker::Internet.username(specifier: min_string_length..max_string_length)
 
-      def min_string_length
-        minLength || 0
-      end
+      def min_string_length = minLength || 0
 
-      def max_string_length
-        maxLength || min_string_length + 10
-      end
+      def max_string_length = maxLength || min_string_length + 10
 
-      def random_string_format
-        (RANDOM_FORMAT_HANDLERS[format] || method(:unknown_format))[]
-      end
+      def random_string_format = (RANDOM_FORMAT_HANDLERS[format] || method(:unknown_format))[]
 
-      def random_string_pattern
-        @random_string_pattern ||= @string_pattern.random_example(max_repeater_variance: 1)
-      end
+      def random_string_pattern = @random_string_pattern ||= @string_pattern.random_example(max_repeater_variance: 1)
 
       def unknown_format
         Logger.info("Unknown string format: #{format}")

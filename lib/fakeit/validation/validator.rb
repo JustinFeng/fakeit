@@ -1,9 +1,7 @@
 module Fakeit
   module Validation
     class Validator
-      def initialize(operation)
-        @operation = operation
-      end
+      def initialize(operation) = @operation = operation
 
       def validate(body: {}, params: {}, headers: {})
         options = OpenAPIParser::SchemaValidator::Options.new(coerce_value: true)
@@ -26,17 +24,11 @@ module Fakeit
         end
       end
 
-      def can_validate?(media_type)
-        media_type =~ %r{^application/.*json} || media_type == 'multipart/form-data'
-      end
+      def can_validate?(media_type) = media_type =~ %r{^application/.*json} || media_type == 'multipart/form-data'
 
-      def request_content_types
-        request_body&.content&.keys.to_a
-      end
+      def request_content_types = request_body&.content&.keys.to_a
 
-      def request_body
-        @operation.operation_object.request_body
-      end
+      def request_body = @operation.operation_object.request_body
     end
   end
 end

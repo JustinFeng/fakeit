@@ -2,9 +2,7 @@ module Fakeit
   module App
     module Routes
       class OpenapiRoute
-        def initialize(spec_file)
-          @specification = Fakeit::Openapi::Specification.new(spec_file)
-        end
+        def initialize(spec_file) = @specification = Fakeit::Openapi::Specification.new(spec_file)
 
         def call(request, options)
           @specification
@@ -22,9 +20,7 @@ module Fakeit
           options.permissive ? response(operation) : Fakeit::App::Helpers::ResponseBuilder.error(418, e)
         end
 
-        def response(operation)
-          [operation.status, operation.headers, [operation.body]]
-        end
+        def response(operation) = [operation.status, operation.headers, [operation.body]]
 
         def validate(operation, request)
           operation.validate(

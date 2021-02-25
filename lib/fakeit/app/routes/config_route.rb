@@ -4,9 +4,7 @@ module Fakeit
       class ConfigRoute
         attr_reader :options
 
-        def initialize(options)
-          @options = options
-        end
+        def initialize(options) = @options = options
 
         def call(request)
           case [request.request_method, request.media_type]
