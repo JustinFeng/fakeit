@@ -26,8 +26,8 @@ module Fakeit
           .to_s
       end
 
-      def validate(**request_parts)
-        @validator.validate(**request_parts)
+      def validate(...)
+        @validator.validate(...)
       end
 
       private
