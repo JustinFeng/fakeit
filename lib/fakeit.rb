@@ -9,7 +9,7 @@ require 'rack'
 require 'logger'
 require 'rainbow'
 
-Dir.glob(File.join(File.dirname(__FILE__), 'fakeit', '**/*.rb')).sort.each { require _1 }
+Dir.glob(File.join(File.dirname(__FILE__), 'fakeit', '**/*.rb')).each { require _1 }
 
 module Fakeit
   class << self

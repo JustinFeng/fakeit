@@ -5,13 +5,13 @@ describe Fakeit::Openapi::Operation do
   let(:request_operation) { double(OpenAPIParser::RequestOperation) }
   let(:response) { double(OpenAPIParser::Schemas::Response) }
   let(:media_type) { double(OpenAPIParser::Schemas::MediaType) }
-  let(:header_1) { double(OpenAPIParser::Schemas::Header) }
-  let(:header_2) { double(OpenAPIParser::Schemas::Header) }
+  let(:header1) { double(OpenAPIParser::Schemas::Header) }
+  let(:header2) { double(OpenAPIParser::Schemas::Header) }
   let(:schema) { double(OpenAPIParser::Schemas::Schema) }
 
   let(:body) { { 'some' => 'body' } }
-  let(:header_1_value) { '1' }
-  let(:header_2_value) { '2' }
+  let(:header1_value) { '1' }
+  let(:header2_value) { '2' }
 
   before(:each) do
     allow(request_operation).to receive_message_chain(:operation_object, :responses, :response)
@@ -27,27 +27,27 @@ describe Fakeit::Openapi::Operation do
 
   describe 'headers' do
     it 'returns headers' do
-      allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
+      allow(response).to receive(:headers).and_return('header1' => header1, 'header2' => header2)
       allow(response).to receive(:content).and_return('application/json' => media_type)
-      allow(header_1).to receive_message_chain(:schema, :to_example).and_return(header_1_value)
-      allow(header_2).to receive_message_chain(:schema, :to_example).and_return(header_2_value)
+      allow(header1).to receive_message_chain(:schema, :to_example).and_return(header1_value)
+      allow(header2).to receive_message_chain(:schema, :to_example).and_return(header2_value)
 
       expect(subject.headers).to eq(
-        'header_1' => header_1_value,
-        'header_2' => header_2_value,
+        'header1' => header1_value,
+        'header2' => header2_value,
         'Content-Type' => 'application/json'
       )
     end
 
     it 'returns no Content-Type header when no content matches' do
-      allow(response).to receive(:headers).and_return('header_1' => header_1, 'header_2' => header_2)
+      allow(response).to receive(:headers).and_return('header1' => header1, 'header2' => header2)
       allow(response).to receive(:content).and_return(nil)
-      allow(header_1).to receive_message_chain(:schema, :to_example).and_return(header_1_value)
-      allow(header_2).to receive_message_chain(:schema, :to_example).and_return(header_2_value)
+      allow(header1).to receive_message_chain(:schema, :to_example).and_return(header1_value)
+      allow(header2).to receive_message_chain(:schema, :to_example).and_return(header2_value)
 
       expect(subject.headers).to eq(
-        'header_1' => header_1_value,
-        'header_2' => header_2_value
+        'header1' => header1_value,
+        'header2' => header2_value
       )
     end
 
