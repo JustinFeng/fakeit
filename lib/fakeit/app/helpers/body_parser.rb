@@ -23,7 +23,7 @@ module Fakeit
           end
 
           def parse_form_data(params)
-            params.transform_values { |v| v.class == Hash && v[:tempfile] ? v[:tempfile].read : v }
+            params.transform_values { |v| v.instance_of?(Hash) && v[:tempfile] ? v[:tempfile].read : v }
           end
         end
       end
