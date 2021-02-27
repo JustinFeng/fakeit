@@ -9,6 +9,7 @@ PATH
       rainbow (~> 3.0)
       regexp-examples (= 1.5.1)
       slop (~> 4.8)
+      webrick (~> 1.7)
 
 GEM
   remote: https://rubygems.org/
@@ -71,6 +72,7 @@ GEM
     simplecov_json_formatter (0.1.2)
     slop (4.8.2)
     unicode-display_width (2.0.0)
+    webrick (1.7.0)
 
 PLATFORMS
   ruby

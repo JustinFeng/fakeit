@@ -40,4 +40,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rainbow', '~> 3.0'
   spec.add_dependency 'regexp-examples', '1.5.1'
   spec.add_dependency 'slop', '~> 4.8'
+  spec.add_dependency 'webrick', '~> 1.7'
 end
