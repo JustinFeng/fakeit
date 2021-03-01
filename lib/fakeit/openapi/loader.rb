@@ -4,7 +4,8 @@ module Fakeit
       def load(src)
         parse_method = parse_method(src)
 
-        open(src, &:read)
+        URI
+          .open(src, &:read)
           .then(&parse_method)
           .then(&OpenAPIParser.method(:parse))
       end
