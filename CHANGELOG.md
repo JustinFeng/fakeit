@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.8.0](https://github.com/JustinFeng/fakeit/tree/v0.8.0) (2021-02-27)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.7.1...v0.8.0)
+
+**Implemented enhancements:**
+
+- Upgraded to ruby 3.0.0
+
 ## [v0.7.1](https://github.com/JustinFeng/fakeit/tree/v0.7.1) (2021-02-07)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.7.0...v0.7.1)
