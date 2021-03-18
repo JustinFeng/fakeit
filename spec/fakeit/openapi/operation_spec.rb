@@ -9,7 +9,8 @@ describe Fakeit::Openapi::Operation do
   let(:header2) { double(OpenAPIParser::Schemas::Header) }
   let(:schema) { double(OpenAPIParser::Schemas::Schema) }
 
-  let(:body) { { 'some' => 'body' } }
+  let(:json_body) { { 'some' => 'body' } }
+  let(:text_body) { 'some body' }
   let(:header1_value) { '1' }
   let(:header2_value) { '2' }
 
@@ -69,24 +70,31 @@ describe Fakeit::Openapi::Operation do
   describe 'body' do
     it 'returns body for application/json' do
       allow(response).to receive(:content).and_return(
-        'text/plain' => 'other_media_type', 'application/json' => media_type
+        'image/gif' => 'other_media_type', 'application/json' => media_type
       )
       allow(media_type).to receive(:schema).and_return(schema)
 
       expect(schema).to receive(:to_example)
-        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(body)
-      expect(subject.body).to eq(JSON.generate(body))
+        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(json_body)
+      expect(subject.body).to eq(JSON.generate(json_body))
     end
 
     it 'returns body for vendor defined json' do
-      allow(response).to receive(:content).and_return(
-        'text/plain' => 'other_media_type', 'application/vnd.api+json' => media_type
-      )
+      allow(response).to receive(:content).and_return('application/vnd.api+json' => media_type)
       allow(media_type).to receive(:schema).and_return(schema)
 
       expect(schema).to receive(:to_example)
-        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(body)
-      expect(subject.body).to eq(JSON.generate(body))
+        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(json_body)
+      expect(subject.body).to eq(JSON.generate(json_body))
+    end
+
+    it 'returns body for application/pdf' do
+      allow(response).to receive(:content).and_return('application/pdf' => media_type)
+      allow(media_type).to receive(:schema).and_return(schema)
+
+      expect(schema).to receive(:to_example)
+        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(text_body)
+      expect(subject.body).to eq(text_body)
     end
 
     it 'returns no body' do

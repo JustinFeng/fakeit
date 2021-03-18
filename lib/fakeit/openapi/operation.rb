@@ -20,7 +20,7 @@ module Fakeit
         response_schema
           &.schema
           &.to_example(example_options)
-          &.then(&JSON.method(:generate))
+          &.then(&method(:serialise))
           .to_s
       end
 
@@ -28,11 +28,15 @@ module Fakeit
 
       private
 
+      def serialise(body) = body.is_a?(String) ? body : JSON.generate(body)
+
       def example_options
         { use_example: @app_options.use_example, use_static: @app_options.method(:use_static?), depth: 0 }
       end
 
-      def response_content = response.last.content&.find { |k, _| k =~ %r{^application/.*json} }
+      def response_content
+        response.last.content&.find { |k, _| k =~ %r{^application/.*json} || k == 'application/pdf' }
+      end
 
       def response_schema = response_content&.last
 

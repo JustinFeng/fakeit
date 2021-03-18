@@ -35,6 +35,7 @@ After tried several existing options, we cannot find a best solution to meet all
 * Load specification from local or remote
 * Support hot reload local specification
 * Support specification in yaml or json format
+* [Experimental] Support plain text and binary response, e.g. `application/pdf`
 
 ## Installation
 
@@ -66,6 +67,12 @@ Or use the [docker image](https://hub.docker.com/r/realfengjia/fakeit)
         -v, --version
         -h, --help
 
+**Notes:**
+* See [here](docs/random.md) for Openapi properties supported in random response generation
+* See [here](docs/static.md) for default value in static response generation
+* Regarding `--use-example` mode, property without example specified will still be randomly or statically generated
+* Random response generation can not handle recursive schema reference. If you do need it in your spec file, please provide `example` property for the recursive part of schema and specify `--use-example` option.
+
 ### Configuration endpoint
 
 Mock server behaviour can be changed on the fly
@@ -92,12 +99,6 @@ Request and response:
   ]
 }
 ```
-
-**Notes:**
-* See [here](docs/random.md) for Openapi properties supported in random response generation
-* See [here](docs/static.md) for default value in static response generation
-* Regarding `--use-example` mode, property without example specified will still be randomly or statically generated
-* Random response generation can not handle recursive schema reference. If you do need it in your spec file, please provide `example` property for the recursive part of schema and specify `--use-example` option.
 
 ## Development
 
