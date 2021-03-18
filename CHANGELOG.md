@@ -1,5 +1,21 @@
 # Changelog
 
+## [v0.9.0](https://github.com/JustinFeng/fakeit/tree/v0.9.0) (2021-03-18)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.8.1...v0.9.0)
+
+**Implemented enhancements:**
+
+- Experimental feature to support plain text and binary response, e.g. application/pdf
+
+## [v0.8.1](https://github.com/JustinFeng/fakeit/tree/v0.8.1) (2021-03-01)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.8.0...v0.8.1)
+
+**Fixed bugs:**
+
+- Cannot load spec file from url [\#21](https://github.com/JustinFeng/fakeit/issues/21)
+
 ## [v0.8.0](https://github.com/JustinFeng/fakeit/tree/v0.8.0) (2021-02-27)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.7.1...v0.8.0)
