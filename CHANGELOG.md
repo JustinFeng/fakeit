@@ -1,5 +1,13 @@
 # Changelog
 
+## [v0.9.1](https://github.com/JustinFeng/fakeit/tree/v0.9.1) (2021-04-18)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.9.0...v0.9.1)
+
+**Fixed bugs:**
+
+- Query parameter array [\#23](https://github.com/JustinFeng/fakeit/issues/23)
+
 ## [v0.9.0](https://github.com/JustinFeng/fakeit/tree/v0.9.0) (2021-03-18)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.8.1...v0.9.0)
