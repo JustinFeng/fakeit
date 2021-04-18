@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fakeit (0.9.0)
+    fakeit (0.9.1)
       faker (= 2.13.0)
       openapi_parser (= 0.12.1)
       rack (~> 2.0)
@@ -89,4 +89,4 @@ DEPENDENCIES
   simplecov (~> 0.18)
 
 BUNDLED WITH
-   2.2.11
+   2.2.15
