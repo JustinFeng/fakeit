@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.9.2](https://github.com/JustinFeng/fakeit/tree/v0.9.2) (2021-08-14)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.9.1...v0.9.2)
+
+**Closed issues:**
+
+- "Tried to load unspecified class: Date" error is given when spec contains a text that resembles a date [\#25](https://github.com/JustinFeng/fakeit/issues/25)
+
+**Merged pull requests:**
+
+- Bump rexml from 3.2.4 to 3.2.5 [\#24](https://github.com/JustinFeng/fakeit/pull/24) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [v0.9.1](https://github.com/JustinFeng/fakeit/tree/v0.9.1) (2021-04-18)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.9.0...v0.9.1)
