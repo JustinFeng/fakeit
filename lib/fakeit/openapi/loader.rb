@@ -2,22 +2,20 @@ module Fakeit
   module Openapi
     class << self
       def load(src)
-        parse_method = parse_method(src)
-
         URI
           .open(src, &:read)
-          .then(&parse_method)
+          .then { parse(src, _1) }
           .then(&OpenAPIParser.method(:parse))
       end
 
       private
 
-      def parse_method(src)
+      def parse(src, content)
         case File.extname(src)
         when '.json'
-          JSON.method(:parse)
+          JSON.parse(content)
         when '.yml', '.yaml'
-          YAML.method(:safe_load)
+          YAML.safe_load(content, [Date, Time])
         else
           raise 'Invalid openapi specification file'
         end

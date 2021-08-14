@@ -21,7 +21,7 @@ describe Fakeit::Openapi do
     let(:src) { 'spec.yml' }
 
     it 'loads spec file' do
-      expect(YAML).to receive(:safe_load).with(content).and_return(data)
+      expect(YAML).to receive(:safe_load).with(content, [Date, Time]).and_return(data)
       expect(Fakeit::Openapi.load(src)).to be(doc)
     end
   end
@@ -30,7 +30,7 @@ describe Fakeit::Openapi do
     let(:src) { 'spec.yaml' }
 
     it 'loads spec file' do
-      expect(YAML).to receive(:safe_load).with(content).and_return(data)
+      expect(YAML).to receive(:safe_load).with(content, [Date, Time]).and_return(data)
       expect(Fakeit::Openapi.load(src)).to be(doc)
     end
   end
