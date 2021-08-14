@@ -193,7 +193,7 @@ describe Fakeit do
         header 'CONTENT_TYPE', 'application/json'
         post '/invalid_request/1', '{"integer": 1}'
 
-        expect(JSON.parse(last_response.body)['message']).to include('isn\'t include enum')
+        expect(JSON.parse(last_response.body)['message']).to include('isn\'t part of the enum')
       end
     end
 
