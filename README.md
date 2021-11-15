@@ -62,6 +62,7 @@ Or use the [docker image](https://hub.docker.com/r/realfengjia/fakeit)
         --static             generate static response
         --static-types       generate static value for specified types, e.g. --static-types integer,string
         --static-properties  generate static value for specified properties, e.g. --static-properties id,uuid
+        --base-path          mounts the mock server at the given path, e.g. --base-path /api
 
     other options:
         -v, --version
@@ -96,7 +97,8 @@ Request and response:
   ],
   "static_properties": [
     "id"
-  ]
+  ],
+  "base_path": "/"
 }
 ```
 

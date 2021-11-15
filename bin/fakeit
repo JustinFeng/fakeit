@@ -16,6 +16,7 @@ begin
     o.bool '--static', 'generate static response'
     o.array '--static-types', 'generate static value for specified types, e.g. --static-types integer,string'
     o.array '--static-properties', 'generate static value for specified properties, e.g. --static-properties id,uuid'
+    o.string '--base-path', 'mounts the mock server at the given path, e.g. --base-path /api'
     o.separator ''
     o.separator 'other options:'
     o.on '-v', '--version' do
@@ -50,7 +51,8 @@ options = Fakeit::App::Options.new(
   use_example: opts.use_example?,
   static: opts.static?,
   static_types: opts[:static_types],
-  static_properties: opts[:static_properties]
+  static_properties: opts[:static_properties],
+  base_path: opts[:base_path]
 )
 app = Fakeit.build(opts[:spec], options)
 
