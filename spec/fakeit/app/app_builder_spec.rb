@@ -1,11 +1,12 @@
 describe Fakeit::App::AppBuilder do
   subject { Fakeit::App::AppBuilder.new(spec_file, options).build }
 
-  let(:options) { 'options' }
   let(:spec_file) { 'spec_file' }
   let(:env) { 'env' }
   let(:request) { double(Rack::Request) }
+  let(:base_path) { '/' }
 
+  let(:options) { double(Fakeit::App::Options, base_path: base_path) }
   let(:openapi_route) { double(Fakeit::App::Routes::OpenapiRoute) }
   let(:config_route) { double(Fakeit::App::Routes::ConfigRoute, options: options) }
 
@@ -25,9 +26,23 @@ describe Fakeit::App::AppBuilder do
 
   it 'handles openapi route' do
     allow(request).to receive(:path_info).and_return('/other')
+    allow(request).to receive(:path_info=).with('/other')
 
     expect(openapi_route).to receive(:call).with(request, options)
 
     subject[env]
+  end
+
+  context 'when base_path is not the root' do
+    let(:base_path) { '/some_base_path/' }
+
+    it 'handles openapi route' do
+      allow(request).to receive(:path_info).and_return('/some_base_path/other')
+
+      expect(request).to receive(:path_info=).with('/other')
+      expect(openapi_route).to receive(:call).with(request, options)
+
+      subject[env]
+    end
   end
 end

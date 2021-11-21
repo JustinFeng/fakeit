@@ -28,7 +28,8 @@ describe Fakeit::App::Routes::ConfigRoute do
         use_example: true,
         static: true,
         static_types: ['string'],
-        static_properties: ['id']
+        static_properties: ['id'],
+        base_path: '/'
       }
     end
     let(:parse_result) { { data: config } }

@@ -238,7 +238,8 @@ describe Fakeit do
         'use_example' => false,
         'static' => false,
         'static_types' => [],
-        'static_properties' => []
+        'static_properties' => [],
+        'base_path' => '/'
       )
     end
 
@@ -256,7 +257,8 @@ describe Fakeit do
         'use_example' => true,
         'static' => true,
         'static_types' => ['string'],
-        'static_properties' => ['id']
+        'static_properties' => ['id'],
+        'base_path' => '/'
       }
     end
 

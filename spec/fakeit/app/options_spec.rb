@@ -23,6 +23,14 @@ describe Fakeit::App::Options do
     expect(option.use_static?(type: 'integer', property: 'name')).to be(false)
   end
 
+  it 'ensures the base_path always terminates in a slash' do
+    ['/some_base_path/', '/some_base_path'].each do |base_path|
+      option = Fakeit::App::Options.new(base_path: base_path)
+
+      expect(option.base_path).to eq('/some_base_path/')
+    end
+  end
+
   it 'to hash' do
     option = Fakeit::App::Options.new
 
@@ -31,7 +39,8 @@ describe Fakeit::App::Options do
       use_example: false,
       static: false,
       static_types: [],
-      static_properties: []
+      static_properties: [],
+      base_path: '/'
     )
   end
 end
