@@ -28,7 +28,7 @@ module Fakeit
 
         return path unless path.start_with?(@options.base_path)
 
-        path[@options.base_path.length-1..]
+        path[@options.base_path.length - 1..]
       end
     end
   end

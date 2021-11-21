@@ -21,3 +21,6 @@ Security/Open:
 
 Style/HashTransformKeys:
   Enabled: false
+
+Metrics/ParameterLists:
+  CountKeywordArgs: false

@@ -45,4 +45,17 @@ describe Fakeit::App::AppBuilder do
       subject[env]
     end
   end
+
+  context 'when request path not matching base_path' do
+    let(:base_path) { '/some_base_path/' }
+
+    it 'handles openapi route' do
+      allow(request).to receive(:path_info).and_return('/some_other_path/other')
+
+      expect(request).to receive(:path_info=).with('/some_other_path/other')
+      expect(openapi_route).to receive(:call).with(request, options)
+
+      subject[env]
+    end
+  end
 end

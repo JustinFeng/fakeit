@@ -3,7 +3,14 @@ module Fakeit
     class Options
       attr_reader :permissive, :use_example, :base_path
 
-      def initialize(permissive: false, use_example: false, static: false, static_types: [], static_properties: [], base_path: "/")
+      def initialize(
+        permissive: false,
+        use_example: false,
+        static: false,
+        static_types: [],
+        static_properties: [],
+        base_path: '/'
+      )
         @permissive = permissive
         @use_example = use_example
         @static = static
