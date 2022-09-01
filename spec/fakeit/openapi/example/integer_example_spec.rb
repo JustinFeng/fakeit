@@ -2,7 +2,7 @@ describe Fakeit::Openapi::Example do
   let(:schema) { load_schema('integer_schema') }
 
   let(:use_static) { double('lambda', :[] => false) }
-  let(:example_options) { { use_static: use_static, property: 'static_integer' } }
+  let(:example_options) { { use_static:, property: 'static_integer' } }
 
   it 'calls use_static' do
     expect(use_static).to receive(:[]).with(type: 'integer', property: 'static_integer')
@@ -16,25 +16,25 @@ describe Fakeit::Openapi::Example do
     it 'default integer example' do
       integer = schema.properties['integer']
 
-      expect(integer.to_example(example_options)).to eq(2**31 - 1)
+      expect(integer.to_example(example_options)).to eq((2**31) - 1)
     end
 
     it 'int32 integer example' do
       integer = schema.properties['integer_int32']
 
-      expect(integer.to_example(example_options)).to eq(2**31 - 1)
+      expect(integer.to_example(example_options)).to eq((2**31) - 1)
     end
 
     it 'int64 integer example' do
       integer = schema.properties['integer_int64']
 
-      expect(integer.to_example(example_options)).to eq(2**63 - 1)
+      expect(integer.to_example(example_options)).to eq((2**63) - 1)
     end
 
     it 'handles unknown format' do
       integer = schema.properties['integer_unknown']
 
-      expect(integer.to_example(example_options)).to eq(2**31 - 1)
+      expect(integer.to_example(example_options)).to eq((2**31) - 1)
     end
 
     it 'range example' do
@@ -64,7 +64,7 @@ describe Fakeit::Openapi::Example do
 
   context 'random' do
     it 'default integer example' do
-      expect(Faker::Number).to receive(:between).with(from: -2**31, to: 2**31 - 1).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: -2**31, to: (2**31) - 1).and_return(1)
 
       integer = schema.properties['integer']
 
@@ -72,7 +72,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'int32 integer example' do
-      expect(Faker::Number).to receive(:between).with(from: -2**31, to: 2**31 - 1).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: -2**31, to: (2**31) - 1).and_return(1)
 
       integer = schema.properties['integer_int32']
 
@@ -80,7 +80,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'int64 integer example' do
-      expect(Faker::Number).to receive(:between).with(from: -2**63, to: 2**63 - 1).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: -2**63, to: (2**63) - 1).and_return(1)
 
       integer = schema.properties['integer_int64']
 
@@ -88,7 +88,7 @@ describe Fakeit::Openapi::Example do
     end
 
     it 'handles unknown format' do
-      expect(Faker::Number).to receive(:between).with(from: -2**31, to: 2**31 - 1).and_return(1)
+      expect(Faker::Number).to receive(:between).with(from: -2**31, to: (2**31) - 1).and_return(1)
 
       integer = schema.properties['integer_unknown']
 

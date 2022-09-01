@@ -25,7 +25,7 @@ describe Fakeit::App::Options do
 
   it 'ensures the base_path always terminates in a slash' do
     ['/some_base_path/', '/some_base_path'].each do |base_path|
-      option = Fakeit::App::Options.new(base_path: base_path)
+      option = Fakeit::App::Options.new(base_path:)
 
       expect(option.base_path).to eq('/some_base_path/')
     end

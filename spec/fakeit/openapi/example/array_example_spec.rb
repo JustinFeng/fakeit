@@ -2,7 +2,7 @@ describe Fakeit::Openapi::Example do
   let(:schema) { load_schema('array_schema') }
 
   let(:use_static) { double('lambda', :[] => false) }
-  let(:example_options) { { use_static: use_static, depth: 0, property: 'static_array' } }
+  let(:example_options) { { use_static:, depth: 0, property: 'static_array' } }
 
   it 'calls use_static' do
     expect(use_static).to receive(:[]).with(type: 'array', property: 'static_array')

@@ -44,7 +44,8 @@ module Fakeit
           elsif pattern then static_string_pattern
           elsif format then static_string_format
           elsif length_constraint then static_string_with_length
-          else 'string'
+          else
+            'string'
           end
         end
       end
@@ -61,7 +62,8 @@ module Fakeit
         elsif pattern then random_string_pattern
         elsif format then random_string_format
         elsif length_constraint then string_with_length
-        else Faker::Book.title
+        else
+          Faker::Book.title
         end
       end
 
@@ -81,7 +83,7 @@ module Fakeit
 
       def min_string_length = minLength || 0
 
-      def max_string_length = maxLength || min_string_length + 10
+      def max_string_length = maxLength || (min_string_length + 10)
 
       def random_string_format = (RANDOM_FORMAT_HANDLERS[format] || method(:unknown_format))[]
 

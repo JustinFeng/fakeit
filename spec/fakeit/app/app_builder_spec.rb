@@ -6,9 +6,9 @@ describe Fakeit::App::AppBuilder do
   let(:request) { double(Rack::Request) }
   let(:base_path) { '/' }
 
-  let(:options) { double(Fakeit::App::Options, base_path: base_path) }
+  let(:options) { double(Fakeit::App::Options, base_path:) }
   let(:openapi_route) { double(Fakeit::App::Routes::OpenapiRoute) }
-  let(:config_route) { double(Fakeit::App::Routes::ConfigRoute, options: options) }
+  let(:config_route) { double(Fakeit::App::Routes::ConfigRoute, options:) }
 
   before(:each) do
     allow(Rack::Request).to receive(:new).with(env).and_return(request)

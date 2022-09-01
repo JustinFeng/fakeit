@@ -45,7 +45,7 @@ describe Fakeit::Validation::Validator do
             it "validates #{media_type}" do
               expect(request_operation).to receive(:validate_request_body).with(media_type, { 'request' => 'body' })
 
-              subject.validate(body: { media_type: media_type, data: { 'request' => 'body' } })
+              subject.validate(body: { media_type:, data: { 'request' => 'body' } })
             end
           end
 
@@ -130,13 +130,13 @@ describe Fakeit::Validation::Validator do
       expect(OpenAPIParser::SchemaValidator::Options).to receive(:new).with(coerce_value: true).and_return(options)
       expect(request_operation).to receive(:validate_request_parameter).with(params, {}, options)
 
-      subject.validate(params: params)
+      subject.validate(params:)
     end
 
     it 'raises validation error' do
       allow(request_operation).to receive(:validate_request_parameter).and_raise(StandardError.new('some error'))
 
-      expect { subject.validate(params: params) }.to raise_error(Fakeit::Validation::ValidationError, 'some error')
+      expect { subject.validate(params:) }.to raise_error(Fakeit::Validation::ValidationError, 'some error')
     end
   end
 
@@ -148,13 +148,13 @@ describe Fakeit::Validation::Validator do
       expect(OpenAPIParser::SchemaValidator::Options).to receive(:new).with(coerce_value: true).and_return(options)
       expect(request_operation).to receive(:validate_request_parameter).with({}, headers, options)
 
-      subject.validate(headers: headers)
+      subject.validate(headers:)
     end
 
     it 'raises validation error' do
       allow(request_operation).to receive(:validate_request_parameter).and_raise(StandardError.new('some error'))
 
-      expect { subject.validate(headers: headers) }.to raise_error(Fakeit::Validation::ValidationError, 'some error')
+      expect { subject.validate(headers:) }.to raise_error(Fakeit::Validation::ValidationError, 'some error')
     end
   end
 end

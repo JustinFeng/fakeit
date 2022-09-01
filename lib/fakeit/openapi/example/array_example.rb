@@ -41,7 +41,7 @@ module Fakeit
 
       def min_array = minItems || 1
 
-      def max_array(depth) = maxItems || min_array + (depth > 1 ? 2 : 9)
+      def max_array(depth) = maxItems || (min_array + (depth > 1 ? 2 : 9))
     end
   end
 end

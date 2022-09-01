@@ -29,7 +29,7 @@ module Fakeit
         end
       end
 
-      def int_rand_begin = min_int / int_multiple + int_rand_begin_adjust
+      def int_rand_begin = (min_int / int_multiple) + int_rand_begin_adjust
 
       def int_rand_end = max_int / int_multiple
 
@@ -49,7 +49,7 @@ module Fakeit
         if maximum
           exclusiveMaximum ? maximum - 1 : maximum
         else
-          2**(int_bits - 1) - 1
+          (2**(int_bits - 1)) - 1
         end
       end
 

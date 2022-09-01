@@ -2,7 +2,7 @@ describe Fakeit::Openapi::Example do
   let(:schema) { load_schema('string_schema') }
 
   let(:use_static) { double('lambda', :[] => false) }
-  let(:example_options) { { use_static: use_static, property: 'static_string' } }
+  let(:example_options) { { use_static:, property: 'static_string' } }
 
   it 'calls use_static' do
     expect(use_static).to receive(:[]).with(type: 'string', property: 'static_string')

@@ -2,7 +2,7 @@ module Fakeit
   module Openapi
     module Example
       MIN_NUM = -2**31
-      MAX_NUM = 2**31 - 1
+      MAX_NUM = (2**31) - 1
 
       def number_example(example_options)
         if example_options[:use_static][type: 'number', property: example_options[:property]]

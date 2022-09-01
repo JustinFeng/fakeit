@@ -2,7 +2,7 @@ describe Fakeit::Openapi::Example do
   let(:schema) { load_schema('number_schema') }
 
   let(:use_static) { double('lambda', :[] => false) }
-  let(:example_options) { { use_static: use_static, property: 'static_number' } }
+  let(:example_options) { { use_static:, property: 'static_number' } }
 
   it 'calls use_static' do
     expect(use_static).to receive(:[]).with(type: 'number', property: 'static_number')
@@ -16,7 +16,7 @@ describe Fakeit::Openapi::Example do
     it 'default number example' do
       number = schema.properties['number']
 
-      expect(number.to_example(example_options)).to be((2**31 - 1).to_f)
+      expect(number.to_example(example_options)).to be(((2**31) - 1).to_f)
     end
 
     it 'range example' do
@@ -34,7 +34,7 @@ describe Fakeit::Openapi::Example do
 
   context 'random' do
     it 'default number example' do
-      expect(Faker::Number).to receive(:between).with(from: -2**31, to: 2**31 - 1).and_return(1.123)
+      expect(Faker::Number).to receive(:between).with(from: -2**31, to: (2**31) - 1).and_return(1.123)
 
       number = schema.properties['number']
 

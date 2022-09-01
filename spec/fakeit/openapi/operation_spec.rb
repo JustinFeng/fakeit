@@ -115,9 +115,9 @@ describe Fakeit::Openapi::Operation do
     end
 
     it 'validates request' do
-      expect(validator).to receive(:validate).with(body: body, params: params, headers: headers)
+      expect(validator).to receive(:validate).with(body:, params:, headers:)
 
-      subject.validate(body: body, params: params, headers: headers)
+      subject.validate(body:, params:, headers:)
     end
   end
 end

@@ -2,7 +2,7 @@ describe Fakeit::Openapi::Example do
   let(:schema) { load_schema('boolean_schema') }
 
   let(:use_static) { double('lambda', :[] => false) }
-  let(:example_options) { { use_static: use_static, property: 'static_boolean' } }
+  let(:example_options) { { use_static:, property: 'static_boolean' } }
 
   it 'calls use_static' do
     expect(use_static).to receive(:[]).with(type: 'boolean', property: 'static_boolean')

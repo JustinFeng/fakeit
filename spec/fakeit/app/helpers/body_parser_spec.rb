@@ -1,6 +1,6 @@
 describe Fakeit::App::Helpers::BodyParser do
   let(:request) do
-    Rack::Request.new(Rack::MockRequest.env_for('', { 'CONTENT_TYPE' => content_type, input: input }))
+    Rack::Request.new(Rack::MockRequest.env_for('', { 'CONTENT_TYPE' => content_type, input: }))
   end
 
   subject { Fakeit::App::Helpers::BodyParser.parse(request) }
@@ -12,13 +12,13 @@ describe Fakeit::App::Helpers::BodyParser do
       context 'valid' do
         let(:input) { '{"a":1}' }
 
-        it { is_expected.to eq({ media_type: media_type, data: { 'a' => 1 } }) }
+        it { is_expected.to eq({ media_type:, data: { 'a' => 1 } }) }
       end
 
       context 'empty body' do
         let(:input) { nil }
 
-        it { is_expected.to eq({ media_type: media_type, data: {} }) }
+        it { is_expected.to eq({ media_type:, data: {} }) }
       end
 
       context 'invalid' do
