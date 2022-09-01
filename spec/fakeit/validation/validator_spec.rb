@@ -43,7 +43,7 @@ describe Fakeit::Validation::Validator do
         context 'can validate' do
           %w[application/json application/vnd.api+json multipart/form-data].each do |media_type|
             it "validates #{media_type}" do
-              expect(request_operation).to receive(:validate_request_body).with(media_type, 'request' => 'body')
+              expect(request_operation).to receive(:validate_request_body).with(media_type, { 'request' => 'body' })
 
               subject.validate(body: { media_type: media_type, data: { 'request' => 'body' } })
             end

@@ -75,7 +75,7 @@ describe Fakeit::Openapi::Operation do
       allow(media_type).to receive(:schema).and_return(schema)
 
       expect(schema).to receive(:to_example)
-        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(json_body)
+        .with({ use_example: false, use_static: app_options.method(:use_static?), depth: 0 }).and_return(json_body)
       expect(subject.body).to eq(JSON.generate(json_body))
     end
 
@@ -84,7 +84,7 @@ describe Fakeit::Openapi::Operation do
       allow(media_type).to receive(:schema).and_return(schema)
 
       expect(schema).to receive(:to_example)
-        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(json_body)
+        .with({ use_example: false, use_static: app_options.method(:use_static?), depth: 0 }).and_return(json_body)
       expect(subject.body).to eq(JSON.generate(json_body))
     end
 
@@ -93,7 +93,7 @@ describe Fakeit::Openapi::Operation do
       allow(media_type).to receive(:schema).and_return(schema)
 
       expect(schema).to receive(:to_example)
-        .with(use_example: false, use_static: app_options.method(:use_static?), depth: 0).and_return(text_body)
+        .with({ use_example: false, use_static: app_options.method(:use_static?), depth: 0 }).and_return(text_body)
       expect(subject.body).to eq(text_body)
     end
 
