@@ -14,7 +14,7 @@ module Helpers
     File
       .read("spec/fixtures/#{name}.json")
       .then(&JSON.method(:parse))
-      .then(&OpenAPIParser.method(:parse))
+      .then { OpenAPIParser.parse(_1, { strict_reference_validation: true }) }
       .request_operation(:get, '/')
       .operation_object
       .responses

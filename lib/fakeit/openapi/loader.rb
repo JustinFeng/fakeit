@@ -5,7 +5,7 @@ module Fakeit
         URI
           .open(src, &:read)
           .then { parse(src, _1) }
-          .then(&OpenAPIParser.method(:parse))
+          .then { OpenAPIParser.parse(_1, { strict_reference_validation: true }) }
       end
 
       private

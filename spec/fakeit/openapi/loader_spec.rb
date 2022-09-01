@@ -5,7 +5,7 @@ describe Fakeit::Openapi do
 
   before(:each) do
     allow(URI).to receive(:open).and_return(content)
-    allow(OpenAPIParser).to receive(:parse).with(data).and_return(doc)
+    allow(OpenAPIParser).to receive(:parse).with(data, { strict_reference_validation: true }).and_return(doc)
   end
 
   describe 'json' do

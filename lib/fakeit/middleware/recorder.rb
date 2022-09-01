@@ -15,7 +15,7 @@ module Fakeit
       def log_request(env)
         env['rack.input']
           &.tap { |body| Logger.info("Request body: #{body.read}") }
-          &.tap { |body| body.rewind }
+          &.tap(&:rewind)
       end
 
       def log_response(response) = Logger.info("Response body: #{response[2].first}")

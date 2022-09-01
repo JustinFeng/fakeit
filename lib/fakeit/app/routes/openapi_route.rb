@@ -34,8 +34,7 @@ module Fakeit
           request
             .each_header
             .select { |k, _| k.start_with? 'HTTP_' }
-            .map { |k, v| [k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-'), v] }
-            .to_h
+            .to_h { |k, v| [k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-'), v] }
         end
 
         def parse_query(query_string)
