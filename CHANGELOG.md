@@ -1,5 +1,17 @@
 # Changelog
 
+## [v0.11.0](https://github.com/JustinFeng/fakeit/tree/v0.11.0) (2022-10-09)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.10.0...v0.11.0)
+
+## [v0.10.0](https://github.com/JustinFeng/fakeit/tree/v0.10.0) (2021-11-21)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.9.2...v0.10.0)
+
+**Merged pull requests:**
+
+- Allows specification of a base path for the mock API [\#26](https://github.com/JustinFeng/fakeit/pull/26) ([jphastings](https://github.com/jphastings))
+
 ## [v0.9.2](https://github.com/JustinFeng/fakeit/tree/v0.9.2) (2021-08-14)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.9.1...v0.9.2)
@@ -16,7 +28,7 @@
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.9.0...v0.9.1)
 
-**Fixed bugs:**
+**Closed issues:**
 
 - Query parameter array [\#23](https://github.com/JustinFeng/fakeit/issues/23)
 
@@ -24,9 +36,9 @@
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.8.1...v0.9.0)
 
-**Implemented enhancements:**
+**Closed issues:**
 
-- Experimental feature to support plain text and binary response, e.g. application/pdf
+- camelCase instead of PascalCase [\#22](https://github.com/JustinFeng/fakeit/issues/22)
 
 ## [v0.8.1](https://github.com/JustinFeng/fakeit/tree/v0.8.1) (2021-03-01)
 
@@ -39,10 +51,6 @@
 ## [v0.8.0](https://github.com/JustinFeng/fakeit/tree/v0.8.0) (2021-02-27)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.7.1...v0.8.0)
-
-**Implemented enhancements:**
-
-- Upgraded to ruby 3.0.0
 
 ## [v0.7.1](https://github.com/JustinFeng/fakeit/tree/v0.7.1) (2021-02-07)
 
@@ -58,16 +66,11 @@
 
 **Implemented enhancements:**
 
-- Supported change mock server behaviour on the fly
-- Allowed to redirect console log to a file
+- Enhancement: Allow for POSTed data to be persisted while running [\#19](https://github.com/JustinFeng/fakeit/issues/19)
 
 ## [v0.6.3](https://github.com/JustinFeng/fakeit/tree/v0.6.3) (2020-09-11)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.6.2...v0.6.3)
-
-**Implemented enhancements:**
-
-- Enhanced regex example generation
 
 ## [v0.6.2](https://github.com/JustinFeng/fakeit/tree/v0.6.2) (2020-07-12)
 
@@ -80,10 +83,6 @@
 ## [v0.6.0](https://github.com/JustinFeng/fakeit/tree/v0.6.0) (2020-05-02)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.5.3...v0.6.0)
-
-**Implemented enhancements:**
-
-- Added support for multipart/form-data validation
 
 **Fixed bugs:**
 
