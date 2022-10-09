@@ -1,5 +1,7 @@
 # Fakeit
 
+[Fukuoka Ruby Award - Special Award](https://www.digitalfukuoka.jp/event_reports/21?locale=ja)
+
 [![CircleCI](https://img.shields.io/circleci/build/github/JustinFeng/fakeit.svg)](https://circleci.com/gh/JustinFeng/fakeit)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/JustinFeng/fakeit.svg)](https://codeclimate.com/github/JustinFeng/fakeit)
 [![Gem](https://img.shields.io/gem/v/fakeit.svg)](https://rubygems.org/gems/fakeit)
