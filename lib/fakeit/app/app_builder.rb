@@ -9,21 +9,30 @@ module Fakeit
       def build
         proc do |env|
           request = Rack::Request.new(env)
-          options = @config_route.options
+          base_path = @config_route.options.base_path
           path_info = request.path_info
 
           if path_info == '/__fakeit_config__'
-            @config_route.call(request)
-          elsif path_info.start_with?(options.base_path)
-            request.path_info = path_info[options.base_path.length - 1..]
-            @openapi_route.call(request, options)
-          elsif "#{path_info}/" == options.base_path
-            request.path_info = '/'
-            @openapi_route.call(request, options)
+            config(request)
+          elsif path_info.start_with?(base_path)
+            openapi(request, path_info[(base_path.length - 1)..])
+          elsif "#{path_info}/" == base_path
+            openapi(request, '/')
           else
             Fakeit::App::Helpers::ResponseBuilder.not_found
           end
         end
+      end
+
+      private
+
+      def config(request)
+        @config_route.call(request)
+      end
+
+      def openapi(request, path_info)
+        request.path_info = path_info
+        @openapi_route.call(request, @config_route.options)
       end
     end
   end

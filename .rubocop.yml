@@ -25,3 +25,6 @@ Style/HashTransformKeys:
 
 Metrics/ParameterLists:
   CountKeywordArgs: false
+
+Metrics/MethodLength:
+  Max: 20
