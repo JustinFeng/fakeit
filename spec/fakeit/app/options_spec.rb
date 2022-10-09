@@ -23,12 +23,16 @@ describe Fakeit::App::Options do
     expect(option.use_static?(type: 'integer', property: 'name')).to be(false)
   end
 
-  it 'ensures the base_path always terminates in a slash' do
-    ['/some_base_path/', '/some_base_path'].each do |base_path|
-      option = Fakeit::App::Options.new(base_path:)
+  it 'does not add trailing slash when base path has one' do
+    option = Fakeit::App::Options.new(base_path: '/some_base_path/')
 
-      expect(option.base_path).to eq('/some_base_path/')
-    end
+    expect(option.base_path).to eq('/some_base_path/')
+  end
+
+  it 'adds trailing slash when base path does not have one' do
+    option = Fakeit::App::Options.new(base_path: '/some_base_path')
+
+    expect(option.base_path).to eq('/some_base_path/')
   end
 
   it 'to hash' do

@@ -98,7 +98,7 @@ Request and response:
   "static_properties": [
     "id"
   ],
-  "base_path": "/"
+  "base_path": "/api"
 }
 ```
 

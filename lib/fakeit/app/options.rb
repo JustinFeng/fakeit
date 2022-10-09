@@ -9,7 +9,7 @@ module Fakeit
         static: false,
         static_types: [],
         static_properties: [],
-        base_path: '/'
+        base_path: nil
       )
         @permissive = permissive
         @use_example = use_example
@@ -18,7 +18,14 @@ module Fakeit
         @static_properties = static_properties
         # Standardize the base path to include trailing slash
         # so that `/base` matches `/base/path` but doesn't match `/basement/path`
-        @base_path = base_path[-1] == '/' ? base_path : "#{base_path}/"
+        @base_path =
+          if base_path.nil?
+            '/'
+          elsif base_path[-1] == '/'
+            base_path
+          else
+            "#{base_path}/"
+          end
       end
 
       def use_static?(type: nil, property: nil)
