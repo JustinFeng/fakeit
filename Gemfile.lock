@@ -44,7 +44,7 @@ GEM
     regexp_parser (2.6.0)
     reline (0.3.1)
       io-console (~> 0.5)
-    rexml (3.3.3)
+    rexml (3.3.6)
       strscan
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
