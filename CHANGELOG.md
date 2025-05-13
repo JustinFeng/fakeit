@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.12.0](https://github.com/JustinFeng/fakeit/tree/v0.12.0) (2025-05-13)
+
+[Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.11.0...v0.12.0)
+
 ## [v0.11.0](https://github.com/JustinFeng/fakeit/tree/v0.11.0) (2022-10-09)
 
 [Full Changelog](https://github.com/JustinFeng/fakeit/compare/v0.10.0...v0.11.0)
