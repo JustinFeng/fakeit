@@ -1,6 +1,6 @@
 describe OpenAPIParser::SchemaValidator::ArrayValidator do
   let(:schema) { double(OpenAPIParser::Schemas::Schema) }
-  let(:keyword_args) { { some: 'args' } }
+  let(:keyword_args) { {some: 'args'} }
 
   subject { OpenAPIParser::SchemaValidator::ArrayValidator.new(nil, nil) }
 

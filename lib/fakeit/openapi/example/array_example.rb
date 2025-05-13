@@ -33,7 +33,7 @@ module Fakeit
         end
       end
 
-      def add_depth(example_options) = { **example_options, depth: example_options[:depth] + 1 }
+      def add_depth(example_options) = {**example_options, depth: example_options[:depth] + 1}
 
       def need_retry?(item, result, retries) = uniqueItems && result.include?(item) && retries.positive?
 

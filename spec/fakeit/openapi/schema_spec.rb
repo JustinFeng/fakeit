@@ -4,7 +4,7 @@ describe Fakeit::Openapi::Schema do
   end
 
   context 'when use example' do
-    let(:example_options) { { use_example: true } }
+    let(:example_options) { {use_example: true} }
 
     it 'honors specification example' do
       with_example = schema.items.properties['with_example']
@@ -26,7 +26,7 @@ describe Fakeit::Openapi::Schema do
   end
 
   context 'static' do
-    let(:example_options) { { use_static: proc { true }, depth: 0 } }
+    let(:example_options) { {use_static: proc { true }, depth: 0} }
 
     it 'handles unknown type' do
       unknown = schema.items.properties['unknown']
@@ -78,7 +78,7 @@ describe Fakeit::Openapi::Schema do
   end
 
   context 'random' do
-    let(:example_options) { { use_static: proc { false }, depth: 0 } }
+    let(:example_options) { {use_static: proc { false }, depth: 0} }
 
     before(:each) do
       allow(Faker::Book).to receive(:title).and_return('random string')

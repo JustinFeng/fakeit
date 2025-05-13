@@ -9,7 +9,7 @@ module Fakeit
         validate_body(body) unless request_content_types.empty?
         @operation.validate_path_params(options)
         @operation.validate_request_parameter(params, headers, options)
-      rescue StandardError => e
+      rescue => e
         raise ValidationError, e.message
       end
 
@@ -19,12 +19,12 @@ module Fakeit
         if request_content_types.include?(body[:media_type])
           @operation.validate_request_body(body[:media_type], body[:data]) if can_validate?(body[:media_type])
         else
-          raise ValidationError, 'Invalid request content type' if body[:media_type]
-          raise ValidationError, 'Request body is required' if request_body.required
+          raise ValidationError, "Invalid request content type" if body[:media_type]
+          raise ValidationError, "Request body is required" if request_body.required
         end
       end
 
-      def can_validate?(media_type) = media_type =~ %r{^application/.*json} || media_type == 'multipart/form-data'
+      def can_validate?(media_type) = media_type =~ %r{^application/.*json} || media_type == "multipart/form-data"
 
       def request_content_types = request_body&.content&.keys.to_a
 

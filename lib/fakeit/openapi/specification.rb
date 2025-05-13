@@ -24,8 +24,8 @@ module Fakeit
 
         @mtime = new_mtime
         @doc = Fakeit::Openapi.load(@spec_file)
-      rescue StandardError => _e
-        Logger.warn(Rainbow('Invalid spec file, use previous snapshot instead').red)
+      rescue
+        Logger.warn(Rainbow("Invalid spec file, use previous snapshot instead").red)
       end
     end
   end

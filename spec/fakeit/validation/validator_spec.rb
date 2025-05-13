@@ -43,16 +43,16 @@ describe Fakeit::Validation::Validator do
         context 'can validate' do
           %w[application/json application/vnd.api+json multipart/form-data].each do |media_type|
             it "validates #{media_type}" do
-              expect(request_operation).to receive(:validate_request_body).with(media_type, { 'request' => 'body' })
+              expect(request_operation).to receive(:validate_request_body).with(media_type, {'request' => 'body'})
 
-              subject.validate(body: { media_type:, data: { 'request' => 'body' } })
+              subject.validate(body: {media_type:, data: {'request' => 'body'}})
             end
           end
 
           it 'raises validation error' do
             allow(request_operation).to receive(:validate_request_body).and_raise(StandardError.new('some error'))
 
-            expect { subject.validate(body: { media_type: 'application/json', data: { 'request' => 'body' } }) }
+            expect { subject.validate(body: {media_type: 'application/json', data: {'request' => 'body'}}) }
               .to raise_error(Fakeit::Validation::ValidationError, 'some error')
           end
         end
@@ -61,13 +61,13 @@ describe Fakeit::Validation::Validator do
           it 'skips validation' do
             expect(request_operation).not_to receive(:validate_request_body)
 
-            subject.validate(body: { media_type: 'text/plain', data: 'body' })
+            subject.validate(body: {media_type: 'text/plain', data: 'body'})
           end
         end
       end
 
       context 'media type is not in request body content' do
-        let(:contents) { { 'application/json' => '' } }
+        let(:contents) { {'application/json' => ''} }
 
         context 'media type is nil' do
           before(:each) do
@@ -79,7 +79,7 @@ describe Fakeit::Validation::Validator do
             let(:required) { true }
 
             it 'raises validation error' do
-              expect { subject.validate(body: { media_type: nil, data: '' }) }
+              expect { subject.validate(body: {media_type: nil, data: ''}) }
                 .to raise_error(Fakeit::Validation::ValidationError, 'Request body is required')
             end
           end
@@ -90,14 +90,14 @@ describe Fakeit::Validation::Validator do
             it 'skips validation' do
               expect(request_operation).not_to receive(:validate_request_body)
 
-              subject.validate(body: { media_type: nil, data: '' })
+              subject.validate(body: {media_type: nil, data: ''})
             end
           end
         end
 
         context 'media type is not nil' do
           it 'raises validation error' do
-            expect { subject.validate(body: { media_type: 'text/plain', data: 'body' }) }
+            expect { subject.validate(body: {media_type: 'text/plain', data: 'body'}) }
               .to raise_error(Fakeit::Validation::ValidationError, 'Invalid request content type')
           end
         end
@@ -124,7 +124,7 @@ describe Fakeit::Validation::Validator do
 
   describe 'query params' do
     let(:options) { double(OpenAPIParser::SchemaValidator::Options) }
-    let(:params) { { 'some' => 'param' } }
+    let(:params) { {'some' => 'param'} }
 
     it 'validates' do
       expect(OpenAPIParser::SchemaValidator::Options).to receive(:new).with(coerce_value: true).and_return(options)
@@ -142,7 +142,7 @@ describe Fakeit::Validation::Validator do
 
   describe 'headers' do
     let(:options) { double(OpenAPIParser::SchemaValidator::Options) }
-    let(:headers) { { 'some' => 'header' } }
+    let(:headers) { {'some' => 'header'} }
 
     it 'validates' do
       expect(OpenAPIParser::SchemaValidator::Options).to receive(:new).with(coerce_value: true).and_return(options)

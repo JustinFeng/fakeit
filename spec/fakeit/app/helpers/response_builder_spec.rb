@@ -1,7 +1,7 @@
 describe Fakeit::App::Helpers::ResponseBuilder do
   subject { Fakeit::App::Helpers::ResponseBuilder }
 
-  let(:headers) { { 'Content-Type' => 'application/json' } }
+  let(:headers) { {'Content-Type' => 'application/json'} }
 
   it 'error' do
     expect(subject.error(418, StandardError.new('some error'))).to eq([418, headers, ['{"message":"some error"}']])

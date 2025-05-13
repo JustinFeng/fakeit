@@ -1,6 +1,6 @@
 describe Fakeit::App::Helpers::BodyParser do
   let(:request) do
-    Rack::Request.new(Rack::MockRequest.env_for('', { 'CONTENT_TYPE' => content_type, input: }))
+    Rack::Request.new(Rack::MockRequest.env_for("", {"CONTENT_TYPE" => content_type, :input => input}))
   end
 
   subject { Fakeit::App::Helpers::BodyParser.parse(request) }
@@ -9,30 +9,30 @@ describe Fakeit::App::Helpers::BodyParser do
     context media_type do
       let(:content_type) { media_type }
 
-      context 'valid' do
+      context "valid" do
         let(:input) { '{"a":1}' }
 
-        it { is_expected.to eq({ media_type:, data: { 'a' => 1 } }) }
+        it { is_expected.to eq({media_type:, data: {"a" => 1}}) }
       end
 
-      context 'empty body' do
-        let(:input) { nil }
+      context "empty body" do
+        let(:input) { "" }
 
-        it { is_expected.to eq({ media_type:, data: {} }) }
+        it { is_expected.to eq({media_type:, data: {}}) }
       end
 
-      context 'invalid' do
-        let(:input) { '{' }
+      context "invalid" do
+        let(:input) { "{" }
 
-        it 'raises error' do
-          expect { subject }.to raise_error(Fakeit::Validation::ValidationError, 'Invalid json payload')
+        it "raises error" do
+          expect { subject }.to raise_error(Fakeit::Validation::ValidationError, "Invalid json payload")
         end
       end
     end
   end
 
-  context 'multipart/form-data' do
-    let(:content_type) { 'multipart/form-data, boundary=boundary' }
+  context "multipart/form-data" do
+    let(:content_type) { "multipart/form-data, boundary=boundary" }
     let(:input) do
       <<~FORM_DATA
         --boundary\r
@@ -49,13 +49,13 @@ describe Fakeit::App::Helpers::BodyParser do
       FORM_DATA
     end
 
-    it { is_expected.to eq({ media_type: 'multipart/form-data', data: { 'id' => '123', 'file' => 'ABCD' } }) }
+    it { is_expected.to eq({media_type: "multipart/form-data", data: {"id" => "123", "file" => "ABCD"}}) }
   end
 
-  context 'no body' do
+  context "no body" do
     let(:content_type) { nil }
-    let(:input) { nil }
+    let(:input) { "" }
 
-    it { is_expected.to eq({ media_type: nil, data: '' }) }
+    it { is_expected.to eq({media_type: nil, data: ""}) }
   end
 end

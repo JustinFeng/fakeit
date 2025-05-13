@@ -31,7 +31,7 @@ module Fakeit
       def serialise(body) = body.is_a?(String) ? body : JSON.generate(body)
 
       def example_options
-        { use_example: @app_options.use_example, use_static: @app_options.method(:use_static?), depth: 0 }
+        {use_example: @app_options.use_example, use_static: @app_options.method(:use_static?), depth: 0}
       end
 
       def response_content

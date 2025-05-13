@@ -20,7 +20,7 @@ describe Fakeit::App::Routes::OpenapiRoute do
   end
 
   it 'handles valid request' do
-    operation_headers = { 'Content-Type' => 'application' }
+    operation_headers = {'Content-Type' => 'application'}
     operation = double(Fakeit::Openapi::Operation, status: 200, headers: operation_headers, body: 'body', validate: nil)
     allow(specification).to receive(:operation).with(:get, '/', options).and_return(operation)
 
@@ -33,7 +33,7 @@ describe Fakeit::App::Routes::OpenapiRoute do
 
   it 'handles not found' do
     allow(specification).to receive(:operation).with(:get, '/not_found', options).and_return(nil)
-    request = Rack::Request.new({ 'REQUEST_METHOD' => 'GET', 'PATH_INFO' => '/not_found' })
+    request = Rack::Request.new({'REQUEST_METHOD' => 'GET', 'PATH_INFO' => '/not_found'})
 
     status, headers, body = subject.call(request, options)
 
@@ -51,26 +51,26 @@ describe Fakeit::App::Routes::OpenapiRoute do
 
     context 'validates request' do
       it 'passes request headers' do
-        expect(operation).to receive(:validate).with(hash_including(headers: { 'Some-Header' => 'header' }))
+        expect(operation).to receive(:validate).with(hash_including(headers: {'Some-Header' => 'header'}))
 
         subject.call(request, options)
       end
 
       context 'params' do
         it 'passes single value param' do
-          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => 'a' }))
+          expect(operation).to receive(:validate).with(hash_including(params: {'q' => 'a'}))
 
           subject.call(request, options)
         end
 
         it 'passes array value param with [] postfix' do
-          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => %w[a b] }))
+          expect(operation).to receive(:validate).with(hash_including(params: {'q' => %w[a b]}))
 
           subject.call(Rack::Request.new(env.merge('QUERY_STRING' => 'q[]=a&q[]=b')), options)
         end
 
         it 'passes array value param without [] postfix' do
-          expect(operation).to receive(:validate).with(hash_including(params: { 'q' => %w[a b] }))
+          expect(operation).to receive(:validate).with(hash_including(params: {'q' => %w[a b]}))
 
           subject.call(Rack::Request.new(env.merge('QUERY_STRING' => 'q=a&q=b')), options)
         end

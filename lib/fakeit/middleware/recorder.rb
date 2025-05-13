@@ -13,7 +13,7 @@ module Fakeit
       private
 
       def log_request(env)
-        env['rack.input']
+        env["rack.input"]
           &.tap { |body| Logger.info("Request body: #{body.read}") }
           &.tap(&:rewind)
       end

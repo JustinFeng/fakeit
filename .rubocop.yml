@@ -9,13 +9,28 @@ Style/Documentation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/RescueStandardError:
+  EnforcedStyle: implicit
+
+Style/SafeNavigationChainLength:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/TernaryParentheses:
+  Enabled: false
+
 Layout/LineLength:
   Max: 120
 
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*.rb'
-    - 'fakeit.gemspec'
+    - "spec/**/*.rb"
+    - "fakeit.gemspec"
 
 Security/Open:
   Enabled: false

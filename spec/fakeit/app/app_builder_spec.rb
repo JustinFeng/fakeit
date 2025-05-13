@@ -3,7 +3,7 @@ describe Fakeit::App::AppBuilder do
 
   let(:spec_file) { 'spec_file' }
   let(:path_info) { '/' }
-  let(:env) { Rack::MockRequest.env_for('', { 'PATH_INFO' => path_info }) }
+  let(:env) { Rack::MockRequest.env_for('', {'PATH_INFO' => path_info}) }
   let(:base_path) { '/' }
 
   let(:options) { double(Fakeit::App::Options, base_path:) }

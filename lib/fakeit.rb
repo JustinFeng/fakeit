@@ -1,15 +1,17 @@
-require 'json'
-require 'yaml'
-require 'open-uri'
-require 'base64'
-require 'openapi_parser'
-require 'faker'
-require 'regexp-examples'
-require 'rack'
-require 'logger'
-require 'rainbow'
+require "base64"
+require "faker"
+require "json"
+require "logger"
+require "openapi_parser"
+require "open-uri"
+require "rack"
+require "rackup"
+require "rainbow"
+require "regexp-examples"
+require "webrick"
+require "yaml"
 
-Dir.glob(File.join(File.dirname(__FILE__), 'fakeit', '**/*.rb')).each { require _1 }
+Dir.glob(File.join(File.dirname(__FILE__), "fakeit", "**/*.rb")).each { require _1 }
 
 module Fakeit
   class << self

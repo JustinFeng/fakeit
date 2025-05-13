@@ -4,7 +4,7 @@ describe Fakeit::Middleware::Recorder do
   let(:response) { [200, {}, ['response body']] }
   let(:request_body) { StringIO.new('request body') }
   let(:app) { double('app', call: response) }
-  let(:env) { { 'rack.input' => request_body } }
+  let(:env) { {'rack.input' => request_body} }
 
   before(:each) do
     allow(Fakeit::Logger).to receive(:info)
