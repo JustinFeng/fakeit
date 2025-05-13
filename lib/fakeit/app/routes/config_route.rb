@@ -8,11 +8,11 @@ module Fakeit
 
         def call(request)
           case [request.request_method, request.media_type]
-          in ['GET', _]
+          in ["GET", _]
             Fakeit::App::Helpers::ResponseBuilder.ok(@options.to_hash)
-          in ['PUT', 'application/json']
+          in ["PUT", "application/json"]
             update(request)
-          in ['PUT', _]
+          in ["PUT", _]
             Fakeit::App::Helpers::ResponseBuilder.unsupported_media_type
           else
             Fakeit::App::Helpers::ResponseBuilder.method_not_allowed

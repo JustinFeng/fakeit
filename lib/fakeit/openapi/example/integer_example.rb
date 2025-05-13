@@ -4,7 +4,7 @@ module Fakeit
       DEFAULT_BITS = 32
 
       def integer_example(example_options)
-        if example_options[:use_static][type: 'integer', property: example_options[:property]]
+        if example_options[:use_static][type: "integer", property: example_options[:property]]
           static_integer_example
         else
           random_integer_example
@@ -54,7 +54,7 @@ module Fakeit
       end
 
       def int_bits
-        return DEFAULT_BITS unless format =~ /int\d+/
+        return DEFAULT_BITS unless /int\d+/.match?(format)
 
         format[/\d+/].to_i
       end

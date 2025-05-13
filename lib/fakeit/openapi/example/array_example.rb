@@ -3,7 +3,7 @@ module Fakeit
     module Example
       def array_example(options)
         example_options = add_depth(options)
-        if example_options[:use_static][type: 'array', property: example_options[:property]]
+        if example_options[:use_static][type: "array", property: example_options[:property]]
           generate_array_example(example_options, -> { non_empty_size })
         else
           generate_array_example(example_options, -> { random_array_size(example_options) })
@@ -41,7 +41,7 @@ module Fakeit
 
       def min_array = minItems || 1
 
-      def max_array(depth) = maxItems || (min_array + (depth > 1 ? 2 : 9))
+      def max_array(depth) = maxItems || (min_array + ((depth > 1) ? 2 : 9))
     end
   end
 end

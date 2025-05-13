@@ -5,7 +5,7 @@ module Fakeit
       MAX_NUM = (2**31) - 1
 
       def number_example(example_options)
-        if example_options[:use_static][type: 'number', property: example_options[:property]]
+        if example_options[:use_static][type: "number", property: example_options[:property]]
           static_number_example
         else
           random_number_example

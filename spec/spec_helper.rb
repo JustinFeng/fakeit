@@ -1,13 +1,13 @@
-require 'simplecov'
+require "simplecov"
 SimpleCov.start do
-  add_filter '/spec/'
+  add_filter "/spec/"
   enable_coverage :branch
 end
 SimpleCov.minimum_coverage line: 100, branch: 100
 
-require 'bundler/setup'
-require 'fakeit'
-require 'rack/test'
+require "bundler/setup"
+require "fakeit"
+require "rack/test"
 
 module Helpers
   def load_schema(name)
@@ -15,18 +15,18 @@ module Helpers
       .read("spec/fixtures/#{name}.json")
       .then(&JSON.method(:parse))
       .then { OpenAPIParser.parse(it, {strict_reference_validation: true}) }
-      .request_operation(:get, '/')
+      .request_operation(:get, "/")
       .operation_object
       .responses
-      .response['200']
-      .content['application/json']
+      .response["200"]
+      .content["application/json"]
       .schema
   end
 end
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = '.rspec_status'
+  config.example_status_persistence_file_path = ".rspec_status"
 
   config.expect_with :rspec do |c|
     c.syntax = :expect

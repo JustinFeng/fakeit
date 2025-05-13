@@ -20,8 +20,8 @@ module Fakeit
         # so that `/base` matches `/base/path` but doesn't match `/basement/path`
         @base_path =
           if base_path.nil?
-            '/'
-          elsif base_path[-1] == '/'
+            "/"
+          elsif base_path[-1] == "/"
             base_path
           else
             "#{base_path}/"

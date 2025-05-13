@@ -1,9 +1,9 @@
-require 'fakeit/openapi/example/array_example'
-require 'fakeit/openapi/example/boolean_example'
-require 'fakeit/openapi/example/integer_example'
-require 'fakeit/openapi/example/number_example'
-require 'fakeit/openapi/example/object_example'
-require 'fakeit/openapi/example/string_example'
+require "fakeit/openapi/example/array_example"
+require "fakeit/openapi/example/boolean_example"
+require "fakeit/openapi/example/integer_example"
+require "fakeit/openapi/example/number_example"
+require "fakeit/openapi/example/object_example"
+require "fakeit/openapi/example/string_example"
 
 module Fakeit
   module Openapi
@@ -32,7 +32,7 @@ module Fakeit
 
       def all_of_example(example_options)
         all_of
-          .select { it.type == 'object' }
+          .select { it.type == "object" }
           .map { it.to_example(example_options) }
           .reduce(&:merge)
       end
@@ -45,7 +45,7 @@ module Fakeit
 
       def any_of_options(example_options)
         any_of
-          .select { it.type == 'object' }
+          .select { it.type == "object" }
           .then do |options|
             if example_options[:use_static][property: example_options[:property]]
               options
@@ -56,7 +56,7 @@ module Fakeit
       end
 
       def type_based_example(example_options)
-        send("#{type}_example", example_options) if %w[string integer number boolean array object].include?(type)
+        send(:"#{type}_example", example_options) if %w[string integer number boolean array object].include?(type)
       end
     end
   end

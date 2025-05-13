@@ -33,8 +33,8 @@ module Fakeit
         def headers(request)
           request
             .each_header
-            .select { |k, _| k.start_with? 'HTTP_' }
-            .to_h { |k, v| [k.sub(/^HTTP_/, '').split('_').map(&:capitalize).join('-'), v] }
+            .select { |k, _| k.start_with? "HTTP_" }
+            .to_h { |k, v| [k.sub(/^HTTP_/, "").split("_").map(&:capitalize).join("-"), v] }
         end
 
         def parse_query(query_string)
@@ -42,7 +42,7 @@ module Fakeit
           cgi_query = CGI.parse(query_string)
 
           rack_query.merge(cgi_query.slice(*rack_query.keys)) do |_, oldval, newval|
-            newval.is_a?(Array) && newval.size > 1 ? newval : oldval
+            (newval.is_a?(Array) && newval.size > 1) ? newval : oldval
           end
         end
       end

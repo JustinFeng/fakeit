@@ -1,11 +1,11 @@
-require 'fakeit/openapi/schema'
+require "fakeit/openapi/schema"
 
 module OpenAPIParser
   module Schemas
     class Schema
       include Fakeit::Openapi::Schema
 
-      alias old_type type
+      alias_method :old_type, :type
 
       def type = old_type || inferred_type
 
@@ -13,9 +13,9 @@ module OpenAPIParser
 
       def inferred_type
         if properties
-          'object'
+          "object"
         elsif items
-          'array'
+          "array"
         end
       end
     end

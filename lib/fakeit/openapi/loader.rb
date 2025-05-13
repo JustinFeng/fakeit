@@ -12,12 +12,12 @@ module Fakeit
 
       def parse(src, content)
         case File.extname(src)
-        when '.json'
+        when ".json"
           JSON.parse(content)
-        when '.yml', '.yaml'
+        when ".yml", ".yaml"
           YAML.safe_load(content, [Date, Time])
         else
-          raise 'Invalid openapi specification file'
+          raise "Invalid openapi specification file"
         end
       end
     end

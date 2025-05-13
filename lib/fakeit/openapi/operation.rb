@@ -13,7 +13,7 @@ module Fakeit
         response_headers
           .to_h
           .transform_values { it.schema.to_example(example_options) }
-          .tap { it['Content-Type'] = response_content_type if response_content_type }
+          .tap { it["Content-Type"] = response_content_type if response_content_type }
       end
 
       def body
@@ -35,7 +35,7 @@ module Fakeit
       end
 
       def response_content
-        response.last.content&.find { |k, _| k =~ %r{^application/.*json} || k == 'application/pdf' }
+        response.last.content&.find { |k, _| k =~ %r{^application/.*json} || k == "application/pdf" }
       end
 
       def response_schema = response_content&.last

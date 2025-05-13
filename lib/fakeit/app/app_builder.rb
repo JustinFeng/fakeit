@@ -12,12 +12,12 @@ module Fakeit
           base_path = @config_route.options.base_path
           path_info = request.path_info
 
-          if path_info == '/__fakeit_config__'
+          if path_info == "/__fakeit_config__"
             config(request)
           elsif path_info.start_with?(base_path)
             openapi(request, path_info[(base_path.length - 1)..])
           elsif "#{path_info}/" == base_path
-            openapi(request, '/')
+            openapi(request, "/")
           else
             Fakeit::App::Helpers::ResponseBuilder.not_found
           end

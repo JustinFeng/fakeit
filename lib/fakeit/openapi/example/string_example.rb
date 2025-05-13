@@ -2,34 +2,34 @@ module Fakeit
   module Openapi
     module Example
       STATIC_FORMAT_HANDLERS = {
-        'uri' => -> { 'https://some.uri' },
-        'uuid' => -> { '11111111-1111-1111-1111-111111111111' },
-        'guid' => -> { '11111111-1111-1111-1111-111111111111' },
-        'email' => -> { 'some@email.com' },
-        'date' => -> { Date.today.iso8601 },
-        'date-time' => lambda do
+        "uri" => -> { "https://some.uri" },
+        "uuid" => -> { "11111111-1111-1111-1111-111111111111" },
+        "guid" => -> { "11111111-1111-1111-1111-111111111111" },
+        "email" => -> { "some@email.com" },
+        "date" => -> { Date.today.iso8601 },
+        "date-time" => lambda do
           now = Time.now
           Time.new(now.year, now.month, now.day, 0, 0, 0, now.utc_offset).iso8601
         end,
-        'binary' => -> { 'binary' },
-        'byte' => -> { 'Ynl0ZQ==' }
+        "binary" => -> { "binary" },
+        "byte" => -> { "Ynl0ZQ==" }
       }.freeze
 
       RANDOM_FORMAT_HANDLERS = {
-        'uri' => -> { Faker::Internet.url },
-        'uuid' => -> { SecureRandom.uuid },
-        'guid' => -> { SecureRandom.uuid },
-        'email' => -> { Faker::Internet.email },
-        'date' => -> { Faker::Date.backward(days: 100).iso8601 },
-        'date-time' => -> { Faker::Time.backward(days: 100).iso8601 },
-        'binary' => -> { Faker::String.random(length: 1..30) },
-        'byte' => -> { Base64.strict_encode64(Faker::String.random(length: 1..30)) }
+        "uri" => -> { Faker::Internet.url },
+        "uuid" => -> { SecureRandom.uuid },
+        "guid" => -> { SecureRandom.uuid },
+        "email" => -> { Faker::Internet.email },
+        "date" => -> { Faker::Date.backward(days: 100).iso8601 },
+        "date-time" => -> { Faker::Time.backward(days: 100).iso8601 },
+        "binary" => -> { Faker::String.random(length: 1..30) },
+        "byte" => -> { Base64.strict_encode64(Faker::String.random(length: 1..30)) }
       }.freeze
 
       def string_example(example_options)
         @string_pattern ||= Regexp.new(pattern) if pattern
 
-        if example_options[:use_static][type: 'string', property: example_options[:property]]
+        if example_options[:use_static][type: "string", property: example_options[:property]]
           static_string_example
         else
           random_string_example
@@ -45,7 +45,7 @@ module Fakeit
           elsif format then static_string_format
           elsif length_constraint then static_string_with_length
           else
-            'string'
+            "string"
           end
         end
       end
@@ -67,7 +67,7 @@ module Fakeit
         end
       end
 
-      def static_string_with_length = '1' * max_string_length
+      def static_string_with_length = "1" * max_string_length
 
       def static_string_format = (STATIC_FORMAT_HANDLERS[format] || method(:unknown_format))[]
 
@@ -91,7 +91,7 @@ module Fakeit
 
       def unknown_format
         Logger.info("Unknown string format: #{format}")
-        'Unknown string format'
+        "Unknown string format"
       end
     end
   end
