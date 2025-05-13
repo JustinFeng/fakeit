@@ -14,7 +14,7 @@ module Fakeit
 
       def generate_array_example(example_options, get_size)
         size = retries = get_size[]
-        [].tap { generate_items(size, retries, example_options, _1) }
+        [].tap { generate_items(size, retries, example_options, it) }
       end
 
       def random_array_size(example_options)

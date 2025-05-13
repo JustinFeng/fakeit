@@ -7,7 +7,7 @@ module Fakeit
         def call(request, options)
           @specification
             .operation(request.request_method.downcase.to_sym, request.path_info, options)
-            .then { _1 ? handle(_1, request, options) : Fakeit::App::Helpers::ResponseBuilder.not_found }
+            .then { it ? handle(it, request, options) : Fakeit::App::Helpers::ResponseBuilder.not_found }
         end
 
         private

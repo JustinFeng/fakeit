@@ -12,8 +12,8 @@ module Fakeit
       def headers
         response_headers
           .to_h
-          .transform_values { _1.schema.to_example(example_options) }
-          .tap { _1['Content-Type'] = response_content_type if response_content_type }
+          .transform_values { it.schema.to_example(example_options) }
+          .tap { it['Content-Type'] = response_content_type if response_content_type }
       end
 
       def body

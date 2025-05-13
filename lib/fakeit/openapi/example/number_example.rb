@@ -14,11 +14,11 @@ module Fakeit
 
       private
 
-      def static_number_example = (num_rand_end * num_multiple).then { multipleOf ? _1 : _1.round(2) }
+      def static_number_example = (num_rand_end * num_multiple).then { multipleOf ? it : it.round(2) }
 
       def random_number_example
         (Faker::Number.between(from: num_rand_begin, to: num_rand_end) * num_multiple)
-          .then { multipleOf ? _1 : _1.round(2) }
+          .then { multipleOf ? it : it.round(2) }
       end
 
       def num_rand_begin = multipleOf ? (min_num / multipleOf).ceil : min_num

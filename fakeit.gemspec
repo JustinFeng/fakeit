@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.executables = "fakeit"
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = ">= 3.1.2"
+  spec.required_ruby_version = ">= 3.4"
 
   spec.add_dependency "base64", "~> 0.2.0"
   spec.add_dependency "faker", "3.5.1"

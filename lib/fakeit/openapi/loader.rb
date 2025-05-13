@@ -4,8 +4,8 @@ module Fakeit
       def load(src)
         URI
           .open(src, &:read)
-          .then { parse(src, _1) }
-          .then { OpenAPIParser.parse(_1, {strict_reference_validation: true}) }
+          .then { parse(src, it) }
+          .then { OpenAPIParser.parse(it, {strict_reference_validation: true}) }
       end
 
       private

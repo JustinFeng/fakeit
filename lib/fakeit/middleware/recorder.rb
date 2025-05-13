@@ -6,7 +6,7 @@ module Fakeit
       def call(env)
         env
           .tap(&method(:log_request))
-          .then { @app.call(_1) }
+          .then { @app.call(it) }
           .tap(&method(:log_response))
       end
 

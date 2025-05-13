@@ -11,7 +11,7 @@ require "regexp-examples"
 require "webrick"
 require "yaml"
 
-Dir.glob(File.join(File.dirname(__FILE__), "fakeit", "**/*.rb")).each { require _1 }
+Dir.glob(File.join(File.dirname(__FILE__), "fakeit", "**/*.rb")).each { require it }
 
 module Fakeit
   class << self
