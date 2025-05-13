@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'debug', '~> 1.0'
+  spec.add_development_dependency 'racc', '~> 1.8'
   spec.add_development_dependency 'rack-test', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
@@ -33,6 +34,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-rake', '~> 0.5'
   spec.add_development_dependency 'simplecov', '~> 0.18'
 
+  spec.add_dependency 'base64', '~> 0.2.0'
   spec.add_dependency 'faker', '2.22.0'
   spec.add_dependency 'openapi_parser', '1.0.0'
   spec.add_dependency 'rack', '>= 2', '< 4'

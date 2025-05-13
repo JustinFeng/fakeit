@@ -246,7 +246,7 @@ describe Fakeit do
     it 'returns headers' do
       get '/__fakeit_config__'
 
-      expect(last_response.headers).to eq('Content-Type' => 'application/json')
+      expect(last_response.headers).to eq('content-type' => 'application/json')
     end
   end
 
@@ -280,7 +280,7 @@ describe Fakeit do
       header 'CONTENT_TYPE', 'application/json'
       put '/__fakeit_config__', config.to_json
 
-      expect(last_response.headers).to eq('Content-Type' => 'application/json')
+      expect(last_response.headers).to eq('content-type' => 'application/json')
     end
   end
 end
