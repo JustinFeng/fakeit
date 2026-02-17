@@ -54,7 +54,7 @@ GEM
       date
       stringio
     racc (1.8.1)
-    rack (3.1.14)
+    rack (3.1.20)
     rack-cors (2.0.2)
       rack (>= 2.0.0)
     rack-test (2.2.0)
